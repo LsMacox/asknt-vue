@@ -1,2 +1,2 @@
-# asknt-react-front-hpace
+# asknt-vue-front-hpace
 Автоматизированная система контроля наземного транспорта в ГК Черкизово.
