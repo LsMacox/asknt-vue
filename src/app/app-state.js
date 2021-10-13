@@ -1,29 +1,21 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { requireDirectory, requireRecursiveDirectory } from '@/app/shared/services/require-modules'
 
 Vue.use(Vuex)
 
 // https://webpack.js.org/guides/dependency-management/#requirecontext
-const modulesFiles = require.context('./entities', true, /state\.js$/)
+const ctxModules = require.context('./entities', true, /state\.js$/)
+const ctxApp = require.context('./shared/state', true, /\.js$/)
 
 // it will auto require all vuex module from modules file
-const modules = modulesFiles.keys().reduce((modules, modulePath) => {
-  // set './app.js' => 'app'
-  const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1').replace(/\/?state$/, '')
-  const value = modulesFiles(modulePath)
-
-  if (value.default) {
-    Object.keys(value.default).forEach(name => {
-      modules[moduleName + '/' + name] = value.default[name]
-    })
-  }
-  return modules
-}, {})
+const stateModule = requireRecursiveDirectory(ctxModules, 'state')
+const stateApp = requireDirectory(ctxApp)
 
 const store = new Vuex.Store({
   state: {},
   actions: {},
-  modules,
+  modules: { ...stateModule, ...stateApp },
 })
 
 export default store
