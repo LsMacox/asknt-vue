@@ -1,20 +1,28 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib/framework'
+import '@/styles/index.sass'
+import { LoadSvgIcons, CUSTOM_ICONS } from './icons'
 
 Vue.use(Vuetify)
 
 export default new Vuetify({
+  icons: {
+    values: {
+      ...LoadSvgIcons(CUSTOM_ICONS),
+    },
+  },
   theme: {
     options: {
       customProperties: true,
-      themeCache: {
-        get: key => localStorage.getItem(key),
-        set: (key, value) => localStorage.setItem(key, value),
-      },
+      // Не включать при разработке
+      // themeCache: {
+      //   get: key => localStorage.getItem(key),
+      //   set: (key, value) => localStorage.setItem(key, value),
+      // },
     },
     themes: {
       light: {
-        primary: '#E5E5E5',
+        primary: '#FAFAFB',
         secondary: '#D50037',
         accent: '#373737',
         info: '#5D6F88',
@@ -25,6 +33,7 @@ export default new Vuetify({
         // custom colors
         hidden: '#A6ABBD',
         active: '#9B0028',
+        border: '#EBECF0',
       },
     },
   },

@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <v-main>
-      <router-view />
+      <v-container fluid>
+        <router-view />
+      </v-container>
     </v-main>
   </v-app>
 </template>
@@ -9,9 +11,10 @@
 <script>
   export default {
     name: 'App',
-
     data: () => ({
-    //
+      //
     }),
+    mounted () {
+    },
   }
 </script>

@@ -1,0 +1,61 @@
+.v-data-table.theme--light .v-data-footer {
+  border-top: none !important;
+  margin-top: 40px;
+  padding-bottom: 40px;
+  .v-data-footer__section {
+    display: flex;
+    height: 38px;
+    border-radius: 4px;
+    border: $border;
+    &:nth-child(2) {
+      margin-left: 10px;
+    }
+  }
+  .v-data-footer__icons-before {
+    border-right: 1px solid var(--v-border-base) !important; 
+  }
+  .v-data-footer__icons-before, .v-data-footer__icons-after {
+    .v-btn {
+      border-radius: 0;
+      .v-icon {
+        margin-right: 0;
+        width: 10px;
+        height: 9px;
+      }
+      &:not(.v-btn--disabled) {
+        .v-icon {
+          color: var(--v-accent-base); 
+        }
+      }
+      &:last-child {
+        margin-right: 0;
+        margin-left: 0;
+      }
+    }
+  }
+  .v-data-footer__select  {
+    margin-left: 51px;
+    margin-right: 0;
+  }
+  .v-data-footer__pagination {
+    margin: 0 10px 0 14px;
+  }
+  .pagination-field {
+    max-width: 45px;
+    min-width: 45px;
+    .v-input__slot {
+      min-height: 22px;
+      height: 22px;
+      padding: 0 !important;
+      input {
+        @include roboto-s-regular;
+        text-align: center;
+      }
+    }
+    &.as--text-field {
+      input {
+        @include hide-arrows-from-field-number;
+      }
+    }
+  }
+}

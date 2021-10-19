@@ -1,0 +1,26 @@
+.v-data-table.theme--light {
+  border-radius: $block-border-radius;
+  box-shadow: $block-box-shadow;
+  .v-data-table__wrapper {
+    overflow: visible;
+  }
+  @media screen and (max-width: 864px) {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  tbody {
+    tr {
+      td {
+        &:first-child {
+          padding-left: 24px !important;
+        }
+        &:last-child {
+          padding-right: 24px !important;
+        }
+        @include roboto-sm-regular;
+        display: table-cell;
+        border: none !important;
+      }
+    } 
+  }
+}

@@ -1,0 +1,52 @@
+@font-face  {
+  font-family: 'Roboto';
+  src: local('Roboto Regular'), local('Roboto-Regular'), url('../assets/fonts/roboto/Roboto-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto Medium'), local('Roboto-Medium'), url('../assets/fonts/roboto/Roboto-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: local('Roboto Bold'), local('Roboto-Bold'), url('../assets/fonts/roboto/Roboto-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Futura PT';
+  src: url('../assets/fonts/futura-pt/futura_pt_medium.eot');
+  src: local('Futura-PT-Medium'), local('Futura PT Medium'),
+    url('../assets/fonts/futura-pt/futura_pt_medium.eot') format('embedded-opentype'), 
+    url('../assets/fonts/futura-pt/futura_pt_medium.woff2') format('woff2'), 
+    url('../assets/fonts/futura-pt/futura_pt_medium.woff') format('woff'), 
+    url('../assets/fonts/futura-pt/futura_pt_medium.ttf') format('truetype');
+  font-weight: 450;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Futura PT';
+  src: url('../assets/fonts/futura-pt/futura_pt_bold.eot');
+  src: local('Futura-PT-Bold'), local('Futura PT Bold'),
+    url('../assets/fonts/futura-pt/futura_pt_bold.eot') format('embedded-opentype'), 
+    url('../assets/fonts/futura-pt/futura_pt_bold.woff2') format('woff2'), 
+    url('../assets/fonts/futura-pt/futura_pt_bold.woff') format('woff'), 
+    url('../assets/fonts/futura-pt/futura_pt_bold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* Classes */
+.futura-pt-l-medium {
+  @include futura-pt-l-medium;  
+}
+.futura-pt-l-bold {
+  @include futura-pt-l-bold;  
+}

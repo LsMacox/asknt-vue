@@ -2,7 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { apiBaseUrl } from '@/environment'
 import { _ } from 'vue-underscore'
-import { requireDirectory } from '@/app/shared/services/require-modules'
+import { requireDirectory } from '@/app/shared/services/requester'
+
+// Components
+import UI from '@/app/shared/components/Ui'
 
 Vue.use(VueRouter)
 
@@ -13,6 +16,10 @@ const ctxModules = require.context('./entities', true, /routes\.js$/)
 const routeModules = requireDirectory(ctxModules, 'routes')
 
 const routes = [
+  {
+    path: '/ui',
+    component: UI,
+  },
 ].concat(_.values(routeModules))
 
 const router = new VueRouter({

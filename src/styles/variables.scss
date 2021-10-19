@@ -1,0 +1,54 @@
+/* Globals */
+$body-font-family: Roboto, sans-serif;
+$headings: (
+  'h1': (
+    'size': 48px,
+    'weight': 700,
+    'line-height': initial,
+    'letter-spacing': normal,
+    'font-family': $body-font-family,
+    'text-transform': false
+  ),
+  'subtitle-1': (
+    'size': 14px,
+    'weight': normal,
+    'line-height': initial,
+    'letter-spacing': normal,
+    'font-family': $body-font-family,
+    'text-transform': false
+  ),
+  'body-1': (
+    'size': 16px,
+    'weight': 400,
+    'line-height': 34px,
+    'letter-spacing': normal,
+    'font-family': $body-font-family,
+    'text-transform': false
+  ),
+  'button': (
+    'size': 16px,
+    'weight': 700,
+    'line-height': initial,
+    'letter-spacing': normal,
+    'font-family': $body-font-family,
+    'text-transform': false
+  ),
+);
+
+/* v-icon */
+$icon-size: 16px;
+$icon-size-dense: 12px;
+
+/* v-text-field */
+$text-field-border-radius: 3px;
+$text-field-line-height: 20px;
+$text-field-filled-full-width-outlined-slot-min-height: 50px;
+$text-field-outlined-label-position-x: 15px;
+$text-field-enclosed-details-padding: 0 20px;
+$text-field-outlined-fieldset-border: 1px solid var(--v-secondary-base);
+
+/* v-data-table */
+$data-table-border-radius: 0;
+$data-table-regular-header-font-size: 12px;
+$data-table-regular-row-font-size: 14px;
+$data-table-regular-row-height: 40px;

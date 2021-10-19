@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { requireDirectory, requireRecursiveDirectory } from '@/app/shared/services/require-modules'
+import { requireDirectory, requireRecursiveDirectory } from '@/app/shared/services/requester'
 
 Vue.use(Vuex)
 

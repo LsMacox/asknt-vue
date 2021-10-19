@@ -1,0 +1,10 @@
+.v-input.theme--light {
+  color: var(--v-border-base) !important;
+  input {
+    color: var(--v-accent-base);
+    caret-color: var(--v-hidden-base);
+    &::placeholder {
+      color: var(--v-info-base);
+    }
+  }
+}

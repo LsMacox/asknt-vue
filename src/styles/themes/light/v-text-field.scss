@@ -1,0 +1,9 @@
+.v-text-field.theme--light {
+  &.v-text-field--outlined {
+    .v-input__slot {
+      fieldset {
+        color: var(--v-border-base) !important;
+      }
+    }
+  }
+}

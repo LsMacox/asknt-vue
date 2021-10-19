@@ -5,11 +5,11 @@ function resolve (dir) {
   return path.join(__dirname, dir)
 }
 
-const name = packageJson.name || 'C'
+const name = packageJson.name || 'ASKNT'
 const port = process.env.port || process.env.npm_config_port || 9527 // dev port
 
 process.env.VUE_APP_VERSION = packageJson.version
-process.env.VUE_APP_NAME = packageJson.name
+process.env.VUE_APP_NAME = name
 
 module.exports = {
   publicPath: '/',
@@ -41,6 +41,17 @@ module.exports = {
         progressiveImages: false,
       },
     ])
+  },
+  css: {
+    loaderOptions: {
+      sass: {
+        additionalData: `
+          @import "@/styles/_typography.sass"
+          @import "@/styles/_mixins.scss"
+          @import "@/styles/themes/_variables.sass"
+        `,
+      },
+    },
   },
   transpileDependencies: ['vuetify'],
 }
