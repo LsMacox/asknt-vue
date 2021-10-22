@@ -1,5 +1,5 @@
 import VDataFooter from 'vuetify/lib/components/VDataIterator/VDataFooter.js'
-import BaseTextField from './TextField.js'
+import BaseTextField from './TextField.vue'
 import { getSlot } from 'vuetify/lib/util/helpers'
 
 export default {
@@ -25,9 +25,6 @@ export default {
       type: String,
       default: 'Страница',
     },
-  },
-  mounted () {
-    console.log(this.itemsPerPageText)
   },
   render () {
     return this.$createElement('div', {

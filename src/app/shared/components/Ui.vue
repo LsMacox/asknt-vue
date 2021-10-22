@@ -49,10 +49,10 @@
           Шрифт button
         </p>
         <p class="futura-pt-l-medium">
-          Шрифт Futura PT Medium
+          Шрифт Futura PT L Medium
         </p>
         <p class="futura-pt-l-bold">
-          Шрифт Futura PT Bold
+          Шрифт Futura PT L Bold
         </p>
       </v-col>
       <p class="h1">

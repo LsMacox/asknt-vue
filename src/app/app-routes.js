@@ -6,6 +6,8 @@ import { requireDirectory } from '@/app/shared/services/requester'
 
 // Components
 import UI from '@/app/shared/components/Ui'
+// Hooks
+import HookAuth from '@/app/shared/router-hooks/hook-auth'
 
 Vue.use(VueRouter)
 
@@ -20,12 +22,18 @@ const routes = [
     path: '/ui',
     component: UI,
   },
-].concat(_.values(routeModules))
+  {
+    path: '/',
+    redirect: { name: 'dashboardMain' },
+  },
+].concat(_.values(routeModules).map(r => r[0]))
 
 const router = new VueRouter({
   mode: 'history',
   base: apiBaseUrl,
   routes,
 })
+
+HookAuth(router)
 
 export default router

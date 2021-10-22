@@ -1,16 +1,16 @@
 import axios from 'axios'
-
+import router from '@/app/app-routes'
 import { appBaseUrl } from '@/environment'
-import { appLocalStorage } from '@/app/shared/services/storage'
 import config from '@/app/shared/config'
 
+const VueMain = router.app
 const ACCESS_TOKEN_KEY = process.env.ACCESS_TOKEN_KEY || 'Authorization'
+const NEW_LINE = '<br/>'
 
 /**
  * Axios basic configuration
  * Some general configuration can be added like timeout, headers, params etc. More details can be found on https://github.com/axios/axios
  * */
-axios.defaults.withCredentials = true
 const axiosConfig = {
   baseURL: appBaseUrl,
   headers: {
@@ -25,6 +25,7 @@ const axiosConfig = {
  * Only this client will be used rather than axios in the application
  **/
 const httpClient = axios.create(axiosConfig)
+httpClient.defaults.withCredentials = true
 
 /**
  * Auth interceptors
@@ -35,10 +36,13 @@ const httpClient = axios.create(axiosConfig)
  */
 const authInterceptor = (config) => {
   /** add auth token */
-  const accessToken = appLocalStorage.getItem('access_token')
-    if (accessToken) {
-      config.headers[ACCESS_TOKEN_KEY] = 'Bearer ' + accessToken
-    }
+  const accessToken = VueMain.$session.get('access_token')
+
+  if (accessToken) {
+    config.headers[ACCESS_TOKEN_KEY] = 'Bearer ' + accessToken
+  }
+
+  VueMain.$Progress.start()
   return config
 }
 
@@ -54,12 +58,65 @@ httpClient.interceptors.request.use(loggerInterceptor)
 /** Adding the response interceptors */
 httpClient.interceptors.response.use(
   (response) => {
-    return response
+    VueMain.$Progress.finish()
+    const resData = response.data
+    return resData.data ? resData.data : resData
   },
   (error) => {
     /** Do something with response error */
+    VueMain.$Progress.fail()
+
+    const response = error.response
+    const data = error.response.data
+
+    if (response &&
+      error.config &&
+        (!Object.prototype.hasOwnProperty.call(error.config, 'errorHandle') ||
+        error.config.errorHandle === true)
+    ) {
+      let errorMessage = 'Не известная серверная ошибка'
+
+      if (response && data && data.message) {
+        errorMessage = data.message
+        if (Object.keys(data.errors).length) {
+          errorMessage = ''
+          errorMessage += ParseValidationError(data.errors)
+        } else if (data.error === 'Illuminate\\Validation\\ValidationException' && data.validation) {
+          errorMessage += ':' + NEW_LINE + ParseValidationError(data.validation)
+        }
+      }
+
+      VueMain.$notify({
+        type: 'error',
+        group: 'api',
+        title: 'Серверная ошибка',
+        text: errorMessage,
+      })
+    } else {
+      VueMain.$notify({
+        type: 'error',
+        group: 'api',
+        title: 'Ошибка',
+        text: 'Сервер недоступен',
+      })
+    }
+
     return Promise.reject(error)
   },
 )
+
+function ParseValidationError (validation) {
+  let resStr = '<ul style="margin-left: 2em;">'
+  for (const fieldName in validation) {
+    if (Object.prototype.hasOwnProperty.call(validation, fieldName)) {
+      const fieldErrors = validation[fieldName]
+      fieldErrors.forEach(element => {
+        resStr += `<li>${element}</li>`
+      })
+    }
+  }
+  resStr += '</ul>'
+  return resStr
+}
 
 export default httpClient

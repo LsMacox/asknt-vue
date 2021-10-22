@@ -44,6 +44,9 @@
 }
 
 /* Classes */
+.futura-pt-m-bold {
+  @include futura-pt-m-medium;
+}
 .futura-pt-l-medium {
   @include futura-pt-l-medium;  
 }

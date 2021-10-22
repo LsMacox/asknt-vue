@@ -1,5 +1,5 @@
-import user from './shared/state/user'
+import auth from './shared/state/auth'
 
 export default {
-  user,
+  auth,
 }

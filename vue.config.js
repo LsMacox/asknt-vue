@@ -44,6 +44,13 @@ module.exports = {
   },
   css: {
     loaderOptions: {
+      scss: {
+        additionalData: `
+          @import "@/styles/_typography.sass";
+          @import "@/styles/_mixins.scss";
+          @import "@/styles/themes/_variables.sass";
+        `,
+      },
       sass: {
         additionalData: `
           @import "@/styles/_typography.sass"
