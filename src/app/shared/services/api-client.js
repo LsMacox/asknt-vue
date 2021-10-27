@@ -106,6 +106,7 @@ httpClient.interceptors.response.use(
 
 function ParseValidationError (validation) {
   let resStr = '<ul style="margin-left: 2em;">'
+  // eslint-disable-next-line no-unused-vars
   for (const fieldName in validation) {
     if (Object.prototype.hasOwnProperty.call(validation, fieldName)) {
       const fieldErrors = validation[fieldName]
