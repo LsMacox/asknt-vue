@@ -5,4 +5,19 @@
       margin-right: 8px;
     }
   }
+  &.v-btn--text {
+    &:hover {
+      &:before {
+        opacity: 0;
+      }
+      p, .v-icon, svg {
+        color: var(--v-secondary-base) !important;
+      }
+    }
+    &:focus {
+      &:before {
+        opacity: 0;
+      }
+    }
+  }
 }

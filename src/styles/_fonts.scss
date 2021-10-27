@@ -44,6 +44,21 @@
 }
 
 /* Classes */
+.roboto-sm-regular {
+  @include roboto-sm-regular;
+}
+.roboto-s-regular {
+  @include roboto-s-regular;
+}
+.roboto-sm-medium {
+  @include roboto-sm-medium;
+}
+.roboto-s-medium {
+  @include roboto-s-medium;
+}
+.roboto-xl-medium {
+  @include roboto-xl-medium;
+}
 .futura-pt-m-bold {
   @include futura-pt-m-medium;
 }

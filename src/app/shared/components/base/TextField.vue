@@ -1,32 +1,39 @@
 <template>
   <v-text-field
-    v-bind="[textFieldDefaults, $attrs]"
+    v-bind="[$attrs, propsDefault]"
     v-on="$listeners"
-    @input="v => $emit('input', v)"
   >
     <template
-      v-for="slot in parentSlots"
-      #[slot]="props"
+      v-for="scopedSlot in Object.keys(scopedSlots)"
+      #[scopedSlot]="props"
+    >
+      <slot
+        :name="scopedSlot"
+        v-bind="props"
+      />
+    </template>
+    <template
+      v-for="slot in Object.keys(slots)"
+      #[slot]
     >
       <slot
         :name="slot"
-        v-bind="props"
       />
     </template>
   </v-text-field>
 </template>
 
 <script>
+  import BaseMixin from './baseMixin'
+
   export default {
+    mixins: [BaseMixin],
     inheritAttrs: false,
     data () {
       return {}
     },
     computed: {
-      parentSlots () {
-        return Object.keys(this.$scopedSlots)
-      },
-      textFieldDefaults () {
+      propsDefault () {
         return {
           autocomplete: 'off',
           outlined: true,

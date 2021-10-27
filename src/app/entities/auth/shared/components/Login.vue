@@ -35,15 +35,17 @@
               class="field-login"
               placeholder=" "
               label="Логин / email"
+              height="50"
             />
             <base-text-field
               v-model="form.password"
               :rules="rules.password"
-              class="field-password"
+              class="field-password mt-1"
               label="Пароль"
               type="password"
               placeholder=" "
               hide-details
+              height="50"
             />
           </v-form>
 

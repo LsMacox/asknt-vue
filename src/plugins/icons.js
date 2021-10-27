@@ -21,10 +21,13 @@ export const CUSTOM_ICONS = {
   down: require('@/assets/icons/down.svg'),
   wialon: require('@/assets/icons/wialon.svg'),
   settings: require('@/assets/icons/settings.svg'),
+  'date-prev': require('@/assets/icons/date-prev.svg'),
+  'date-next': require('@/assets/icons/date-next.svg'),
 }
 
 export function LoadSvgIcons (iconList) {
   const icons = {}
+  // eslint-disable-next-line no-unused-vars
   for (const icon in iconList) {
       const name = `icons_${icon}`
       icons[name] = {

@@ -1,0 +1,7 @@
+.v-list.theme--light {
+  .v-list-item {
+    &.v-list-item--active {
+      color: var(--v-secondary-base) !important;        
+    }
+  }
+}

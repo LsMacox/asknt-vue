@@ -18,8 +18,8 @@ export default {
         ...this.$listeners,
       },
       scopedSlots: {
-        ...this.$slots,
         ...this.$scopedSlots,
+        ...this.$slots,
       },
     }, [this.genDefaultSlot()])
   },

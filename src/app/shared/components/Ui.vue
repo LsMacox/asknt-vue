@@ -115,6 +115,31 @@
           </v-expansion-panel>
           <v-expansion-panel>
             <v-expansion-panel-header>
+              Поле дата
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <base-date-picker
+                v-model="dateRange"
+                :min-date="$moment('23.10.2021', 'DD.MM.YYYY').toDate()"
+                :date-format="$config.date.MIN_DATE"
+                label="Период дат"
+              />
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              Выпадающие меню
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <base-select
+                :items="selectItems"
+                label="Склад отгрузки"
+                height="48"
+              />
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+          <v-expansion-panel>
+            <v-expansion-panel-header>
               Кнопка
             </v-expansion-panel-header>
             <v-expansion-panel-content>
@@ -123,9 +148,17 @@
                   $icons_date
                 </v-icon>
                 <p class="text-button text-capitalize mb-0">
-                  Дата
+                  Кнопка
                 </p>
               </base-btn>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              Фильтр
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <main-filter />
             </v-expansion-panel-content>
           </v-expansion-panel>
           <v-expansion-panel class="primary">
@@ -150,9 +183,11 @@
 </template>
 
 <script>
+  import MainFilter from '@/app/shared/components/general/MainFilter'
   import { CUSTOM_ICONS } from '@/plugins/icons'
 
   export default {
+    components: { MainFilter },
     data: function () {
       return {
         icons: Object.keys(CUSTOM_ICONS),
@@ -241,5 +276,4 @@
 </script>
 
 <style lang="scss" scoped>
-
 </style>

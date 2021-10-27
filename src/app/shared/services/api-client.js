@@ -1,9 +1,8 @@
 import axios from 'axios'
-import router from '@/app/app-routes'
+import VueMain from '@/main'
 import { appBaseUrl } from '@/environment'
 import config from '@/app/shared/config'
 
-const VueMain = router.app
 const ACCESS_TOKEN_KEY = process.env.ACCESS_TOKEN_KEY || 'Authorization'
 const NEW_LINE = '<br/>'
 
