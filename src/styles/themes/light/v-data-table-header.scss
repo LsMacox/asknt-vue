@@ -15,7 +15,8 @@
     padding-bottom: 28px;
     border-bottom: none !important;
     span {
-      @include roboto-s-medium;
+      @include roboto-sm-medium;
+      line-height: 21px;
       color: var(--v-accent-base);
     }
   } 

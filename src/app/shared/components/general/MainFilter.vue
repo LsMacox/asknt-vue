@@ -17,7 +17,7 @@
       <base-date-picker
         v-model="dateRange"
         class="field-filter field-date"
-        :class="{ 'open-more': showMore }"
+        :class="{ 'open-more': dateRangeForDateField }"
         :min-date="$moment('23.10.2021', 'DD.MM.YYYY').toDate()"
         :date-format="$config.date.MIN_DATE"
         label="Период дат"
