@@ -1,7 +1,8 @@
 <template>
   <base-filter
     v-model="filterValue"
-    :more.sync="showFilterMore"
+    :more.sync="showMore"
+    :action-text="actionText"
   >
     <template v-slot:filters="{ on }">
       <base-select
@@ -15,12 +16,13 @@
       />
       <base-date-picker
         v-model="dateRange"
-        class="field-filter"
+        class="field-filter field-date"
+        :class="{ 'open-more': showMore }"
         :min-date="$moment('23.10.2021', 'DD.MM.YYYY').toDate()"
         :date-format="$config.date.MIN_DATE"
         label="Период дат"
         title="Дата отгрузки"
-        :text-ranges="dateRangeIfMore ? showFilterMore : false"
+        :text-ranges="dateRangeForDateField ? true : false"
         @change="on.change('shipping-date', $event)"
       />
       <base-select
@@ -83,12 +85,13 @@
   export default {
     components: { BaseFilter },
     props: {
-      dateRangeIfMore: Boolean,
+      actionText: String,
+      dateRangeForDateField: Boolean,
     },
     data () {
       return {
+        showMore: false,
         filterValue: [],
-        showFilterMore: false,
         dateRange: {
           startDate: null,
           endDate: null,
@@ -120,5 +123,15 @@
   width: 250px;
   margin-right: 20px;
   margin-bottom: 20px;
+}
+.field-date {
+  &.open-more {
+    margin-bottom: 59px;
+  }
+  & ::v-deep {
+    .text-ranges__picker {
+      position: absolute;
+    }
+  }
 }
 </style>

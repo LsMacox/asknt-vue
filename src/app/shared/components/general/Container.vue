@@ -27,6 +27,6 @@
   padding: 10px 0;
 }
 .c-title {
-  margin-bottom: $block-indent !important;
+  margin-bottom: $block-indent-1 !important;
 }
 </style>

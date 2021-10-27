@@ -170,7 +170,7 @@
     },
     methods: {
       closePicker () {
-        this.$refs.picker.clickCancel()
+        this.$refs.picker && this.$refs.picker.clickCancel()
       },
       openPicker () {
         this.$refs.picker.togglePicker(true, false)

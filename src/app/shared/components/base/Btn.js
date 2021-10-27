@@ -1,4 +1,5 @@
 import { VBtn } from 'vuetify/lib'
+import camelCase from 'lodash/camelCase'
 
 export default {
   inheritAttrs: false,
@@ -11,7 +12,7 @@ export default {
         height: '50',
         color: 'secondary',
         minWidth: '250',
-        ...this.$attrs,
+        ...this.attrs,
         depressed: true,
       },
       on: {
@@ -22,6 +23,16 @@ export default {
         ...this.$slots,
       },
     }, [this.genDefaultSlot()])
+  },
+  computed: {
+    attrs () {
+      const attrs = {}
+      // eslint-disable-next-line no-unused-vars
+      for (const [key, val] of Object.entries(this.$attrs)) {
+        attrs[camelCase(key)] = camelCase(val)
+      }
+      return attrs
+    },
   },
   methods: {
     genDefaultSlot () {
