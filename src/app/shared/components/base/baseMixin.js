@@ -1,7 +1,16 @@
 import { _ } from 'vue-underscore'
+import camelCase from 'lodash/camelCase'
 
 export default {
   computed: {
+    attrs () {
+      const attrs = {}
+      // eslint-disable-next-line no-unused-vars
+      for (const [key, val] of Object.entries(this.$attrs)) {
+        attrs[camelCase(key)] = camelCase(val)
+      }
+      return attrs
+    },
     scopedSlots () {
       const slots = {}
       const scopedSlots = _.reject(Object.keys(this.$scopedSlots), (name) => {
@@ -16,6 +25,15 @@ export default {
     },
     slots () {
       return this.$slots
+    },
+  },
+  methods: {
+    existsAttrAndFalse (propName) {
+      return !Object.keys(this.$attrs).includes(propName) ||
+      (
+        Object.keys(this.$attrs).includes(propName) &&
+        this.$attrs[propName] === false
+      )
     },
   },
 }

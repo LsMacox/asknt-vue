@@ -78,7 +78,7 @@
         { icon: '$icons_dashboard', text: 'Дэшборд', route: { name: 'dashboardMain' } },
         { icon: '$icons_report', text: 'Отчеты', route: { name: 'reportMain' } },
         { icon: '$icons_finished-points', text: 'Завершенные маршруты', route: { name: 'completedRouteMain' } },
-        { icon: '$icons_chain-square', text: 'Торговые точки', route: '' },
+        { icon: '$icons_chain-square', text: 'Торговые точки', route: { name: 'outletMain' } },
         { icon: '$icons_chain-circle', text: 'Зоны загрузки', route: '' },
         { icon: '$icons_wialon', text: 'Подключение Wialon', route: '' },
       ],

@@ -1,7 +1,8 @@
 import { VBtn } from 'vuetify/lib'
-import camelCase from 'lodash/camelCase'
+import baseMixin from './baseMixin'
 
 export default {
+  mixins: [baseMixin],
   inheritAttrs: false,
   data () {
     return {}
@@ -19,20 +20,10 @@ export default {
         ...this.$listeners,
       },
       scopedSlots: {
-        ...this.$scopedSlots,
-        ...this.$slots,
+        ...this.slots,
+        ...this.scopedSlots,
       },
     }, [this.genDefaultSlot()])
-  },
-  computed: {
-    attrs () {
-      const attrs = {}
-      // eslint-disable-next-line no-unused-vars
-      for (const [key, val] of Object.entries(this.$attrs)) {
-        attrs[camelCase(key)] = camelCase(val)
-      }
-      return attrs
-    },
   },
   methods: {
     genDefaultSlot () {

@@ -1,0 +1,40 @@
+<template>
+  <base-text-field
+    class="field-search"
+    hide-details
+    :label="label"
+    height="55"
+    @change="$emit('change', $event)"
+  >
+    <template
+      v-if="!slots.append"
+      v-slot:append
+    >
+      <v-icon
+        size="24"
+        color="accent"
+      >
+        $icons_search
+      </v-icon>
+    </template>
+  </base-text-field>
+</template>
+
+<script>
+  import BaseMixins from '../base/baseMixin'
+
+  export default {
+    mixins: [BaseMixins],
+    model: {
+      prop: 'value',
+      event: 'update',
+    },
+    props: {
+      value: String,
+      label: String,
+    },
+  }
+</script>
+
+<style lang="scss" scoped>
+</style>
