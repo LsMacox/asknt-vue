@@ -80,7 +80,7 @@
         { icon: '$icons_finished-points', text: 'Завершенные маршруты', route: { name: 'completedRouteMain' } },
         { icon: '$icons_chain-square', text: 'Торговые точки', route: { name: 'outletMain' } },
         { icon: '$icons_chain-circle', text: 'Зоны загрузки', route: { name: 'loadingAreaMain' } },
-        { icon: '$icons_wialon', text: 'Подключение Wialon', route: '' },
+        { icon: '$icons_wialon', text: 'Подключение Wialon', route: { name: 'connectionMain' } },
       ],
     }),
   }

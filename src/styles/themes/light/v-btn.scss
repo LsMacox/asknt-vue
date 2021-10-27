@@ -5,6 +5,13 @@
       margin-right: 8px;
     }
   }
+  &.v-btn--disabled.v-btn--has-bg {
+    background-color: var(--v-secondary-base) !important;
+    opacity: 0.6;
+    p, .v-icon, svg {
+      color: var(--v-main-base) !important;
+    }
+  }
   &.v-btn--text {
     &:hover {
       &:before {

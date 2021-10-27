@@ -44,6 +44,9 @@
 }
 
 /* Classes */
+.roboto-extra-sm-regular {
+  @include roboto-extra-sm-regular
+}
 .roboto-sm-regular {
   @include roboto-sm-regular;
 }
