@@ -13,6 +13,7 @@ require('./plugins/session')
 require('./plugins/moment')
 require('./plugins/progressbar')
 require('./plugins/notification')
+require('./plugins/vuex-wait')
 
 // Подключючение всех компонентов из папки app/shared/components/base с префиксом base
 installComponents(

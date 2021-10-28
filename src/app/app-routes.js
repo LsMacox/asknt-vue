@@ -28,7 +28,6 @@ const routes = [
   },
 ].concat(_.values(routeModules).map(r => r[0]))
 
-console.log(routes)
 const router = new VueRouter({
   mode: 'history',
   base: apiBaseUrl,

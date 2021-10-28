@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { requireDirectory, requireRecursiveDirectory } from '@/app/shared/services/requester'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
@@ -13,6 +14,11 @@ const stateModule = requireRecursiveDirectory(ctxModules, 'state')
 const stateApp = requireDirectory(ctxApp)
 
 const store = new Vuex.Store({
+  plugins: [
+    createPersistedState({
+      paths: [''],
+    }),
+  ],
   state: {},
   actions: {},
   modules: { ...stateModule, ...stateApp },

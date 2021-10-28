@@ -55,6 +55,7 @@
           min-width="57"
           :ripple="false"
           class="btn-logout"
+          @click="onLogout"
         >
           <v-icon
             color="accent"
@@ -72,6 +73,8 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+
   export default {
     data: () => ({
       toolbarItems: [
@@ -83,6 +86,19 @@
         { icon: '$icons_wialon', text: 'Подключение Wialon', route: { name: 'connectionMain' } },
       ],
     }),
+    methods: {
+      ...mapActions({
+        fetchLogout: 'auth/auth/[AUTH] LOGOUT',
+      }),
+      async onLogout () {
+        await this.fetchLogout()
+        this.$notify({
+          type: 'success',
+          title: 'Авторизация',
+          text: 'Вы вышли из аккаунта',
+        })
+      },
+    },
   }
 </script>
 

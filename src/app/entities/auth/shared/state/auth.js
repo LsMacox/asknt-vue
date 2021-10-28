@@ -62,7 +62,7 @@ const actions = {
   /** fetch user data */
   async [actionsTypes.LOGIN] ({ commit }, authCred) {
     await ApiClient.get('/sanctum/csrf-cookie')
-    const token = await ApiClient.post('/api/login', { ...authCred, device_name: visitorId })
+    const token = await ApiClient.post('api/login', { ...authCred, device_name: visitorId })
 
     if (token) {
       commit(SET_AUTH, token)
@@ -74,10 +74,9 @@ const actions = {
     }
   },
   async [actionsTypes.LOGOUT] ({ commit }) {
-    await ApiClient.post('/api/logout', { device_name: visitorId })
     commit(SET_AUTH, null)
     commit(SET_DEVICE, null)
-    router.push({ path: '/' })
+    router.push({ name: 'authLogin' })
   },
 }
 

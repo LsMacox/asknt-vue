@@ -68,6 +68,16 @@ httpClient.interceptors.response.use(
     const response = error.response
     const data = error.response.data
 
+    if (response.status === 401) {
+      VueMain.$store.dispatch('auth/auth/[AUTH] LOGOUT')
+      VueMain.$notify({
+        type: 'error',
+        group: 'api',
+        title: 'Авторизация',
+        text: 'Токен доступа истек',
+      })
+    }
+
     if (response &&
       error.config &&
         (!Object.prototype.hasOwnProperty.call(error.config, 'errorHandle') ||

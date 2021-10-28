@@ -27,8 +27,8 @@
         return (this.$route.meta.layout || defaultLayout) + '-layout'
       },
     },
-    mounted () {
-      this.initApp()
+    async mounted () {
+      await this.initApp()
     },
     methods: {
       ...mapActions({

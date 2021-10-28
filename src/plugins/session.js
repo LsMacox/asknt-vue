@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { _ } from 'vue-underscore'
 
-var STORAGE = window.sessionStorage
+var STORAGE = window.localStorage
 var VueSession = {
     key: 'vue-session-key',
     flash_key: 'vue-session-flash-key',
@@ -100,8 +100,7 @@ export const session = {
   },
 }
 
-VueSession.install = function (Vue, options) {
-  if (options && 'persist' in options && options.persist) STORAGE = window.localStorage
+VueSession.install = function (Vue) {
   const $session = _.clone(session)
   $session.flash = _.extend($session.flash, {
     parent: () => {
