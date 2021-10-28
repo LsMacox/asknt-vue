@@ -6,8 +6,23 @@
       }
     }
   }
+  &.v-text-field--enclosed {
+    .v-input__append-inner {
+      margin-top: 15px;
+    }
+    &:not(.v-text-field--rounded) {
+      .v-input__control > .v-input__slot {
+        padding: 0 16px;
+      }
+    }
+  }
   .v-input__slot {
-    margin-bottom: 4px;
+    margin-bottom: 0;
+  }
+  &.v-input--has-state {
+    .v-input__slot {
+      margin-bottom: 4px;
+    }
   }
   .v-text-field__details {
     margin-bottom: 2px !important;

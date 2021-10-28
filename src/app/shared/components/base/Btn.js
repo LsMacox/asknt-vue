@@ -1,6 +1,8 @@
 import { VBtn } from 'vuetify/lib'
+import baseMixin from './baseMixin'
 
 export default {
+  mixins: [baseMixin],
   inheritAttrs: false,
   data () {
     return {}
@@ -11,15 +13,15 @@ export default {
         height: '50',
         color: 'secondary',
         minWidth: '250',
-        ...this.$attrs,
+        ...this.attrs,
         depressed: true,
       },
       on: {
         ...this.$listeners,
       },
       scopedSlots: {
-        ...this.$slots,
-        ...this.$scopedSlots,
+        ...this.slots,
+        ...this.scopedSlots,
       },
     }, [this.genDefaultSlot()])
   },

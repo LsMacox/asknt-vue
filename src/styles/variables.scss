@@ -44,11 +44,18 @@ $text-field-border-radius: 3px;
 $text-field-line-height: 20px;
 $text-field-filled-full-width-outlined-slot-min-height: 50px;
 $text-field-outlined-label-position-x: 15px;
+$text-field-outlined-dense-label-position-x: 15px;
 $text-field-enclosed-details-padding: 0 20px;
 $text-field-outlined-fieldset-border: 1px solid var(--v-secondary-base);
+
+/* v-btn */
+$btn-border-radius: 3px;
 
 /* v-data-table */
 $data-table-border-radius: 0;
 $data-table-regular-header-font-size: 12px;
 $data-table-regular-row-font-size: 14px;
 $data-table-regular-row-height: 40px;
+
+/* v-app-bar */
+$app-bar-border-radius: 10px;

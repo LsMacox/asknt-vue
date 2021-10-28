@@ -1,7 +1,9 @@
 import { VDataTable, VDataTableHeader } from 'vuetify/lib'
 import BaseDataFooter from './DataFooter'
+import baseMixin from './baseMixin'
 
 export default {
+  mixins: [baseMixin],
   inheritAttrs: false,
   render (createElement) {
     return createElement(VDataTable, {
@@ -16,13 +18,15 @@ export default {
       scopedSlots: {
         ...this.$slots,
         ...this.$scopedSlots,
-        header ({ props, on }) {
+        header: (data) => {
+          if (this.existsAttrAndFalse('hideDefaultHeader')) return
+
           return createElement(VDataTableHeader, {
             props: {
-              ...props,
+              ...data.props,
             },
             on: {
-              ...on,
+              ...data.on,
             },
           })
         },

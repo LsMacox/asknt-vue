@@ -7,7 +7,8 @@ export const CUSTOM_ICONS = {
   'chain-square': require('@/assets/icons/chain-square.svg'),
   dashboard: require('@/assets/icons/dashboard.svg'),
   date: require('@/assets/icons/date.svg'),
-  download: require('@/assets/icons/download.svg'),
+  'download-circle': require('@/assets/icons/download-circle.svg'),
+  'download-square': require('@/assets/icons/download-square.svg'),
   exit: require('@/assets/icons/exit.svg'),
   'finished-points': require('@/assets/icons/finished-points.svg'),
   next: require('@/assets/icons/next.svg'),
@@ -21,10 +22,13 @@ export const CUSTOM_ICONS = {
   down: require('@/assets/icons/down.svg'),
   wialon: require('@/assets/icons/wialon.svg'),
   settings: require('@/assets/icons/settings.svg'),
+  'date-prev': require('@/assets/icons/date-prev.svg'),
+  'date-next': require('@/assets/icons/date-next.svg'),
 }
 
 export function LoadSvgIcons (iconList) {
   const icons = {}
+  // eslint-disable-next-line no-unused-vars
   for (const icon in iconList) {
       const name = `icons_${icon}`
       icons[name] = {

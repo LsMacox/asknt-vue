@@ -31,7 +31,10 @@ export default new Vuetify({
         error: '#D50037',
 
         // custom colors
+        main: '#FFFFFF',
         hidden: '#A6ABBD',
+        black: '#3F3B3B',
+        grey: '#959393',
         active: '#9B0028',
         border: '#EBECF0',
       },

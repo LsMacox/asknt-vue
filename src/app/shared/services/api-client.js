@@ -1,9 +1,8 @@
 import axios from 'axios'
-import router from '@/app/app-routes'
+import VueMain from '@/main'
 import { appBaseUrl } from '@/environment'
 import config from '@/app/shared/config'
 
-const VueMain = router.app
 const ACCESS_TOKEN_KEY = process.env.ACCESS_TOKEN_KEY || 'Authorization'
 const NEW_LINE = '<br/>'
 
@@ -107,6 +106,7 @@ httpClient.interceptors.response.use(
 
 function ParseValidationError (validation) {
   let resStr = '<ul style="margin-left: 2em;">'
+  // eslint-disable-next-line no-unused-vars
   for (const fieldName in validation) {
     if (Object.prototype.hasOwnProperty.call(validation, fieldName)) {
       const fieldErrors = validation[fieldName]

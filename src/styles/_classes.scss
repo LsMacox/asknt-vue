@@ -1,0 +1,11 @@
+.text-href {
+  cursor: pointer;
+  border-bottom: 1px dashed var(--v-secondary-base);
+}
+.table--hover__none {
+  tr {
+    &:hover {
+      background-color: transparent !important;
+    }
+  }
+}

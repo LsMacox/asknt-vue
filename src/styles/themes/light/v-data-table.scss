@@ -12,10 +12,10 @@
     tr {
       td {
         &:first-child {
-          padding-left: 24px !important;
+          padding-left: 24px;
         }
         &:last-child {
-          padding-right: 24px !important;
+          padding-right: 24px;
         }
         @include roboto-sm-regular;
         display: table-cell;

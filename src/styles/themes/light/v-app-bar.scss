@@ -1,0 +1,9 @@
+.v-app-bar.theme--light {
+  margin: 20px 10px;
+  margin-top: 20px !important;
+  background-color: var(--v-main-base) !important;
+  box-shadow: $block-box-shadow !important;
+  .v-toolbar__content {
+    padding: 4px 54px;
+  }
+}

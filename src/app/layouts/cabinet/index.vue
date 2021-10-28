@@ -2,7 +2,10 @@
   <div class="layout-cabinet">
     <app-bar />
     <v-main>
-      <v-container fluid>
+      <v-container
+        class="container"
+        fluid
+      >
         <slot />
       </v-container>
     </v-main>
@@ -14,9 +17,16 @@
 
   export default {
     components: { AppBar },
+    computed: {
+      pageTitle () {
+        return this.$route.meta.pageTitle || ''
+      },
+    },
   }
 </script>
 
 <style lang="scss" scoped>
-
+.container {
+  padding: 10px;
+}
 </style>
