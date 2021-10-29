@@ -1,0 +1,15 @@
+.v-input--checkbox.theme--light {
+  padding: 0;
+  margin: 0;
+  input {
+    color: var(--v-secondary-base);
+    caret-color: var(--v-secondary-base);
+    background-color: var(--v-secondary-base);
+  }
+  .v-label {
+    color: var(--v-accent-base);
+    left: -1px;
+    top: 1px;
+    @include roboto-s-regular;
+  }
+}

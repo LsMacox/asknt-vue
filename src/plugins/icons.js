@@ -22,6 +22,8 @@ export const CUSTOM_ICONS = {
   down: require('@/assets/icons/down.svg'),
   wialon: require('@/assets/icons/wialon.svg'),
   settings: require('@/assets/icons/settings.svg'),
+  checked: require('@/assets/icons/checked.svg'),
+  'checked-off': require('@/assets/icons/checked-off.svg'),
   'date-prev': require('@/assets/icons/date-prev.svg'),
   'date-next': require('@/assets/icons/date-next.svg'),
 }

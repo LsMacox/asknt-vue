@@ -1,0 +1,10 @@
+.theme--light {
+  .v-responsive {
+    overflow: visible;
+    @media screen and (max-width: 1615px) {
+      margin: 0 auto !important;
+      right: inherit !important;
+      position: relative !important;
+    }
+  }
+}

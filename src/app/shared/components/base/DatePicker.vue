@@ -223,6 +223,12 @@
     border: none;
     box-shadow: $block-box-shadow;
     min-width: 0;
+    &:before {
+      content: none;
+    }
+    &:after {
+      content: none;
+    }
     .drp-buttons {
       display: none;
     }

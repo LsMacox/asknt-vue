@@ -5,74 +5,82 @@
     search-label="Перевозчик/Код перевозчика"
     :search-value.sync="search"
   >
-    <ul class="header__list pa-0">
-      <li class="header__item">
-        <p class="item-title roboto-s-regular accent--text">
-          Перевозчик
-        </p>
-        <base-text-field
-          class="item-field"
-          label="Название перевозчика"
-          style="min-width: 250px"
-          hide-details
-        />
-      </li>
-      <li class="header__item">
-        <p class="item-title roboto-s-regular accent--text">
-          Код перевозчика
-        </p>
-        <base-text-field
-          class="item-field"
-          label="Код перевозчика"
-          hide-details
-        />
-      </li>
-      <li class="header__item">
-        <p class="item-title roboto-s-regular accent--text">
-          Host
-        </p>
-        <base-text-field
-          class="item-field"
-          label="Новый host"
-          hide-details
-        />
-      </li>
-      <li class="header__item">
-        <base-btn
-          class="btn-create"
-          min-width="250"
-          width="250"
-          @click="tokeConfirmDialog = true"
-        >
-          Подключить
-        </base-btn>
-      </li>
-    </ul>
-    <table-fields
-      :headers="tableHeaders"
-      :items="tableItems"
+    <v-responsive
+      max-width="1390"
+      class="outlet-responsive"
+      style="position: absolute;right: calc(16vw - 7px);"
     >
-      <template v-slot:[`item.action`]>
-        <div class="d-flex">
+      <ul class="header__list pa-0">
+        <li class="header__item">
+          <p class="item-title roboto-s-regular accent--text">
+            Перевозчик
+          </p>
+          <base-text-field
+            class="item-field"
+            label="Название перевозчика"
+            style="max-width: 250px"
+            hide-details
+          />
+        </li>
+        <li class="header__item">
+          <p class="item-title roboto-s-regular accent--text">
+            Код перевозчика
+          </p>
+          <base-text-field
+            class="item-field"
+            label="Код перевозчика"
+            style="max-width: 180px"
+            hide-details
+          />
+        </li>
+        <li class="header__item">
+          <p class="item-title roboto-s-regular accent--text">
+            Host
+          </p>
+          <base-text-field
+            class="item-field"
+            label="Новый host"
+            style="max-width: 250px"
+            hide-details
+          />
+        </li>
+        <li class="header__item">
           <base-btn
+            class="btn-create"
             min-width="250"
             width="250"
-            color="hidden"
+            @click="tokeConfirmDialog = true"
           >
-            <v-icon
-              size="24"
-              color="main"
-              style="margin-right: 5px"
-            >
-              $icons_download-square
-            </v-icon>
-            <p class="roboto-s-regular main--text mb-0">
-              Скачать список объектов
-            </p>
+            Подключить
           </base-btn>
-        </div>
-      </template>
-    </table-fields>
+        </li>
+      </ul>
+      <table-fields
+        :headers="tableHeaders"
+        :items="tableItems"
+      >
+        <template v-slot:[`item.action`]>
+          <div class="d-flex">
+            <base-btn
+              min-width="250"
+              width="250"
+              color="hidden"
+            >
+              <v-icon
+                size="24"
+                color="main"
+                style="margin-right: 5px"
+              >
+                $icons_download-square
+              </v-icon>
+              <p class="roboto-s-regular main--text mb-0">
+                Скачать список объектов
+              </p>
+            </base-btn>
+          </div>
+        </template>
+      </table-fields>
+    </v-responsive>
     <token-dialog v-model="tokeConfirmDialog" />
   </container>
 </template>
@@ -89,10 +97,10 @@
         search: '',
         tokeConfirmDialog: false,
         tableHeaders: [
-          { text: 'Название перевозчика', value: 'name', fieldWidth: 250, sortable: false },
-          { text: 'Код перевозчика', value: 'code', fieldWidth: 180, sortable: false },
-          { text: 'Новый host', value: 'host', fieldWidth: 250, sortable: false },
-          { text: 'Токен', value: 'token', fieldWidth: 250, sortable: false },
+          { text: 'Название перевозчика', value: 'name', maxWidth: 250, sortable: false },
+          { text: 'Код перевозчика', value: 'code', maxWidth: 180, sortable: false },
+          { text: 'Новый host', value: 'host', maxWidth: 250, sortable: false },
+          { text: 'Токен', value: 'token', minWidth: 250, sortable: false },
           { text: '', value: 'action', sortable: false },
         ],
         tableItems: [
@@ -147,15 +155,14 @@
   margin-right: 20px;
 }
 .header__list {
-  display: flex;
+  display: table;
   list-style: none;
   margin-bottom: 40px;
   .header__item {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    &:not(:last-child) {
-      margin-right: 20px;
+    display: table-cell;
+    vertical-align: bottom;
+    &:not(:first-child) {
+      padding-left: 20px !important;
     }
     .item-title {
       margin-bottom: 10px;

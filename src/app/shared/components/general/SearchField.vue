@@ -37,4 +37,15 @@
 </script>
 
 <style lang="scss" scoped>
+.field-search {
+  border-radius: 10px;
+  & ::v-deep {
+    .v-label {
+      @include roboto-s-medium;
+    }
+    .v-input__slot {
+      padding: 0 27px !important;
+    }
+  }
+}
 </style>

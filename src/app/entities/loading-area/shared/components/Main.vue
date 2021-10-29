@@ -5,108 +5,119 @@
     search-label="Зоны загрузки"
     :search-value.sync="search"
   >
-    <ul class="header__list pa-0">
-      <li class="header__item">
-        <p class="item-title roboto-s-regular accent--text">
-          Название
-        </p>
-        <base-text-field
-          class="item-field"
-          label="Название зоны загрузки"
-          style="min-width: 160px"
-          hide-details
-        />
-      </li>
-      <li class="header__item">
-        <p class="item-title roboto-s-regular accent--text">
-          id SAP
-        </p>
-        <base-text-field
-          class="item-field"
-          label="id SAP"
-          hide-details
-        />
-      </li>
-      <li class="header__item">
-        <p class="item-title roboto-s-regular accent--text">
-          id 1C
-        </p>
-        <base-text-field
-          class="item-field"
-          label="id 1C"
-          hide-details
-        />
-      </li>
-      <li class="header__item">
-        <p class="item-title roboto-s-regular accent--text">
-          Долгота центра
-        </p>
-        <base-text-field
-          class="item-field"
-          label="Долгота"
-          hide-details
-        />
-      </li>
-      <li class="header__item">
-        <p class="item-title roboto-s-regular accent--text">
-          Широта центра
-        </p>
-        <base-text-field
-          class="item-field"
-          label="Широта"
-          hide-details
-        />
-      </li>
-      <li class="header__item">
-        <p class="item-title roboto-s-regular accent--text">
-          Радиус зоны
-        </p>
-        <base-text-field
-          class="item-field"
-          label="Радиус"
-          hide-details
-        />
-      </li>
-      <li class="header__item">
-        <base-btn
-          class="btn-create"
-          min-width="250"
-          width="250"
-        >
-          Создать
-        </base-btn>
-      </li>
-    </ul>
-    <table-fields
-      :headers="tableHeaders"
-      :items="tableItems"
+    <v-responsive
+      max-width="1390"
+      class="outlet-responsive"
+      style="position: absolute;right: 8vw;"
     >
-      <template v-slot:[`item.action`]>
-        <div class="d-flex">
-          <base-btn
-            min-width="140"
-            width="140"
-            class="btn-save"
+      <ul class="header__list pa-0">
+        <li class="header__item">
+          <p class="item-title roboto-s-regular accent--text">
+            Название
+          </p>
+          <base-text-field
+            class="item-field"
+            label="Название зоны загрузки"
+            style="max-width: 250px"
             hide-details
-          >
-            Сохранить
-          </base-btn>
+          />
+        </li>
+        <li class="header__item">
+          <p class="item-title roboto-s-regular accent--text">
+            id SAP
+          </p>
+          <base-text-field
+            class="item-field"
+            label="id SAP"
+            style="max-width: 150px"
+            hide-details
+          />
+        </li>
+        <li class="header__item">
+          <p class="item-title roboto-s-regular accent--text">
+            id 1C
+          </p>
+          <base-text-field
+            class="item-field"
+            label="id 1C"
+            style="max-width: 150px"
+            hide-details
+          />
+        </li>
+        <li class="header__item">
+          <p class="item-title roboto-s-regular accent--text">
+            Долгота центра
+          </p>
+          <base-text-field
+            class="item-field"
+            label="Долгота"
+            style="max-width: 150px"
+            hide-details
+          />
+        </li>
+        <li class="header__item">
+          <p class="item-title roboto-s-regular accent--text">
+            Широта центра
+          </p>
+          <base-text-field
+            class="item-field"
+            label="Широта"
+            style="max-width: 150px"
+            hide-details
+          />
+        </li>
+        <li class="header__item">
+          <p class="item-title roboto-s-regular accent--text">
+            Радиус зоны
+          </p>
+          <base-text-field
+            class="item-field"
+            label="Радиус"
+            style="max-width: 150px"
+            hide-details
+          />
+        </li>
+        <li class="header__item">
           <base-btn
-            min-width="90"
-            width="90"
-            color="hidden"
+            class="btn-create"
+            min-width="250"
+            width="250"
           >
-            <v-icon
-              class="mr-0"
-              size="24"
-              color="main"
-            >
-              $icons_trash
-            </v-icon>
+            Создать
           </base-btn>
-        </div>
-      </template>
-    </table-fields>
+        </li>
+      </ul>
+      <table-fields
+        :headers="tableHeaders"
+        :items="tableItems"
+      >
+        <template v-slot:[`item.action`]>
+          <div class="d-flex">
+            <base-btn
+              min-width="140"
+              width="140"
+              class="btn-save"
+              hide-details
+            >
+              Сохранить
+            </base-btn>
+            <base-btn
+              min-width="90"
+              width="90"
+              color="hidden"
+            >
+              <v-icon
+                class="mr-0"
+                size="24"
+                color="main"
+              >
+                $icons_trash
+              </v-icon>
+            </base-btn>
+          </div>
+        </template>
+      </table-fields>
+    </v-responsive>
   </container>
 </template>
 
@@ -120,12 +131,12 @@
       return {
         search: '',
         tableHeaders: [
-          { text: 'Название ТТ', value: 'name', fieldWidth: 250, sortable: false },
-          { text: 'Код ТТ', value: 'code', fieldWidth: 150, sortable: false },
-          { text: 'Адрес ТТ', value: 'addres', fieldWidth: 150, sortable: false },
-          { text: 'Долгота', value: 'lng', fieldWidth: 150, sortable: false },
-          { text: 'Широта', value: 'lat', fieldWidth: 150, sortable: false },
-          { text: 'Радиус', value: 'radius', fieldWidth: 150, sortable: false },
+          { text: 'Название ТТ', value: 'name', maxWidth: 250, sortable: false },
+          { text: 'Код ТТ', value: 'code', maxWidth: 150, sortable: false },
+          { text: 'Адрес ТТ', value: 'addres', maxWidth: 150, sortable: false },
+          { text: 'Долгота', value: 'lng', maxWidth: 150, sortable: false },
+          { text: 'Широта', value: 'lat', maxWidth: 150, sortable: false },
+          { text: 'Радиус', value: 'radius', maxWidth: 150, sortable: false },
           { text: '', value: 'action', sortable: false },
         ],
         tableItems: [
@@ -180,15 +191,14 @@
   margin-right: 20px;
 }
 .header__list {
-  display: flex;
+  display: table;
   list-style: none;
   margin-bottom: 40px;
   .header__item {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    &:not(:last-child) {
-      margin-right: 20px;
+    display: table-cell;
+    vertical-align: bottom;
+    &:not(:first-child) {
+      padding-left: 20px !important;
     }
     .item-title {
       margin-bottom: 10px;

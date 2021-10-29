@@ -13,7 +13,10 @@
         :key="header.value"
         class="item-field"
         :label="header.text"
-        :style="`max-width: ${header.fieldWidth}px !important`"
+        :style="
+          header.maxWidth ? `max-width: ${header.maxWidth}px !important;` : '' +
+            header.minWidth ? `min-width: ${header.minWidth}px !important` : ''
+        "
         height="50"
         hide-details
       />

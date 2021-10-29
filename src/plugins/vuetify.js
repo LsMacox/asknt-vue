@@ -35,6 +35,7 @@ export default new Vuetify({
         hidden: '#A6ABBD',
         black: '#3F3B3B',
         grey: '#959393',
+        'grey-2': '#F5F5F5',
         active: '#9B0028',
         border: '#EBECF0',
       },

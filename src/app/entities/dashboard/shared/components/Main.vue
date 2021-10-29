@@ -1,28 +1,42 @@
 <template>
   <container
     title="Дэшборд"
+    tabs
+    :tab-items="tabItems"
   >
-    <main-filter />
-    <base-data-table
-      class="dashboard-table"
-      :headers="tableHeaders"
-      :items="tableItems"
-    >
-      <template v-slot:[`item.date_shipping`]="{ item }">
-        {{ item.date_shipping | moment($config.date.MIN_DATE) }}
-      </template>
-    </base-data-table>
+    <template v-slot:[`tab-1`]>
+      <v-responsive
+        class="mx-auto"
+        max-width="1108"
+      >
+        <main-filter />
+        <base-data-table
+          class="dashboard-table"
+          :headers="tableHeaders"
+          :items="tableItems"
+        >
+          <template v-slot:[`item.date_shipping`]="{ item }">
+            {{ item.date_shipping | moment($config.date.MIN_DATE) }}
+          </template>
+        </base-data-table>
+      </v-responsive>
+    </template>
+    <template v-slot:[`tab-2`]>
+      <transport-map />
+    </template>
   </container>
 </template>
 
 <script>
+  import TransportMap from './TransportMap'
   import MainFilter from '@/app/shared/components/general/MainFilter'
   import Container from '@/app/shared/components/general/Container'
 
   export default {
-    components: { Container, MainFilter },
+    components: { Container, MainFilter, TransportMap },
     data () {
       return {
+        tabItems: [{ id: 1, text: 'Списком' }, { id: 2, text: 'На карте' }],
         tableHeaders: [
           {
             text: 'Дата отгрузки',

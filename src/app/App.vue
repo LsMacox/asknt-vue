@@ -4,8 +4,11 @@
     <notifications group="api" />
     <notifications />
 
-    <v-app>
-      <component :is="layout">
+    <v-app class="h-100">
+      <component
+        :is="layout"
+        class="h-100"
+      >
         <router-view />
       </component>
     </v-app>

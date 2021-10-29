@@ -2,41 +2,46 @@
   <container
     title="Отчеты"
   >
-    <main-filter
-      date-range-for-date-field
-      action-text="Сформировать"
-    />
-    <ul class="reports__list pa-0 d-flex">
-      <li class="reports__item d-flex">
-        <div class="b-info">
-          <p
-            class="roboto-l-medium accent--text"
-            style="margin-bottom: 10px"
+    <v-responsive
+      class="mx-auto"
+      max-width="1108"
+    >
+      <main-filter
+        date-range-for-date-field
+        action-text="Сформировать"
+      />
+      <ul class="reports__list pa-0 d-flex">
+        <li class="reports__item d-flex">
+          <div class="b-info">
+            <p
+              class="roboto-l-medium accent--text"
+              style="margin-bottom: 10px"
+            >
+              Отчет 1
+            </p>
+            <p class="roboto-sm-regular hidden--text mb-0">
+              01 января 2020 - 31 января 2020
+            </p>
+          </div>
+          <base-btn
+            min-width="151"
+            max-width="151"
+            height="44"
           >
-            Отчет 1
-          </p>
-          <p class="roboto-sm-regular hidden--text mb-0">
-            01 января 2020 - 31 января 2020
-          </p>
-        </div>
-        <base-btn
-          min-width="151"
-          max-width="151"
-          height="44"
-        >
-          <v-icon
-            style="margin-right: 5px"
-            size="24"
-            color="main--text"
-          >
-            $icons_download-square
-          </v-icon>
-          <p class="mb-0 roboto-s-regular main--text  ">
-            экспорт в .XLS
-          </p>
-        </base-btn>
-      </li>
-    </ul>
+            <v-icon
+              style="margin-right: 5px"
+              size="24"
+              color="main--text"
+            >
+              $icons_download-square
+            </v-icon>
+            <p class="mb-0 roboto-s-regular main--text  ">
+              экспорт в .XLS
+            </p>
+          </base-btn>
+        </li>
+      </ul>
+    </v-responsive>
   </container>
 </template>
 

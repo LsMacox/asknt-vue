@@ -1,32 +1,37 @@
 <template>
   <container
-    title="Отчеты"
+    title="Завершенные маршруты"
   >
-    <main-filter />
-    <base-data-table
-      class="completed_routes-table"
-      :headers="tableHeaders"
-      :items="tableItems"
+    <v-responsive
+      class="mx-auto"
+      max-width="1108"
     >
-      <template v-slot:[`item.date`]="{ item }">
-        {{ item.date | moment($config.date.MIN_DATE) }}
-      </template>
-      <template v-slot:[`item.action`]>
-        <base-btn
-          class="pa-0"
-          height="24"
-          width="24"
-          min-width="24"
-        >
-          <v-icon
-            size="16"
-            class="mr-0"
+      <main-filter />
+      <base-data-table
+        class="completed_routes-table"
+        :headers="tableHeaders"
+        :items="tableItems"
+      >
+        <template v-slot:[`item.date`]="{ item }">
+          {{ item.date | moment($config.date.MIN_DATE) }}
+        </template>
+        <template v-slot:[`item.action`]>
+          <base-btn
+            class="pa-0"
+            height="24"
+            width="24"
+            min-width="24"
           >
-            $icons_download-circle
-          </v-icon>
-        </base-btn>
-      </template>
-    </base-data-table>
+            <v-icon
+              size="16"
+              class="mr-0"
+            >
+              $icons_download-circle
+            </v-icon>
+          </base-btn>
+        </template>
+      </base-data-table>
+    </v-responsive>
   </container>
 </template>
 

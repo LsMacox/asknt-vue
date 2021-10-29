@@ -74,15 +74,6 @@
 <style lang="scss" scoped>
 ::v-deep {
   .dialog-token {
-    .card-title {
-      padding: 40px 55px 0 55px !important;
-    }
-    .card-text {
-      padding: 10px 40px 20px 55px !important;
-    }
-    .card-action {
-      padding: 66px 40px 40px 40px !important;
-    }
     .field-token {
       padding: 0 40px 0 40px;
       .v-input__slot {

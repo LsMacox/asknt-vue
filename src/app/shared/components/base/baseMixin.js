@@ -7,7 +7,7 @@ export default {
       const attrs = {}
       // eslint-disable-next-line no-unused-vars
       for (const [key, val] of Object.entries(this.$attrs)) {
-        attrs[camelCase(key)] = camelCase(val)
+        attrs[camelCase(key)] = val
       }
       return attrs
     },
