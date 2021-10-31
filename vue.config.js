@@ -12,7 +12,7 @@ process.env.VUE_APP_VERSION = packageJson.version
 process.env.VUE_APP_NAME = name
 
 module.exports = {
-  publicPath: '/',
+  publicPath: '',
   outputDir: 'dist',
   assetsDir: 'assets',
   lintOnSave: process.env.NODE_ENV === 'development',
