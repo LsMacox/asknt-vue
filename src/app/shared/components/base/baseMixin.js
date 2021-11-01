@@ -29,10 +29,12 @@ export default {
   },
   methods: {
     existsAttrAndFalse (propName) {
-      return !Object.keys(this.$attrs).includes(propName) ||
+      const name = camelCase(propName)
+
+      return !Object.keys(this.attrs).includes(name) ||
       (
-        Object.keys(this.$attrs).includes(propName) &&
-        this.$attrs[propName] === false
+        Object.keys(this.attrs).includes(name) &&
+        this.attrs[name] === false
       )
     },
   },

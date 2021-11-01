@@ -14,6 +14,7 @@
           class="dashboard-table"
           :headers="tableHeaders"
           :items="tableItems"
+          hide-default-header="false"
         >
           <template v-slot:[`item.date_shipping`]="{ item }">
             {{ item.date_shipping | moment($config.date.MIN_DATE) }}

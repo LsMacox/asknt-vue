@@ -2,8 +2,6 @@ import Vue from 'vue'
 import YmapPlugin from 'vue-yandex-maps'
 import { yandexMapApiKey } from '@/environment'
 
-console.log('yandexMapApiKey', yandexMapApiKey, process.env)
-
 Vue.use(YmapPlugin, {
   apiKey: yandexMapApiKey,
   lang: 'ru_RU',
