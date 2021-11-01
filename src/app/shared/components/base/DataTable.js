@@ -10,7 +10,7 @@ export default {
       props: {
         hideDefaultHeader: true,
         hideDefaultFooter: true,
-        ...this.$attrs,
+        ...this.attrs,
       },
       on: {
         ...this.$listeners,

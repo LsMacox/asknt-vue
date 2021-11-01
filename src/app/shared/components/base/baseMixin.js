@@ -30,11 +30,12 @@ export default {
   methods: {
     existsAttrAndFalse (propName) {
       const name = camelCase(propName)
+      console.log('existsAttrAndFalse', this.attrs)
 
-      return !Object.keys(this.attrs).includes(name) ||
+      return Object.keys(this.attrs).includes(name) ||
       (
         Object.keys(this.attrs).includes(name) &&
-        this.attrs[name] === false
+        this.attrs[name] !== false
       )
     },
   },
