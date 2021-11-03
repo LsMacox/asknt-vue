@@ -28,7 +28,7 @@ export default {
     },
   },
   methods: {
-    existsAttrAndFalse (propName) {
+    existsAttrAndNotFalse (propName) {
       const name = camelCase(propName)
 
       return Object.keys(this.attrs).includes(name) ||

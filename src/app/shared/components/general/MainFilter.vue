@@ -17,7 +17,7 @@
       <base-date-picker
         v-model="dateRange"
         class="field-filter field-date"
-        :class="{ 'open-more': dateRangeForDateField }"
+        :class="{ 'open-more': dateRangeForDateField && showMore }"
         :min-date="$moment('23.10.2021', 'DD.MM.YYYY').toDate()"
         :date-format="$config.date.MIN_DATE"
         label="Период дат"
@@ -34,7 +34,7 @@
         @change="on.change('carrier', $event)"
       />
     </template>
-    <template v-slot:filters-more>
+    <template v-slot:filters-more="{ on }">
       <base-select
         class="field-filter"
         :items="selectItems"

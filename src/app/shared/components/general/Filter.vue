@@ -12,14 +12,20 @@
             'filters-more--hide': !showMore
           }"
         >
-          <slot name="filters-more" />
+          <slot
+            name="filters-more"
+            :on="{ change }"
+          />
         </div>
       </v-col>
       <v-col
-        class="d-flex justify-end align-center"
+        class="col-action d-flex justify-end"
         cols="3"
       >
-        <base-btn @click="$emit('filter', value)">
+        <base-btn
+          class="btn-find"
+          @click="$emit('filter', value)"
+        >
           {{ actionText }}
         </base-btn>
       </v-col>
@@ -101,5 +107,8 @@
   &.filters-more--hide {
     display: none;
   }
+}
+.btn-find {
+  margin-top: 26px;
 }
 </style>

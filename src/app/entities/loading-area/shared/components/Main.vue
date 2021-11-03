@@ -194,6 +194,7 @@
   display: table;
   list-style: none;
   margin-bottom: 40px;
+  width: 100%;
   .header__item {
     display: table-cell;
     vertical-align: bottom;

@@ -25,7 +25,7 @@
           </div>
           <base-btn
             min-width="151"
-            max-width="151"
+            max-width="166"
             height="44"
           >
             <v-icon

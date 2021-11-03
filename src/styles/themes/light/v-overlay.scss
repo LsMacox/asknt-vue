@@ -1,0 +1,10 @@
+.theme--light {
+  .v-overlay {
+    &.v-overlay--active {
+      .v-overlay__scrim {
+        background-color: var(--v-main-base) !important;
+        opacity: 0.7 !important;
+      }
+    }
+  }
+}

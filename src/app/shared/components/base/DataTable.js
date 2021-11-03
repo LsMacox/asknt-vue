@@ -19,7 +19,7 @@ export default {
         ...this.$slots,
         ...this.$scopedSlots,
         header: (data) => {
-          if (this.existsAttrAndFalse('hideDefaultHeader')) return
+          if (this.existsAttrAndNotFalse('hideDefaultHeader')) return
 
           return createElement(VDataTableHeader, {
             props: {

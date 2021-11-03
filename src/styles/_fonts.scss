@@ -68,6 +68,12 @@
 .roboto-xl-medium {
   @include roboto-xl-medium;
 }
+.roboto-s-bold {
+  @include roboto-s-bold;
+}
+.roboto-xl-bold {
+  @include roboto-xl-medium;
+}
 .futura-pt-m-bold {
   @include futura-pt-m-medium;
 }

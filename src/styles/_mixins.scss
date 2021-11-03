@@ -8,3 +8,33 @@
     margin: 0;
   }
 }
+
+@mixin scrollbar {
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: var(--v-primary-base);
+    border-radius: 60px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 60px;
+    background-color: var(--v-info-base);
+  }
+}
+
+@mixin border-bottom-dashed {
+  position: relative;
+  &:before {
+    content: '';
+    width: 100%;
+    bottom: -1px;
+    position: absolute;
+    border: 1px dashed var(--v-secondary-base);
+  }
+}
+
+@mixin text-to-href {
+  cursor: pointer;
+  @include border-bottom-dashed;
+}

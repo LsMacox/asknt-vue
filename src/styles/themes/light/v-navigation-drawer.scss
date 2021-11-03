@@ -1,0 +1,10 @@
+.v-navigation-drawer.theme--light {
+  background-color: var(--v-primary-base) !important;
+  box-shadow: -10px 4px 20px rgba(63, 59, 59, 0.1) !important;
+  .v-navigation-drawer__content {
+    padding: 40px 120px 53px 120px;
+  }
+  .v-navigation-drawer__border {
+    background-color: transparent !important;
+  }
+}

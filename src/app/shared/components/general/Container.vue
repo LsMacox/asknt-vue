@@ -81,7 +81,7 @@
   overflow: visible;
 }
 .c-title {
-  margin-bottom: 64px !important;
+  margin-bottom: 40px !important;
 }
 .field-search {
   position: absolute;

@@ -5,7 +5,7 @@ import { LoadSvgIcons, CUSTOM_ICONS } from './icons'
 
 Vue.use(Vuetify)
 
-export default new Vuetify({
+const $vuetify = new Vuetify({
   icons: {
     values: {
       ...LoadSvgIcons(CUSTOM_ICONS),
@@ -42,3 +42,11 @@ export default new Vuetify({
     },
   },
 })
+
+export const frameworkTheme = $vuetify.framework.theme
+
+export const theme = frameworkTheme.isDark
+  ? frameworkTheme.themes.dark
+  : frameworkTheme.themes.light
+
+export default $vuetify

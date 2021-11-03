@@ -15,6 +15,7 @@
           :headers="tableHeaders"
           :items="tableItems"
           :hide-default-header="false"
+          @click:row="showSidePanel = !showSidePanel"
         >
           <template v-slot:[`item.date_shipping`]="{ item }">
             {{ item.date_shipping | moment($config.date.MIN_DATE) }}
@@ -25,18 +26,21 @@
     <template v-slot:[`tab-2`]>
       <transport-map />
     </template>
+    <transport-side-panel v-model="showSidePanel" />
   </container>
 </template>
 
 <script>
+  import TransportSidePanel from './TransportSidePanel'
   import TransportMap from './TransportMap'
   import MainFilter from '@/app/shared/components/general/MainFilter'
   import Container from '@/app/shared/components/general/Container'
 
   export default {
-    components: { Container, MainFilter, TransportMap },
+    components: { Container, MainFilter, TransportMap, TransportSidePanel },
     data () {
       return {
+        showSidePanel: false,
         tabItems: [{ id: 1, text: 'Списком' }, { id: 2, text: 'На карте' }],
         tableHeaders: [
           {

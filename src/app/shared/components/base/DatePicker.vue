@@ -223,6 +223,9 @@
     border: none;
     box-shadow: $block-box-shadow;
     min-width: 0;
+    .drp-calendar {
+      padding: 0 3px;
+    }
     &:before {
       content: none;
     }
