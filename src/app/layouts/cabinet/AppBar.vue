@@ -113,6 +113,9 @@
     content: none;
     background-color: none;
   }
+  .nav-title {
+    font-weight: 400 !important;
+  }
   &.nav-item--active {
     &:before {
       content: '';
@@ -125,7 +128,6 @@
     }
     .nav-title {
       color: var(--v-secondary-base) !important;
-      font-weight: 400 !important;
     }
     .nav-icon {
       & ::v-deep {
