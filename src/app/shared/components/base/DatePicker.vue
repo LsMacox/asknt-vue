@@ -260,6 +260,7 @@
             color: #3F3B3B;
             &.month {
               @include roboto-l-regular;
+              font-size: 16px;
               padding-bottom: 7px;
             }
             &.prev {

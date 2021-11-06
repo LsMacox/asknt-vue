@@ -125,6 +125,7 @@
     }
     .nav-title {
       color: var(--v-secondary-base) !important;
+      font-weight: 400 !important;
     }
     .nav-icon {
       & ::v-deep {
