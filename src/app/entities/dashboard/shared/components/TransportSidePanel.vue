@@ -6,7 +6,7 @@
   >
     <block
       class="d-flex aligh-center"
-      style="min-height: 190px; padding: 25px 24px 5px 24px"
+      style="min-height: 190px; padding: 25px 24px 0 24px"
     >
       <ul class="info__list">
         <li
@@ -76,27 +76,32 @@
         </li>
         <li class="info__item">
           <base-btn
-            width="187"
             min-width="187"
+            max-width="187"
+            height="48"
           >
             <v-img
               :src="require('@/assets/icons/phone.png')"
               max-height="22"
               max-width="22"
-              style="margin-right: 8px;"
+              style="margin: 0 5px 0 0 !important;"
             />
-            <p class="text-button text-capitalize mb-0">
+            <p
+              class="roboto-l-regular main--text mb-0"
+              style="letter-spacing: normal"
+            >
               Позвонить
             </p>
           </base-btn>
         </li>
       </ul>
     </block>
+
     <div class="d-flex">
       <block style="min-height: 257px; padding: 21px 24px 16px 24px; margin-right: 36px; width: 564px">
         <p
           class="roboto-l-medium accent--text"
-          style="margin-bottom: 26px; margin-top: 17px;"
+          style="margin-bottom: 40px;margin-top: 6px;"
         >
           Детали маршрута
         </p>
@@ -134,7 +139,7 @@
             </p>
           </li>
           <li
-            class="info__item"
+            class="info__item mb-0"
             style="margin-right: 166px"
           >
             <p class="roboto-s-regular info--text">
@@ -145,7 +150,7 @@
             </p>
           </li>
           <li
-            class="info__item"
+            class="info__item mb-0"
           >
             <p class="roboto-s-regular info--text">
               Склад отгрузки
@@ -162,7 +167,7 @@
       >
         <p
           class="roboto-s-regular info--text"
-          style="margin-top: 19px; margin-bottom: 17px"
+          style="margin-top: 19px; margin-bottom: 20px"
         >
           Прогресс маршрута
         </p>
@@ -171,22 +176,29 @@
           circle-color="var(--v-primary-base)"
           start-color="var(--v-secondary-base)"
           stop-color="var(--v-secondary-base)"
-          :diameter="140"
+          :diameter="150"
           :circle-width="12"
           :total-steps="100"
         >
-          <p class="roboto-xl-bold accent--text mb-0">
+          <p
+            class="roboto-xl-bold accent--text mb-0"
+            style="font-size: 36px !important; font-weight: 700 !important;"
+          >
             45%
           </p>
         </progress-circle>
       </block>
     </div>
+
     <div class="d-flex">
       <block
         class="d-flex flex-row align-center"
-        style="padding: 32px 40px 32px 20px; margin-right: 30px; min-height: 120px; width: 280px"
+        style="padding: 35px 40px 32px 20px; margin-right: 30px; min-height: 120px; width: 280px"
       >
-        <p class="roboto-s-regular info--text mb-0">
+        <p
+          class="roboto-s-regular info--text mb-0"
+          style="line-height: 22px;"
+        >
           Текущая температура
         </p>
         <p
@@ -198,21 +210,24 @@
       </block>
       <block
         class="d-flex flex-row align-center"
-        style="padding: 32px 40px 32px 20px; margin-right: 30px; min-height: 120px; width: 280px"
+        style="padding: 35px 40px 32px 20px; margin-right: 30px; min-height: 120px; width: 280px"
       >
-        <p class="roboto-s-regular info--text mb-0">
+        <p
+          class="roboto-s-regular info--text mb-0"
+          style="line-height: 22px;"
+        >
           Средняя температура
         </p>
         <p
           class="roboto-xl-bold accent--text mb-0"
-          style="font-size: 56px"
+          style="font-size: 56px;"
         >
           +2°
         </p>
       </block>
       <block
         class="d-flex flex-column"
-        style="padding: 32px 40px 32px 20px; min-height: 120px; width: 280px"
+        style="padding: 38px 40px 32px 20px; min-height: 120px; width: 280px"
       >
         <div
           class="d-flex align-center"
@@ -241,6 +256,7 @@
         </div>
       </block>
     </div>
+
     <block
       class="d-flex flex-column"
       style="padding: 32px 40px 32px 20px; min-height: 432px;"
@@ -253,12 +269,17 @@
         :plugins="chartPlugins"
       />
     </block>
+
     <block class="b-violations d-flex flex-column">
       <div class="d-flex violations-header align-center justify-space-between">
-        <p class="roboto-l-medium accent--text mb-0">
+        <p
+          class="roboto-l-medium accent--text mb-0"
+          style="min-height: 36px;"
+        >
           Нарушения
         </p>
         <v-btn
+          v-if="!showPayOff"
           class="violations__btn-filter"
           text
         >
@@ -268,47 +289,130 @@
           >
             $icons_filter
           </v-icon>
-          <p
-            class="roboto-s-regular accent--text mb-0"
-            style="text-decoration-style: dashed; text-decoration-line: underline"
-          >
+          <p class="roboto-s-regular accent--text mb-0">
             Сортировать
           </p>
         </v-btn>
       </div>
 
-      <base-data-table
-        class="violations-table"
-        :headers="tableHeaders"
-        :items="tableItems"
-        :hide-default-header="false"
-      >
-        <template v-slot:[`header.checkbox`]>
-          <v-checkbox
-            v-model="checkedAllTableItems"
-            class="header-checkbox"
-            color="secondary"
-            on-icon="$icons_checked"
-            off-icon="$icons_checked-off"
-            value="secondary"
-            hide-details
-          />
-        </template>
-        <template v-slot:[`item.checkbox`]="{ item }">
-          <v-checkbox
-            v-model="item.checked"
-            color="secondary"
-            on-icon="$icons_checked"
-            off-icon="$icons_checked-off"
-            value="secondary"
-            hide-details
-          />
-        </template>
-        <template v-slot:[`item.date_time`]="{ item }">
-          {{ item.date_time | moment($config.date.MAX_DATE) }}
-        </template>
-      </base-data-table>
+      <template v-if="!showPayOff">
+        <base-data-table
+          class="violations-table"
+          :headers="tableHeaders"
+          :items="tableItems"
+          :hide-default-header="false"
+        >
+          <template v-slot:[`header.checkbox`]>
+            <v-checkbox
+              class="header-checkbox"
+              color="secondary"
+              on-icon="$icons_checked"
+              off-icon="$icons_checked-off"
+              :ripple="false"
+              hide-details
+              @change="violationItemsChecked($event)"
+            />
+          </template>
+          <template v-slot:[`item.checkbox`]="{ item }">
+            <v-checkbox
+              v-model="item.checked"
+              color="secondary"
+              on-icon="$icons_checked"
+              off-icon="$icons_checked-off"
+              :ripple="false"
+              hide-details
+            />
+          </template>
+          <template v-slot:[`item.date_time`]="{ item }">
+            {{ item.date_time | moment($config.date.MAX_DATE) }}
+          </template>
+        </base-data-table>
+        <div
+          v-if="violationCount"
+          class="violations__control"
+        >
+          <p class="count-text roboto-s-regular mb-0 accent--text">
+            Выбрано {{ violationCount }} нарушение
+          </p>
+          <base-btn
+            class="btn-cancel"
+            min-width="160"
+            max-width="160"
+            height="40"
+            color="hidden"
+            @click="violationItemsChecked(false)"
+          >
+            <p
+              class="text-button main--text mb-0"
+            >
+              Отменить
+            </p>
+          </base-btn>
+          <base-btn
+            class="btn-action"
+            min-width="160"
+            max-width="160"
+            height="40"
+            @click="showPayOff = true"
+          >
+            <p
+              class="text-button main--text mb-0"
+            >
+              Погасить
+            </p>
+          </base-btn>
+        </div>
+      </template>
+      <template v-else>
+        <p
+          class="roboto-s-regular accent--text mb-2"
+          style="margin-top: 26px;"
+        >
+          Комментарий диспетчера
+        </p>
+        <v-textarea
+          v-model="payoffComment"
+          :single-line="false"
+          outlined
+          hide-details
+          style="max-width: 500px"
+          placeholder="Выберите склады"
+        />
+        <div
+          class="d-flex"
+          style="margin-top: 20px; margin-bottom: 106px;"
+        >
+          <base-btn
+            class="btn-action"
+            min-width="160"
+            max-width="160"
+            height="40"
+            style="margin-right: 20px;"
+          >
+            <p
+              class="text-button main--text mb-0"
+            >
+              Погасить
+            </p>
+          </base-btn>
+          <base-btn
+            class="btn-cancel"
+            min-width="160"
+            max-width="160"
+            height="40"
+            color="hidden"
+            @click="showPayOff = false"
+          >
+            <p
+              class="text-button main--text mb-0"
+            >
+              Отменить
+            </p>
+          </base-btn>
+        </div>
+      </template>
     </block>
+
     <block class="b-routes_map d-flex flex-column">
       <ul class="routes-map__list">
         <li
@@ -319,18 +423,22 @@
           <div class="item-title">
             <p
               class="roboto-s-medium secondary--text mb-0"
-              @click="toggleShow(rmap.uuid)"
+              @click="toggleMore(rmap.uuid)"
               v-text="rmap.transportName"
             />
-            <p
-              class="roboto-s-medium secondary--text mb-0"
-              @click="toggleShow(rmap.uuid)"
+            <v-btn
+              class="btn-more text-center"
+              text
+              @click="toggleMore(rmap.uuid)"
             >
-              {{ itemShowList[rmap.uuid] ? 'Свернуть все' : 'Развернуть' }}
-            </p>
+              <p
+                class="roboto-s-medium secondary--text ma-0"
+              >
+                {{ itemShowList[rmap.uuid] ? 'Свернуть все' : 'Развернуть' }}
+              </p>
+            </v-btn>
           </div>
           <ul
-            v-if="itemShowList[rmap.uuid]"
             class="points__list"
           >
             <li
@@ -407,13 +515,14 @@
     data () {
       return {
         internalValue: false,
+        showPayOff: false,
+        payoffComment: '',
         tableHeaders: [
           { text: '', align: 'start', sortable: false, class: 'header-checkbox', cellClass: 'item-checkbox', value: 'checkbox' },
           { text: 'Дата и время', align: 'start', class: 'header-date_time', cellClass: 'item-date_time', sortable: false, value: 'date_time' },
           { text: 'Тип нарушения', value: 'type', sortable: false },
           { text: 'Текст нарушения ', value: 'text', cellClass: 'info--text', sortable: false },
         ],
-        checkedAllTableItems: false,
         itemShowList: {},
         routesMap: [
           {
@@ -711,6 +820,11 @@
         }],
       }
     },
+    computed: {
+      violationCount () {
+        return this.$_.where(this.tableItems, { checked: true }).length
+      },
+    },
     watch: {
       value (v) {
         this.internalValue = v
@@ -718,21 +832,39 @@
       internalValue (v) {
         this.$emit('update', v)
       },
-      checkedAllTableItems (v) {
-        this.tableItems = this.tableItems.map(item => {
-          item.checked = v
-          return item
-        })
-      },
     },
     methods: {
       toggleShow (id) {
         if (Object.keys(this.itemShowList).includes(id)) {
           delete this.itemShowList[id]
           this.itemShowList = Object.assign({}, this.itemShowList)
-          return
+          return false
         }
         this.$set(this.itemShowList, id, id)
+        return true
+      },
+      toggleMore (id) {
+        const ids = this.routesMap.map(rm => {
+          return rm.points.map(p => p.uuid)
+        }).flat()
+
+        const isShowMore = this.toggleShow(id)
+
+        ids.forEach(id => {
+          if (isShowMore) {
+            this.itemShowList[id] = id
+          } else if (this.itemShowList[id]) {
+            delete this.itemShowList[id]
+          }
+        })
+
+        this.itemShowList = Object.assign({}, this.itemShowList)
+      },
+      violationItemsChecked (bool) {
+        this.tableItems = this.tableItems.map(item => {
+          item.checked = bool
+          return item
+        })
       },
     },
   }
@@ -745,7 +877,7 @@
   display: flex;
   flex-wrap: wrap;
   .info__item {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     p {
       &:first-child {
         margin-bottom: 10px;
@@ -754,6 +886,7 @@
   }
 }
 .b-violations {
+  position: relative;
   padding: 27px 24px 20px 24px;
   .violations-table {
     & ::v-deep {
@@ -797,10 +930,43 @@
   .violations-header {
     margin-bottom: 16px;
   }
+  .violations__control {
+    position: absolute;
+    height: 118px;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background: linear-gradient(177.86deg, rgba(255, 255, 255, 0.4) 1.8%, #FFFFFF 98.2%);
+    display: flex;
+    align-items: center;
+    .count-text {
+      margin: 0 61px;
+    }
+    .btn-cancel {
+      margin-right: 20px;
+    }
+  }
   .violations__btn-filter {
+    &:hover {
+      & ::v-deep {
+        p {
+          &:before {
+            background-image: linear-gradient(to right, var(--v-secondary-base) 43%, rgba(255,255,255,0) 0%);
+          }
+        }
+      }
+    }
     & ::v-deep {
       .v-icon {
         margin-right: 5px !important;
+      }
+      p {
+        @include text-to-href;
+        &:before {
+          bottom: -1px;
+          background-image: linear-gradient(to right, var(--v-accent-base) 43%, rgba(255,255,255,0) 0%);
+          background-size: 4px 1px;
+        }
       }
     }
   }
@@ -856,9 +1022,13 @@
             margin-left: 65px;
             @include text-to-href;
           }
-          &:nth-child(2) {
-            margin-right: 96px;
-            @include text-to-href;
+        }
+        .btn-more {
+          margin-right: 80px;
+          & ::v-deep {
+            p {
+              @include text-to-href;
+            }
           }
         }
       }

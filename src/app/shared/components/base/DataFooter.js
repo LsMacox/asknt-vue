@@ -1,5 +1,6 @@
 import VDataFooter from 'vuetify/lib/components/VDataIterator/VDataFooter.js'
 import BaseTextField from './TextField.vue'
+import { VSelect } from 'vuetify/lib'
 import { getSlot } from 'vuetify/lib/util/helpers'
 
 export default {
@@ -71,7 +72,7 @@ export default {
               },
             },
           }),
-          this.$createElement('p', { staticClass: 'roboto-s-regular mb-0', style: { marginLeft: '5px' } }, 'из ' + this.pagination.pageCount),
+          this.$createElement('p', { staticClass: 'pagination-total roboto-s-regular mb-0' }, 'из ' + this.pagination.pageCount),
         ]
       } else if (this.$scopedSlots['page-text']) {
         children = [this.$scopedSlots['page-text']({
@@ -86,23 +87,23 @@ export default {
       }, children)
     },
     genItemsPerPageSelect () {
-      const value = this.options.itemsPerPage
+      let value = this.options.itemsPerPage
+      const computedIPPO = this.computedDataItemsPerPageOptions
+      if (computedIPPO.length <= 1) return null
+      if (!computedIPPO.find(ippo => ippo.value === value)) value = computedIPPO[0]
       return this.$createElement('div', {
-        staticClass: 'v-data-footer__select pagination-field',
-      }, [this.itemsPerPageText, this.$createElement(BaseTextField, {
-        staticClass: 'pagination-field',
-        style: {
-          marginLeft: '5px',
-        },
+        staticClass: 'v-data-footer__select',
+      }, [this.$vuetify.lang.t(this.itemsPerPageText), this.$createElement(VSelect, {
         attrs: {
-          type: 'number',
-          min: 1,
-          hideDetails: true,
-          value,
+          'aria-label': this.$vuetify.lang.t(this.itemsPerPageText),
         },
         props: {
-          height: '22',
+          disabled: this.disableItemsPerPage,
+          items: computedIPPO,
           value,
+          hideDetails: true,
+          auto: true,
+          height: '22px',
         },
         on: {
           input: this.onChangeItemsPerPage,

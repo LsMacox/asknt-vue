@@ -26,11 +26,15 @@
 @mixin border-bottom-dashed {
   position: relative;
   &:before {
-    content: '';
+    content: "";
     width: 100%;
-    bottom: -1px;
+    bottom: 0px;
     position: absolute;
-    border: 1px dashed var(--v-secondary-base);
+    height: 100%;
+    background-image: linear-gradient(to right, var(--v-secondary-base) 43%, rgba(255,255,255,0) 0%);
+    background-position: bottom;
+    background-size: 9px 1px;
+    background-repeat: repeat-x;
   }
 }
 

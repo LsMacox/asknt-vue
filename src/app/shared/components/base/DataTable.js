@@ -32,7 +32,8 @@ export default {
         },
         footer: ({ props, on }) => {
           props.itemsPerPageText = 'Строк'
-          props.itemsPerPage = 5
+          props.itemsPerPage = 10
+          props.itemsPerPageOptions = [10, 20, 50, 100, -1]
           return createElement(BaseDataFooter, { attrs: { ...props }, on })
         },
       },

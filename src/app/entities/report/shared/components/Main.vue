@@ -25,7 +25,7 @@
           </div>
           <base-btn
             min-width="151"
-            max-width="166"
+            max-width="151"
             height="44"
           >
             <v-icon
@@ -35,7 +35,10 @@
             >
               $icons_download-square
             </v-icon>
-            <p class="mb-0 roboto-s-regular main--text  ">
+            <p
+              class="roboto-s-regular main--text mb-0"
+              style="letter-spacing: normal"
+            >
               экспорт в .XLS
             </p>
           </base-btn>

@@ -1,0 +1,14 @@
+.v-textarea.theme--light {
+  textarea {
+    margin-top: 13px;
+    margin-bottom: 13px;
+    border: none;
+    resize: none;
+    caret-color: var(--v-hidden-base);
+    @include roboto-m-regular;
+    line-height: 1.4rem;
+    &::placeholder {
+      color: var(--v-hidden-base);
+    }
+  }
+}

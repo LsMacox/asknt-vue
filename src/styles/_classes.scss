@@ -1,6 +1,5 @@
 .text-href {
-  cursor: pointer;
-  border-bottom: 1px dashed var(--v-secondary-base);
+  @include text-to-href
 }
 .table--hover__none {
   tr {
