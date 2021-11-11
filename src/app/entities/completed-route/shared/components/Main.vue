@@ -99,7 +99,7 @@
   & ::v-deep {
     .v-data-table-header {
       tr > th {
-        padding-bottom: 10px !important;
+        padding-bottom: 0 !important;
         span {
           font-weight: 400 !important;
           font-size: 16px !important;
@@ -117,7 +117,7 @@
         }
         &:not(:last-child) {
           td {
-            padding-bottom: 20px !important;
+            padding-bottom: 16px !important;
           }
         }
         &:hover {

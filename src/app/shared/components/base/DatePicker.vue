@@ -62,7 +62,7 @@
         :key="idx"
         @click="update(drt)"
       >
-        <p class="roboto-s-regular text-href mb-0">
+        <p class="roboto-s-regular mb-0">
           {{ drt.text }}
         </p>
       </li>
@@ -209,6 +209,13 @@
   margin-top: 20px;
   li {
     margin-right: 20px;
+  }
+  p {
+    @include text-to-href;
+    &:before {
+      bottom: -2px;
+      background-size: 4px 1px;
+    }
   }
 }
 

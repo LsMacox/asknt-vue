@@ -5,12 +5,11 @@
     :action-text="actionText"
   >
     <template v-slot:filters="{ on }">
-      <base-select
+      <base-autocomplete
         class="field-filter"
         :items="selectItems"
         title="Склад отгрузки"
-        label="Склад отгрузки"
-        height="48"
+        placeholder="Склад отгрузки"
         hide-details
         @change="on.change('shipping-warehouse', $event)"
       />
@@ -22,56 +21,56 @@
         :date-format="$config.date.MIN_DATE"
         label="Период дат"
         title="Дата отгрузки"
-        :text-ranges="dateRangeForDateField ? true : false"
+        :text-ranges="dateRangeForDateField"
         @change="on.change('shipping-date', $event)"
       />
-      <base-select
+      <base-autocomplete
         class="field-filter mr-0"
         :items="selectItems"
         title="Перевозчик"
-        label="Перевозчик"
+        placeholder="Перевозчик"
         hide-details
         @change="on.change('carrier', $event)"
       />
     </template>
     <template v-slot:filters-more="{ on }">
-      <base-select
+      <base-autocomplete
         class="field-filter"
         :items="selectItems"
         title="Выбор машины"
-        label="Машина"
+        placeholder="Машина"
         hide-details
         @change="on.change('car', $event)"
       />
-      <base-select
+      <base-autocomplete
         class="field-filter"
         :items="selectItems"
         title="Грузоподъемность"
-        label="Грузоподъемность"
+        placeholder="Грузоподъемность"
         hide-details
         @change="on.change('carrying-capacity', $event)"
       />
-      <base-select
+      <base-autocomplete
         class="field-filter mr-0"
         :items="selectItems"
         title="Транспортировка"
-        label="Транспортировка"
+        placeholder="Транспортировка"
         hide-details
-        @change="on.change('transportation', $event)"
+        @change="on.change('transportationy', $event)"
       />
-      <base-select
+      <base-autocomplete
         class="field-filter"
         :items="selectItems"
         title="Водитель"
-        label="ФИО водителя"
+        placeholder="ФИО водителя"
         hide-details
         @change="on.change('driver', $event)"
       />
-      <base-select
+      <base-autocomplete
         class="field-filter"
         :items="selectItems"
         title="Маршрут"
-        label="Маршрут"
+        placeholder="Маршрут"
         hide-details
         @change="on.change('route', $event)"
       />

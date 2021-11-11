@@ -131,9 +131,9 @@
       return {
         search: '',
         tableHeaders: [
-          { text: 'Название ТТ', value: 'name', maxWidth: 250, sortable: false },
-          { text: 'Код ТТ', value: 'code', maxWidth: 150, sortable: false },
-          { text: 'Адрес ТТ', value: 'addres', maxWidth: 150, sortable: false },
+          { text: 'Название зоны загрузки', value: 'name', maxWidth: 250, sortable: false },
+          { text: 'id SAP', value: 'code', maxWidth: 150, sortable: false },
+          { text: 'id 1C', value: 'addres', maxWidth: 150, sortable: false },
           { text: 'Долгота', value: 'lng', maxWidth: 150, sortable: false },
           { text: 'Широта', value: 'lat', maxWidth: 150, sortable: false },
           { text: 'Радиус', value: 'radius', maxWidth: 150, sortable: false },
@@ -211,8 +211,6 @@
           background: var(--v-main-base);
         }
       }
-    }
-    .btn-create {
     }
   }
 }

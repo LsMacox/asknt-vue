@@ -1,0 +1,10 @@
+.v-autocomplete.theme--light {
+  .v-input__icon--append {
+    .v-icon > .v-icon__component {
+      color: var(--v-hidden-base) !important;
+      font-size: 20px;
+      height: 20px;
+      width: 20px;
+    }
+  }
+}
