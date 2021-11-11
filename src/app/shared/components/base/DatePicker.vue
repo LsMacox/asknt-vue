@@ -269,6 +269,7 @@
               @include roboto-l-regular;
               font-size: 16px;
               padding-bottom: 7px;
+              cursor: default;
             }
             &.prev {
               left: 47px;
@@ -284,6 +285,7 @@
               display: none;
               min-width: 24px;
               width: 24px;
+              outline: none;
               span {
                 border: none;
                 transform: none;
