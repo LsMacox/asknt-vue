@@ -175,8 +175,6 @@
         }
       }
     }
-    .btn-create {
-    }
   }
 }
 </style>
