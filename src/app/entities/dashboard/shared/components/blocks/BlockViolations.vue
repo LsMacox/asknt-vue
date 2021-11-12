@@ -33,6 +33,7 @@
       >
         <template v-slot:[`header.checkbox`]>
           <v-checkbox
+            :value="allItemsChecked"
             class="header-checkbox"
             color="secondary"
             on-icon="$icons_checked"
@@ -225,6 +226,9 @@
     computed: {
       violationCount () {
         return this.$_.where(this.tableItems, { checked: true }).length
+      },
+      allItemsChecked () {
+        return this.tableItems.every(item => item.checked)
       },
     },
     methods: {
