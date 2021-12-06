@@ -26,7 +26,7 @@ else
     npm install
 fi
 
-npm run build
+NODE_OPTIONS=--max_old_space_size=4096 npm run build
 
 if [ -d "$DIR_BACKEND" ]; then
   cp -r ./dist/* "$DIR_BACKEND"'/public/'
