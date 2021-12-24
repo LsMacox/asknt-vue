@@ -14,7 +14,7 @@
       />
     </v-responsive>
     <slot />
-    <field-search
+    <search-field
       v-if="search"
       class="field-search"
       :label="searchLabel"
@@ -48,10 +48,10 @@
 </template>
 
 <script>
-  import FieldSearch from '@/app/shared/components/general/SearchField'
+  import SearchField from '@/app/shared/components/general/SearchField'
 
   export default {
-    components: { FieldSearch },
+    components: { SearchField },
     props: {
       title: {
         type: String,

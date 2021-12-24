@@ -6,5 +6,11 @@
       right: inherit !important;
       position: relative !important;
     }
+    &.table-field--positioning {
+      max-width: 1390px;
+      position: relative;
+      right: 8vw;
+      float: right;
+    }
   }
 }

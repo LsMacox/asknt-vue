@@ -1,4 +1,13 @@
 .v-text-field.theme--light {
+  &.details--absolute {
+    .v-input__slot {
+      margin-bottom: 0 !important;
+    }
+    .v-text-field__details {
+      position: absolute;
+      top: calc(100% + 4px);
+    }
+  }
   &.v-text-field--outlined {
     .v-input__slot {
       fieldset {
@@ -19,7 +28,7 @@
   .v-input__slot {
     margin-bottom: 0;
   }
-  &.v-input--has-state {
+  &.v-input--has-state:not(.v-input--hide-details) {
     .v-input__slot {
       margin-bottom: 4px;
     }

@@ -5,11 +5,16 @@
       margin-right: 8px;
     }
   }
+  &.secondary.v-btn--has-bg {
+    &:hover {
+      background: var(--v-active-base) !important;
+    }
+  }
   &.v-btn--disabled.v-btn--has-bg {
-    background-color: var(--v-secondary-base) !important;
-    opacity: 0.6;
-    p, .v-icon, svg {
-      color: var(--v-main-base) !important;
+    background-color: var(--v-hidden-base) !important;
+    color: #7a869d !important;
+    .v-icon, svg {
+      color: #7a869d !important;
     }
   }
   &.v-btn--text {

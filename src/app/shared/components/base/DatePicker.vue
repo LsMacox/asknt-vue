@@ -33,7 +33,7 @@
       :date-range="dateRange"
       v-on="$listeners"
       @update="update"
-      @finishSelection="finishSelection"
+      @finish-selection="finishSelection"
     >
       <template
         v-for="scopedSlot in Object.keys(scopedSlots)"

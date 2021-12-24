@@ -7,10 +7,11 @@
     <template v-slot:filters="{ on }">
       <base-autocomplete
         class="field-filter"
-        :items="selectItems"
+        :items="shippingWarehouse"
         title="Склад отгрузки"
         placeholder="Склад отгрузки"
         hide-details
+        multiple
         @change="on.change('shipping-warehouse', $event)"
       />
       <base-date-picker
@@ -21,32 +22,36 @@
         :date-format="$config.date.MIN_DATE"
         label="Период дат"
         title="Дата отгрузки"
+        multiple
         :text-ranges="dateRangeForDateField"
         @change="on.change('shipping-date', $event)"
       />
       <base-autocomplete
         class="field-filter mr-0"
-        :items="selectItems"
+        :items="carrier"
         title="Перевозчик"
         placeholder="Перевозчик"
         hide-details
+        multiple
         @change="on.change('carrier', $event)"
       />
     </template>
     <template v-slot:filters-more="{ on }">
       <base-autocomplete
         class="field-filter"
-        :items="selectItems"
+        :items="cars"
         title="Выбор машины"
         placeholder="Машина"
+        multiple
         hide-details
         @change="on.change('car', $event)"
       />
       <base-autocomplete
         class="field-filter"
-        :items="selectItems"
+        :items="weights"
         title="Грузоподъемность"
         placeholder="Грузоподъемность"
+        multiple
         hide-details
         @change="on.change('carrying-capacity', $event)"
       />
@@ -55,22 +60,25 @@
         :items="selectItems"
         title="Транспортировка"
         placeholder="Транспортировка"
+        multiple
         hide-details
         @change="on.change('transportationy', $event)"
       />
       <base-autocomplete
         class="field-filter"
-        :items="selectItems"
+        :items="drivers"
         title="Водитель"
         placeholder="ФИО водителя"
+        multiple
         hide-details
         @change="on.change('driver', $event)"
       />
       <base-autocomplete
         class="field-filter"
-        :items="selectItems"
+        :items="routes"
         title="Маршрут"
         placeholder="Маршрут"
+        multiple
         hide-details
         @change="on.change('route', $event)"
       />
@@ -79,6 +87,8 @@
 </template>
 
 <script>
+  import { actionsTypes, gettersTypes } from '@/app/entities/dashboard/shared/state/shipment'
+  import { mapGetters, mapActions } from 'vuex'
   import BaseFilter from './Filter'
 
   export default {
@@ -112,6 +122,72 @@
           'Washington', 'West Virginia', 'Wisconsin', 'Wyoming',
         ],
       }
+    },
+    computed: {
+      ...mapGetters({
+        shipments: 'dashboard/shipment/' + gettersTypes.SHIPMENTS,
+      }),
+      shippingWarehouse () {
+        return this.shipments.map(shipment => {
+          return {
+            value: shipment.id,
+            text: shipment.stock.name,
+          }
+        })
+      },
+      carrier () {
+        return this.shipments.map(shipment => {
+          return {
+            value: shipment.id,
+            text: shipment.driver,
+          }
+        })
+      },
+      cars () {
+        return this.shipments.map(shipment => {
+          return {
+            value: shipment.id,
+            text: shipment.car ?? shipment.trailer,
+          }
+        })
+      },
+      weights () {
+        return this.shipments.map(shipment => {
+          return {
+            value: shipment.id,
+            text: shipment.weight,
+          }
+        })
+      },
+      drivers () {
+        return this.shipments.map(shipment => {
+          return {
+            value: shipment.id,
+            text: shipment.driver,
+          }
+        })
+      },
+      routes () {
+        return this.shipments.map(shipment => {
+          return {
+            value: shipment.id,
+            text: shipment.number,
+          }
+        })
+      },
+    },
+    async mounted () {
+      await this.fetchData()
+    },
+    methods: {
+      ...mapActions({
+        fetchList: 'dashboard/shipment/' + actionsTypes.LIST,
+      }),
+      async fetchData () {
+        this.$wait.start('[mainFilter] loading data')
+        await this.fetchList()
+        this.$wait.end('[mainFilter] loading data')
+      },
     },
   }
 </script>

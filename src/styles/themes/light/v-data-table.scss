@@ -21,6 +21,16 @@
         display: table-cell;
         border: none !important;
       }
-    } 
+      &.v-data-table__empty-wrapper {
+        td {
+          padding-top: 20px;
+        }
+      }
+    }
+  }
+  .v-data-table__progress {
+    .v-progress-linear__background {
+      background-color: var(--v-secondary-base) !important;
+    }
   }
 }

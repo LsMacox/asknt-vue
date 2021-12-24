@@ -36,6 +36,7 @@
               placeholder=" "
               label="Логин / email"
               height="50"
+              @keypress.enter.prevent="onLogin"
             />
             <base-text-field
               v-model="form.password"
@@ -46,11 +47,15 @@
               placeholder=" "
               hide-details
               height="50"
+              @keypress.enter.prevent="onLogin"
             />
           </v-form>
 
           <v-card-actions class="card-action d-flex justify-center">
-            <base-btn @click="onLogin">
+            <base-btn
+              :loading="$wait.is('[auth] login')"
+              @click="onLogin"
+            >
               <p class="futura-pt-m-medium mb-0">
                 Авторизоваться
               </p>
@@ -86,9 +91,14 @@
       }
     },
     methods: {
-      onLogin () {
+      async onLogin () {
         if (this.formValid) {
-          this.$store.dispatch('auth/auth/' + actionsTypes.LOGIN, this.form)
+          try {
+            this.$wait.start('[auth] login')
+            await this.$store.dispatch('auth/auth/' + actionsTypes.LOGIN, this.form)
+          } finally {
+            this.$wait.end('[auth] login')
+          }
         }
       },
     },

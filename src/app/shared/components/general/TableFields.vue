@@ -4,21 +4,26 @@
     :headers="headers"
     :items="items"
     hide-default-header
+    v-bind="[attrs]"
+    v-on="$listeners"
   >
     <template
       v-for="header in headers"
-      #[`item.${header.value}`]
+      #[`item.${header.value}`]="{ item }"
     >
       <base-text-field
         :key="header.value"
+        :value="item[header.value]"
         class="item-field"
         :label="header.text"
+        :readonly="header.readonly"
         :style="
           header.maxWidth ? `max-width: ${header.maxWidth}px !important;` : '' +
             header.minWidth ? `min-width: ${header.minWidth}px !important` : ''
         "
         height="50"
         hide-details
+        @input="item[header.value] = $event"
       />
     </template>
     <template

@@ -4,7 +4,7 @@
     hide-details
     :label="label"
     height="55"
-    @change="$emit('change', $event)"
+    @input="$emit('update', $event)"
   >
     <template
       v-if="!slots.append"

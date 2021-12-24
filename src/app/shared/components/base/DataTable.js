@@ -10,6 +10,8 @@ export default {
       props: {
         hideDefaultHeader: true,
         hideDefaultFooter: true,
+        noDataText: 'Нет доступных данных',
+        loadingText: 'Загрузка данных...',
         ...this.attrs,
       },
       on: {
