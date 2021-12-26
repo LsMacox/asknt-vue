@@ -7,4 +7,12 @@
       width: 20px;
     }
   }
+  .v-progress-linear__background {
+    background-color: var(--v-secondary-base) !important;
+  }
+  &.v-text-field--enclosed:not(.v-text-field--filled) {
+    .v-progress-linear__background {
+      display: block !important;
+    }
+  }
 }

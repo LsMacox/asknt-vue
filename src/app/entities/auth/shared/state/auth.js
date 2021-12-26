@@ -16,7 +16,7 @@ let visitorId = null;
 const initialState = {
   isLoggedIn: false,
   device: null,
-  userRole: '',
+  userRole: null,
 }
 
 /** Prefix for mutation types and actiontypes */
@@ -82,6 +82,7 @@ const actions = {
   async [actionsTypes.LOGOUT] ({ commit }) {
     commit(SET_AUTH, null)
     commit(SET_DEVICE, null)
+    commit(SET_USER_ROLE, null)
     router.push({ name: 'authLogin' })
   },
   async [actionsTypes.USER_ROLE] ({ commit }) {

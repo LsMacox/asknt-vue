@@ -11,6 +11,7 @@
         title="Склад отгрузки"
         placeholder="Склад отгрузки"
         hide-details
+        :loading="$wait.is('[mainFilter] loading data')"
         multiple
         @change="on.change('shipping-warehouse', $event)"
       />
@@ -32,6 +33,7 @@
         title="Перевозчик"
         placeholder="Перевозчик"
         hide-details
+        :loading="$wait.is('[mainFilter] loading data')"
         multiple
         @change="on.change('carrier', $event)"
       />
@@ -43,6 +45,7 @@
         title="Выбор машины"
         placeholder="Машина"
         multiple
+        :loading="$wait.is('[mainFilter] loading data')"
         hide-details
         @change="on.change('car', $event)"
       />
@@ -52,6 +55,7 @@
         title="Грузоподъемность"
         placeholder="Грузоподъемность"
         multiple
+        :loading="$wait.is('[mainFilter] loading data')"
         hide-details
         @change="on.change('carrying-capacity', $event)"
       />
@@ -61,6 +65,7 @@
         title="Транспортировка"
         placeholder="Транспортировка"
         multiple
+        :loading="$wait.is('[mainFilter] loading data')"
         hide-details
         @change="on.change('transportationy', $event)"
       />
@@ -70,6 +75,7 @@
         title="Водитель"
         placeholder="ФИО водителя"
         multiple
+        :loading="$wait.is('[mainFilter] loading data')"
         hide-details
         @change="on.change('driver', $event)"
       />
@@ -79,6 +85,7 @@
         title="Маршрут"
         placeholder="Маршрут"
         multiple
+        :loading="$wait.is('[mainFilter] loading data')"
         hide-details
         @change="on.change('route', $event)"
       />
