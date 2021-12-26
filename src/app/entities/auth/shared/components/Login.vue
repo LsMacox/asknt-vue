@@ -96,6 +96,8 @@
           try {
             this.$wait.start('[auth] login')
             await this.$store.dispatch('auth/auth/' + actionsTypes.LOGIN, this.form)
+            await this.$store.dispatch('auth/auth/' + actionsTypes.USER_ROLE)
+            this.$router.push({ name: 'dashboardMain' })
           } finally {
             this.$wait.end('[auth] login')
           }

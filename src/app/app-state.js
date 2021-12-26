@@ -16,7 +16,9 @@ const stateApp = requireDirectory(ctxApp)
 const store = new Vuex.Store({
   plugins: [
     createPersistedState({
-      paths: [''],
+      paths: [
+        'auth/auth',
+      ],
     }),
   ],
   state: {},

@@ -23,7 +23,7 @@
         cols="9"
       >
         <v-item
-          v-for="(item, idx) in toolbarItems"
+          v-for="(item, idx) in toolbarItemsByAccess"
           :key="idx"
         >
           <v-btn
@@ -73,22 +73,33 @@
 </template>
 
 <script>
+  import Access from '@/app/models/access'
   import { mapActions } from 'vuex'
+  import { actionsTypes, gettersTypes } from '@/app/entities/auth/shared/state/auth'
 
   export default {
     data: () => ({
       toolbarItems: [
-        { icon: '$icons_dashboard', text: 'Дэшборд', route: { name: 'dashboardMain' } },
-        { icon: '$icons_report', text: 'Отчеты', route: { name: 'reportMain' } },
-        { icon: '$icons_finished-points', text: 'Завершенные маршруты', route: { name: 'completedRouteMain' } },
-        { icon: '$icons_chain-square', text: 'Торговые точки', route: { name: 'outletMain' } },
-        { icon: '$icons_chain-circle', text: 'Зоны загрузки', route: { name: 'loadingAreaMain' } },
+        { icon: '$icons_dashboard', text: 'Дэшборд', route: { name: 'dashboardMain' }, accessLevel: 0 },
+        { icon: '$icons_report', text: 'Отчеты', route: { name: 'reportMain' }, accessLevel: 1 },
+        { icon: '$icons_finished-points', text: 'Завершенные маршруты', route: { name: 'completedRouteMain' }, accessLevel: 2 },
+        { icon: '$icons_chain-square', text: 'Торговые точки', route: { name: 'outletMain' }, accessLevel: 3 },
+        { icon: '$icons_chain-circle', text: 'Зоны загрузки', route: { name: 'loadingAreaMain' }, accessLevel: 4 },
         // { icon: '$icons_wialon', text: 'Подключение Wialon', route: { name: 'connectionMain' } },
       ],
     }),
+    computed: {
+      toolbarItemsByAccess () {
+        const slug = this.$store.getters['auth/auth/' + gettersTypes.USER_ROLE].slug
+
+        return this.toolbarItems.filter(item => {
+          return (new Access().acceptableUserAccessLevel(slug, item.accessLevel))
+        })
+      },
+    },
     methods: {
       ...mapActions({
-        fetchLogout: 'auth/auth/[AUTH] LOGOUT',
+        fetchLogout: 'auth/auth/' + actionsTypes.LOGOUT,
       }),
       async onLogout () {
         await this.fetchLogout()

@@ -31,8 +31,8 @@ Vue.component('cabinet-layout', () => import('@/app/layouts/cabinet'))
 Vue.config.productionTip = false
 
 export default new Vue({
-  router,
   store,
+  router,
   vuetify,
   wait: new VueWait({
     useVuex: true, // You must pass this option `true` to use Vuex

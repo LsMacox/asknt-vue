@@ -16,6 +16,7 @@ let visitorId = null;
 const initialState = {
   isLoggedIn: false,
   device: null,
+  userRole: '',
 }
 
 /** Prefix for mutation types and actiontypes */
@@ -25,12 +26,14 @@ export const mutationTypes = reflectKeys([
   'SET_AUTH',
   'SET_DEVICE',
   'SET_LOGGED_IN',
+  'SET_USER_ROLE',
 ], namespacedPrefix)
 
 const {
   SET_AUTH,
   SET_DEVICE,
   SET_LOGGED_IN,
+  SET_USER_ROLE,
 } = mutationTypes
 
 const mutations = {
@@ -51,11 +54,15 @@ const mutations = {
   [SET_LOGGED_IN] (state, payload) {
     state.isLoggedIn = payload
   },
+  [SET_USER_ROLE] (state, payload) {
+    state.userRole = payload
+  },
 }
 
 export const actionsTypes = reflectKeys([
   'LOGIN',
   'LOGOUT',
+  'USER_ROLE',
 ], namespacedPrefix)
 
 const actions = {
@@ -70,7 +77,6 @@ const actions = {
         id: visitorId,
         type: 'web',
       })
-      router.push({ name: 'dashboardMain' })
     }
   },
   async [actionsTypes.LOGOUT] ({ commit }) {
@@ -78,11 +84,26 @@ const actions = {
     commit(SET_DEVICE, null)
     router.push({ name: 'authLogin' })
   },
+  async [actionsTypes.USER_ROLE] ({ commit }) {
+    const role = await ApiClient.get('api/user-role')
+    commit(SET_USER_ROLE, role)
+  },
+}
+
+export const gettersTypes = reflectKeys([
+  'USER_ROLE',
+], namespacedPrefix)
+
+const getters = {
+  [gettersTypes.USER_ROLE]: state => {
+    return state.userRole
+  },
 }
 
 export default {
   namespaced: true,
   state: initialState,
   mutations,
+  getters,
   actions,
 }
