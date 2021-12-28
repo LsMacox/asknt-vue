@@ -34,11 +34,11 @@ export const actionsTypes = reflectKeys([
 ], namespacedPrefix)
 
 const actions = {
-  async [actionsTypes.LIST] ({ commit }, params) {
-    const res = await ApiClient.get('/api/dashboard/list?' + objToUrlParam(params))
+  async [actionsTypes.LIST] ({ commit }, payload) {
+    const res = await ApiClient.post('/api/dashboard/list', payload)
 
-    commit(SET_TRANSPORTS, res.items || [])
-    commit(SET_TRANSPORTS_TOTAL, res.total)
+    commit(SET_TRANSPORTS, res?.items || [])
+    commit(SET_TRANSPORTS_TOTAL, res?.total || 0)
   },
 }
 

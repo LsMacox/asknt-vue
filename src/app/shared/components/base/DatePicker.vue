@@ -166,8 +166,6 @@
         return !!this.dateRange.endDate
       },
     },
-    mounted () {
-    },
     methods: {
       closePicker () {
         this.$refs.picker && this.$refs.picker.clickCancel()

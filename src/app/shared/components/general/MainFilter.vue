@@ -1,8 +1,9 @@
 <template>
   <base-filter
-    v-model="filterValue"
+    v-model="filteredValue"
     :more.sync="showMore"
     :action-text="actionText"
+    @btnAction="onFilter"
   >
     <template v-slot:filters="{ on }">
       <base-autocomplete
@@ -13,7 +14,7 @@
         hide-details
         :loading="$wait.is('[mainFilter] loading data')"
         multiple
-        @change="on.change('shipping-warehouse', $event)"
+        @change="on.change('stock_name', $event)"
       />
       <base-date-picker
         v-model="dateRange"
@@ -25,11 +26,11 @@
         title="Дата отгрузки"
         multiple
         :text-ranges="dateRangeForDateField"
-        @change="on.change('shipping-date', $event)"
+        @update="on.change('shipping_date', $event)"
       />
       <base-autocomplete
         class="field-filter mr-0"
-        :items="carrier"
+        :items="carriers"
         title="Перевозчик"
         placeholder="Перевозчик"
         hide-details
@@ -57,7 +58,7 @@
         multiple
         :loading="$wait.is('[mainFilter] loading data')"
         hide-details
-        @change="on.change('carrying-capacity', $event)"
+        @change="on.change('weight', $event)"
       />
       <base-autocomplete
         class="field-filter mr-0"
@@ -67,7 +68,6 @@
         multiple
         :loading="$wait.is('[mainFilter] loading data')"
         hide-details
-        @change="on.change('transportationy', $event)"
       />
       <base-autocomplete
         class="field-filter"
@@ -107,27 +107,12 @@
     data () {
       return {
         showMore: false,
-        filterValue: [],
+        filteredValue: {},
         dateRange: {
           startDate: null,
           endDate: null,
         },
-        selectItems: [
-          'Alabama', 'Alaska', 'American Samoa', 'Arizona',
-          'Arkansas', 'California', 'Colorado', 'Connecticut',
-          'Delaware', 'District of Columbia', 'Federated States of Micronesia',
-          'Florida', 'Georgia', 'Guam', 'Hawaii', 'Idaho',
-          'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
-          'Louisiana', 'Maine', 'Marshall Islands', 'Maryland',
-          'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
-          'Missouri', 'Montana', 'Nebraska', 'Nevada',
-          'New Hampshire', 'New Jersey', 'New Mexico', 'New York',
-          'North Carolina', 'North Dakota', 'Northern Mariana Islands', 'Ohio',
-          'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico',
-          'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee',
-          'Texas', 'Utah', 'Vermont', 'Virgin Island', 'Virginia',
-          'Washington', 'West Virginia', 'Wisconsin', 'Wyoming',
-        ],
+        selectItems: [],
       }
     },
     computed: {
@@ -137,23 +122,23 @@
       shippingWarehouse () {
         return this.shipments.map(shipment => {
           return {
-            value: shipment.id,
+            value: shipment.stock.name,
             text: shipment.stock.name,
           }
         })
       },
-      carrier () {
+      carriers () {
         return this.shipments.map(shipment => {
           return {
-            value: shipment.id,
-            text: shipment.driver,
+            value: shipment.carrier,
+            text: shipment.carrier,
           }
         })
       },
       cars () {
         return this.shipments.map(shipment => {
           return {
-            value: shipment.id,
+            value: shipment.car ?? shipment.trailer,
             text: shipment.car ?? shipment.trailer,
           }
         })
@@ -161,7 +146,7 @@
       weights () {
         return this.shipments.map(shipment => {
           return {
-            value: shipment.id,
+            value: shipment.weight,
             text: shipment.weight,
           }
         })
@@ -169,7 +154,7 @@
       drivers () {
         return this.shipments.map(shipment => {
           return {
-            value: shipment.id,
+            value: shipment.driver,
             text: shipment.driver,
           }
         })
@@ -178,7 +163,7 @@
         return this.shipments.map(shipment => {
           return {
             value: shipment.id,
-            text: shipment.number,
+            text: shipment.id,
           }
         })
       },
@@ -190,6 +175,9 @@
       ...mapActions({
         fetchList: 'dashboard/shipment/' + actionsTypes.LIST,
       }),
+      onFilter () {
+        this.$emit('filter', this.filteredValue)
+      },
       async fetchData () {
         this.$wait.start('[mainFilter] loading data')
         await this.fetchList()

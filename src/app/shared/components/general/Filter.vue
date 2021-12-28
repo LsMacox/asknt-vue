@@ -24,7 +24,7 @@
       >
         <base-btn
           class="btn-find"
-          @click="$emit('filter', value)"
+          @click="$emit('btnAction', value)"
         >
           {{ actionText }}
         </base-btn>
@@ -58,9 +58,9 @@
     },
     props: {
       value: {
-        type: Array,
+        type: Object,
         default: function () {
-          return []
+          return {}
         },
       },
       actionText: {
@@ -87,10 +87,8 @@
       },
     },
     methods: {
-      change (key, value) {
-        const idx = this.value.findIndex(v => v.key === key)
-        if (idx !== -1) this.value[idx] = value
-        else this.value.push(value)
+      change (key, val) {
+        this.$set(this.value, key, val)
       },
     },
   }

@@ -3,7 +3,7 @@
     class="mx-auto"
     max-width="1108"
   >
-    <main-filter />
+    <main-filter @filter="fetchFilteredList" />
     <base-data-table
       class="dashboard-table"
       :headers="tableHeaders"
@@ -57,6 +57,7 @@
           sortBy: 'id',
         },
         tableItems: [],
+        filterPayload: null,
       }
     },
     computed: {
@@ -66,6 +67,15 @@
       }),
       pagOffset () {
         return (this.tableOptions.page - 1) * this.tableOptions.itemsPerPage
+      },
+      payload () {
+        return {
+          offset: this.pagOffset,
+          sortBy: this.tableOptions.sortBy,
+          sortByDesk: true,
+          limit: this.tableOptions.itemsPerPage,
+          filter: this.filterPayload,
+        }
       },
     },
     watch: {
@@ -89,16 +99,17 @@
       ...mapActions({
         fetchList: 'dashboard/dashboard/' + actionsTypes.LIST,
       }),
+      async fetchFilteredList (data) {
+        const payload = Object.assign({}, data)
+        payload.date_start = data.shipping_date?.startDate
+        payload.date_end = data.shipping_date?.endDate
+        delete payload.shipping_date
+        this.filterPayload = payload
+        this.fetchData()
+      },
       async fetchData () {
-        const payload = {
-          offset: this.pagOffset,
-          sortBy: this.tableOptions.sortBy,
-          sortByDesk: true,
-          limit: this.tableOptions.itemsPerPage,
-        }
-
         this.$wait.start('[dashboard] loading table')
-        await this.fetchList(payload)
+        await this.fetchList(this.payload)
         this.$wait.end('[dashboard] loading table')
       },
     },

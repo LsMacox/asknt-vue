@@ -16,3 +16,9 @@
     }
   }
 }
+
+.v-autocomplete__content.theme--light {
+  .v-list-item__action {
+    display: none !important;
+  }
+}
