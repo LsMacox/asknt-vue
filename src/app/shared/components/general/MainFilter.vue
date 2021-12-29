@@ -20,7 +20,6 @@
         v-model="dateRange"
         class="field-filter field-date"
         :class="{ 'open-more': dateRangeForDateField && showMore }"
-        :min-date="$moment('23.10.2021', 'DD.MM.YYYY').toDate()"
         :date-format="$config.date.MIN_DATE"
         label="Период дат"
         title="Дата отгрузки"

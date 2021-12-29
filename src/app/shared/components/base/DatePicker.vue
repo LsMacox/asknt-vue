@@ -17,6 +17,7 @@
       hide-details
       v-bind="[$attrs]"
       @focus="openPicker"
+      @keyup.delete="update()"
     >
       <template v-slot:append>
         <v-icon
@@ -182,6 +183,13 @@
         this.$refs.picker.clickedApply()
       },
       update (v) {
+        if (!v) {
+          this.$set(this, 'textFieldValue', '')
+          this.$emit('update', {})
+          this.closePicker()
+          return
+        }
+
         const startDate = this.$moment(v.startDate).format(this.dateFormat)
         const endDate = this.$moment(v.endDate).format(this.dateFormat)
 
