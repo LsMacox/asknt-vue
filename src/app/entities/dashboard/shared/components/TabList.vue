@@ -99,7 +99,7 @@
       ...mapActions({
         fetchList: 'dashboard/dashboard/' + actionsTypes.LIST,
       }),
-      async fetchFilteredList (data) {
+      fetchFilteredList (data) {
         const payload = Object.assign({}, data)
         payload.date_start = data.shipping_date?.startDate
         payload.date_end = data.shipping_date?.endDate

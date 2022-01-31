@@ -19,12 +19,12 @@
       <base-date-picker
         v-model="dateRange"
         class="field-filter field-date"
-        :class="{ 'open-more': dateRangeForDateField && showMore }"
+        :class="{ 'open-more': dateRangeForDate && showMore }"
         :date-format="$config.date.MIN_DATE"
         label="Период дат"
         title="Дата отгрузки"
         multiple
-        :text-ranges="dateRangeForDateField"
+        :text-ranges="dateRangeForDate"
         @update="on.change('shipping_date', $event)"
       />
       <base-autocomplete
@@ -93,7 +93,7 @@
 </template>
 
 <script>
-  import { actionsTypes, gettersTypes } from '@/app/entities/dashboard/shared/state/shipment'
+  import { actionsTypes as shipmentAT, gettersTypes as shipmentGT } from '@/app/shared/state/shipment'
   import { mapGetters, mapActions } from 'vuex'
   import BaseFilter from './Filter'
 
@@ -101,7 +101,7 @@
     components: { BaseFilter },
     props: {
       actionText: String,
-      dateRangeForDateField: Boolean,
+      dateRangeForDate: Boolean,
     },
     data () {
       return {
@@ -116,7 +116,7 @@
     },
     computed: {
       ...mapGetters({
-        shipments: 'dashboard/shipment/' + gettersTypes.SHIPMENTS,
+        shipments: 'shipment/' + shipmentGT.SHIPMENTS,
       }),
       shippingWarehouse () {
         return this.shipments.map(shipment => {
@@ -172,7 +172,7 @@
     },
     methods: {
       ...mapActions({
-        fetchList: 'dashboard/shipment/' + actionsTypes.LIST,
+        fetchList: 'shipment/' + shipmentAT.LIST,
       }),
       onFilter () {
         this.$emit('filter', this.filteredValue)

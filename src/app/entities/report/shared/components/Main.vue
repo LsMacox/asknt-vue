@@ -7,8 +7,9 @@
       max-width="1108"
     >
       <main-filter
-        date-range-for-date-field
+        date-range-for-date
         action-text="Сформировать"
+        @filter="getReportsByFilter"
       />
       <ul class="reports__list pa-0 d-flex">
         <li class="reports__item d-flex">
@@ -49,6 +50,8 @@
 </template>
 
 <script>
+  import { actionsTypes, gettersTypes } from '@/app/entities/report/shared/state/report'
+  import { mapActions, mapGetters } from 'vuex'
   import MainFilter from '@/app/shared/components/general/MainFilter'
   import Container from '@/app/shared/components/general/Container'
 
@@ -58,6 +61,24 @@
       return {
 
       }
+    },
+    computed: {
+      ...mapGetters({
+        reports: 'report/report/' + gettersTypes.REPORTS,
+      }),
+    },
+    methods: {
+      ...mapActions({
+        fetchList: 'report/report/' + actionsTypes.LIST,
+      }),
+      getReportsByFilter (filteredVal) {
+        let payload = Object.assign({}, filteredVal)
+        payload.date_start = filteredVal.shipping_date?.startDate
+        payload.date_end = filteredVal.shipping_date?.endDate
+        delete payload.shipping_date
+        payload = { filter: payload }
+        this.fetchList(payload)
+      },
     },
   }
 </script>
