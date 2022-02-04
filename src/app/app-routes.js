@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import { apiBaseUrl } from '@/environment'
+import { apiBaseUrl, environment } from '@/environment'
 import { _ } from 'vue-underscore'
 import { requireDirectory } from '@/app/shared/services/requester'
 
@@ -17,16 +17,23 @@ const ctxModules = require.context('./entities', true, /routes\.js$/)
 // it will auto require all vuex module from modules file
 const routeModules = requireDirectory(ctxModules, 'routes')
 
-const routes = [
+const devRoutes = [
   {
     path: '/ui',
     component: UI,
   },
+]
+
+let routes = [
   {
     path: '/',
     redirect: { name: 'dashboardMain' },
   },
 ].concat(_.values(routeModules).map(r => r[0]))
+
+if (environment === 'development') {
+  routes = routes.concat(devRoutes)
+}
 
 const router = new VueRouter({
   mode: 'history',
