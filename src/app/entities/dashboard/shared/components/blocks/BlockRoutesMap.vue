@@ -10,7 +10,7 @@
           <p
             class="roboto-s-medium secondary--text mb-0"
             @click="toggleShow(rmap.uuid)"
-            v-text="rmap.transportName"
+            v-text="rmap.name"
           />
           <v-btn
             class="btn-more text-center"
@@ -107,6 +107,8 @@
 </template>
 
 <script>
+  import { gettersTypes } from '@/app/entities/dashboard/shared/state/dashboard'
+  import { mapGetters } from 'vuex'
   import { v4 as uuidv4 } from 'uuid'
   import Block from '@/app/shared/components/general/Block'
 
@@ -115,181 +117,50 @@
     data () {
       return {
         itemShowList: {},
-        routesMap: [
-          {
+      }
+    },
+    computed: {
+      ...mapGetters({
+        detailByShipment: 'dashboard/dashboard/' + gettersTypes.DETAIL_BY_SHIPMENT,
+      }),
+      routesMap () {
+        const routes = []
+        const points = []
+
+        this.detailByShipment.retail_outlets.forEach(r => {
+          points.push({
             uuid: uuidv4(),
-            transportName: 'БИКОМ',
+            name: r.name + ' (' + r.code + ')',
+            order_name: r.shipment_orders.map(order => order.product).join(', '),
             info_items: [
               { title: 'Приезд план', text: '09:00 - 10:30' },
-              { title: 'Приезд факт', text: '10:34', type: 'error' },
+              { title: 'Приезд факт', text: '10:34' },
               { title: 't°', text: '+5°' },
               { title: 'Выезд факт', text: '10:46' },
               { title: 't°', text: '+5°' },
               { title: 'Время на ТТ', text: '12 мин' },
               { title: 'Открытие двери', text: '9 мин' },
             ],
-            points: [
-              {
-                uuid: uuidv4(),
-                name: 'Пятерочка 1 (547256)',
-                type: 'success',
-                order_name: 'pqer125 (полуфабрикаты), wder348 (сосиски)',
-                info_items: [
-                  { title: 'Приезд план', text: '09:00 - 10:30' },
-                  { title: 'Приезд факт', text: '10:34', type: 'error' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Выезд факт', text: '10:46' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Время на ТТ', text: '12 мин' },
-                  { title: 'Открытие двери', text: '9 мин' },
-                ],
-              },
-              {
-                uuid: uuidv4(),
-                type: 'error',
-                name: 'Пятерочка 1 (547256)',
-                order_name: 'pqer125 (полуфабрикаты), wder348 (сосиски)',
-                info_items: [
-                  { title: 'Приезд план', text: '09:00 - 10:30' },
-                  { title: 'Приезд факт', text: '10:34' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Выезд факт', text: '10:46' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Время на ТТ', text: '12 мин' },
-                  { title: 'Открытие двери', text: '9 мин' },
-                ],
-              },
-              {
-                uuid: uuidv4(),
-                type: 'success',
-                name: 'Пятерочка 1 (547256)',
-                order_name: 'pqer125 (полуфабрикаты), wder348 (сосиски)',
-                info_items: [
-                  { title: 'Приезд план', text: '09:00 - 10:30' },
-                  { title: 'Приезд факт', text: '10:34' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Выезд факт', text: '10:46' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Время на ТТ', text: '12 мин' },
-                  { title: 'Открытие двери', text: '9 мин' },
-                ],
-              },
-              {
-                uuid: uuidv4(),
-                name: 'Пятерочка 1 (547256)',
-                order_name: 'pqer125 (полуфабрикаты), wder348 (сосиски)',
-                info_items: [
-                  { title: 'Приезд план', text: '09:00 - 10:30' },
-                  { title: 'Приезд факт', text: '10:34' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Выезд факт', text: '10:46' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Время на ТТ', text: '12 мин' },
-                  { title: 'Открытие двери', text: '9 мин' },
-                ],
-              },
-              {
-                uuid: uuidv4(),
-                name: 'Пятерочка 1 (547256)',
-                order_name: 'pqer125 (полуфабрикаты), wder348 (сосиски)',
-                info_items: [
-                  { title: 'Приезд план', text: '09:00 - 10:30' },
-                  { title: 'Приезд факт', text: '10:34' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Выезд факт', text: '10:46' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Время на ТТ', text: '12 мин' },
-                  { title: 'Открытие двери', text: '9 мин' },
-                ],
-              },
-              {
-                uuid: uuidv4(),
-                name: 'Пятерочка 1 (547256)',
-                order_name: 'pqer125 (полуфабрикаты), wder348 (сосиски)',
-                info_items: [
-                  { title: 'Приезд план', text: '09:00 - 10:30' },
-                  { title: 'Приезд факт', text: '10:34' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Выезд факт', text: '10:46' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Время на ТТ', text: '12 мин' },
-                  { title: 'Открытие двери', text: '9 мин' },
-                ],
-              },
-              {
-                uuid: uuidv4(),
-                name: 'Пятерочка 1 (547256)',
-                order_name: 'pqer125 (полуфабрикаты), wder348 (сосиски)',
-                info_items: [
-                  { title: 'Приезд план', text: '09:00 - 10:30' },
-                  { title: 'Приезд факт', text: '10:34' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Выезд факт', text: '10:46' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Время на ТТ', text: '12 мин' },
-                  { title: 'Открытие двери', text: '9 мин' },
-                ],
-              },
-              {
-                uuid: uuidv4(),
-                name: 'Пятерочка 1 (547256)',
-                order_name: 'pqer125 (полуфабрикаты), wder348 (сосиски)',
-                info_items: [
-                  { title: 'Приезд план', text: '09:00 - 10:30' },
-                  { title: 'Приезд факт', text: '10:34' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Выезд факт', text: '10:46' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Время на ТТ', text: '12 мин' },
-                  { title: 'Открытие двери', text: '9 мин' },
-                ],
-              },
-              {
-                uuid: uuidv4(),
-                name: 'Пятерочка 1 (547256)',
-                order_name: 'pqer125 (полуфабрикаты), wder348 (сосиски)',
-                info_items: [
-                  { title: 'Приезд план', text: '09:00 - 10:30' },
-                  { title: 'Приезд факт', text: '10:34' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Выезд факт', text: '10:46' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Время на ТТ', text: '12 мин' },
-                  { title: 'Открытие двери', text: '9 мин' },
-                ],
-              },
-              {
-                uuid: uuidv4(),
-                name: 'Пятерочка 1 (547256)',
-                order_name: 'pqer125 (полуфабрикаты), wder348 (сосиски)',
-                info_items: [
-                  { title: 'Приезд план', text: '09:00 - 10:30' },
-                  { title: 'Приезд факт', text: '10:34' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Выезд факт', text: '10:46' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Время на ТТ', text: '12 мин' },
-                  { title: 'Открытие двери', text: '9 мин' },
-                ],
-              },
-              {
-                uuid: uuidv4(),
-                name: 'Пятерочка 1 (547256)',
-                order_name: 'pqer125 (полуфабрикаты), wder348 (сосиски)',
-                info_items: [
-                  { title: 'Приезд план', text: '09:00 - 10:30' },
-                  { title: 'Приезд факт', text: '10:34' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Выезд факт', text: '10:46' },
-                  { title: 't°', text: '+5°' },
-                  { title: 'Время на ТТ', text: '12 мин' },
-                  { title: 'Открытие двери', text: '9 мин' },
-                ],
-              },
-            ],
-          },
-        ],
-      }
+          })
+        })
+
+        routes.push({
+          uuid: uuidv4(),
+          name: this.detailByShipment.loading_zone.name,
+          info_items: [
+            { title: 'Приезд план', text: '09:00 - 10:30' },
+            { title: 'Приезд факт', text: '10:34' },
+            { title: 't°', text: '+5°' },
+            { title: 'Выезд факт', text: '10:46' },
+            { title: 't°', text: '+5°' },
+            { title: 'Время на ТТ', text: '12 мин' },
+            { title: 'Открытие двери', text: '9 мин' },
+          ],
+          points,
+        })
+
+        return routes
+      },
     },
     methods: {
       toggleShow (id) {
@@ -386,8 +257,18 @@
         border: none;
         &:after {
           top: -3px;
-          border: none;
-          background: var(--v-success-base);
+        }
+        &.item--error {
+          &:after {
+            border: none;
+            background: var(--v-error-base);
+          }
+        }
+        &.item--success {
+          &:after {
+            border: none;
+            background: var(--v-success-base);
+          }
         }
         p {
           &:first-child {
@@ -413,7 +294,7 @@
           &.item--error {
             .item-point_name:after {
               border: none;
-              background: #EB5757;
+              background: var(--v-error-base);
             }
           }
           &.item--success {

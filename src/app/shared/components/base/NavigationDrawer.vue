@@ -55,6 +55,7 @@
     },
     props: {
       value: Boolean,
+      loading: Boolean,
     },
     data () {
       return {}

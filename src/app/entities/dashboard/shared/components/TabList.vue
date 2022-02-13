@@ -11,10 +11,16 @@
       :options.sync="tableOptions"
       :server-items-length="transportsTotal"
       :loading="$wait.is('[dashboard] loading table')"
-      @click:row="showNavigationDrawer = !showNavigationDrawer"
+      @click:row="onDetailAboutShipment"
     >
       <template v-slot:[`item.date_shipping`]="{ item }">
         {{ item.date_shipping | moment($config.date.MIN_DATE) }}
+      </template>
+      <template v-slot:[`item.curr_temp`]="{ item }">
+        {{ (item.curr_temp == 0 ? '' : item.curr_temp > 0 ? '+' : '-') + item.curr_temp }}°
+      </template>
+      <template v-slot:[`item.points_total`]="{ item }">
+        {{ item.points_completed + '/' + item.points_total }}
       </template>
     </base-data-table>
     <info-navigation-drawer v-model="showNavigationDrawer" />
@@ -23,6 +29,7 @@
 
 <script>
   import { actionsTypes, gettersTypes } from '@/app/entities/dashboard/shared/state/dashboard'
+  import { actionsTypes as violationAT } from '@/app/shared/state/violation'
   import { mapActions, mapGetters } from 'vuex'
   import MainFilter from '@/app/shared/components/general/MainFilter'
   import InfoNavigationDrawer from './InfoNavigationDrawer'
@@ -48,8 +55,8 @@
           { text: '№ тран.', value: 'id', cellClass: 'info--text', sortable: false },
           { text: 'Маршрут', value: 'loading_warehouse', cellClass: 'info--text', sortable: false },
           { text: 'Тоннаж', value: 'weight', cellClass: 'info--text', sortable: false },
-          { text: 'Температура', value: 'temp', cellClass: 'info--text', sortable: false },
-          { text: 'Выполнение', value: 'performance', cellClass: 'info--text', sortable: false },
+          { text: 'Температура', value: 'curr_temp', cellClass: 'info--text', sortable: false },
+          { text: 'Выполнение', value: 'points_total', cellClass: 'info--text', sortable: false },
         ],
         tableOptions: {
           page: 1,
@@ -64,6 +71,7 @@
       ...mapGetters({
         transports: 'dashboard/dashboard/' + gettersTypes.TRANSPORTS,
         transportsTotal: 'dashboard/dashboard/' + gettersTypes.TRANSPORTS_TOTAL,
+        detailByShipment: 'dashboard/dashboard/' + gettersTypes.DETAIL_BY_SHIPMENT,
       }),
       pagOffset () {
         return (this.tableOptions.page - 1) * this.tableOptions.itemsPerPage
@@ -98,7 +106,16 @@
     methods: {
       ...mapActions({
         fetchList: 'dashboard/dashboard/' + actionsTypes.LIST,
+        fetchDetailForShipment: 'dashboard/dashboard/' + actionsTypes.DETAIL_BY_SHIPMENT,
+        fetchViolationsForShipment: 'violation/' + violationAT.LIST,
       }),
+      async onDetailAboutShipment (item) {
+        this.showNavigationDrawer = !this.showNavigationDrawer
+        this.$wait.start('[dashboard] loading detail shipment')
+        await this.fetchDetailForShipment(item.id)
+        await this.fetchViolationsForShipment(item.id)
+        this.$wait.end('[dashboard] loading detail shipment')
+      },
       fetchFilteredList (data) {
         const payload = Object.assign({}, data)
         payload.date_start = data.shipping_date?.startDate

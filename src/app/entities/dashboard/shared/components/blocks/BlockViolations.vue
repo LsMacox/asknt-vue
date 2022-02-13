@@ -11,6 +11,7 @@
         v-if="!showComment"
         class="violations__btn-filter"
         text
+        @click="isSortViolations = !isSortViolations"
       >
         <v-icon
           size="16"
@@ -28,7 +29,7 @@
       <base-data-table
         class="violations-table"
         :headers="tableHeaders"
-        :items="tableItems"
+        :items="violations"
         :hide-default-header="false"
       >
         <template v-slot:[`header.checkbox`]>
@@ -53,8 +54,8 @@
             hide-details
           />
         </template>
-        <template v-slot:[`item.date_time`]="{ item }">
-          {{ item.date_time | moment($config.date.MAX_DATE) }}
+        <template v-slot:[`item.created_at`]="{ item }">
+          {{ item.created_at | moment($config.date.MAX_DATE) }}
         </template>
       </base-data-table>
       <div
@@ -145,6 +146,8 @@
 </template>
 
 <script>
+  import { actionsTypes, gettersTypes, mutationTypes } from '@/app/shared/state/violation'
+  import { mapActions, mapGetters } from 'vuex'
   import Block from '@/app/shared/components/general/Block'
 
   export default {
@@ -154,86 +157,53 @@
         showComment: false,
         dispComment: '',
         tableHeaders: [
-          { text: '', align: 'start', sortable: false, class: 'header-checkbox', cellClass: 'item-checkbox', value: 'checkbox' },
-          { text: 'Дата и время', align: 'start', class: 'header-date_time', cellClass: 'item-date_time', sortable: false, value: 'date_time' },
-          { text: 'Тип нарушения', value: 'type', sortable: false },
+          { text: '', value: 'checkbox', align: 'start', sortable: false, class: 'header-checkbox', cellClass: 'item-checkbox' },
+          { text: 'Дата и время', value: 'created_at', align: 'start', class: 'header-date_time', cellClass: 'item-date_time', sortable: false },
+          { text: 'Тип нарушения', value: 'name', sortable: false },
           { text: 'Текст нарушения ', value: 'text', cellClass: 'info--text', sortable: false },
         ],
-        tableItems: [
-          {
-            checked: false,
-            date_time: new Date(),
-            type: 'Опоздание на загрузку',
-            text: 'Прибытие в 9:21, норма 08:00-09:00',
-          },
-          {
-            checked: false,
-            date_time: new Date(),
-            type: 'Опоздание на ТТ',
-            text: 'Прибытие в 9:21, норма 08:00-09:00',
-          },
-          {
-            checked: false,
-            date_time: new Date(),
-            type: 'Опоздание на ТТ',
-            text: 'Прибытие в 9:21, норма 08:00-09:00',
-          },
-          {
-            checked: false,
-            date_time: new Date(),
-            type: 'Нарушение температуры',
-            text: 'Температура 0, норма от -6 до -2',
-          },
-          {
-            checked: false,
-            date_time: new Date(),
-            type: 'Нарушение температуры',
-            text: 'Температура 0, норма от -6 до -2',
-          },
-          {
-            checked: false,
-            date_time: new Date(),
-            type: 'Опоздание на ТТ',
-            text: 'Прибытие в 9:21, норма 08:00-09:00',
-          },
-          {
-            checked: false,
-            date_time: new Date(),
-            type: 'Опоздание на ТТ',
-            text: 'Прибытие в 9:21, норма 08:00-09:00',
-          },
-          {
-            checked: false,
-            date_time: new Date(),
-            type: 'Нарушение температуры',
-            text: 'Температура 0, норма от -6 до -2',
-          },
-          {
-            checked: false,
-            date_time: new Date(),
-            type: 'Нарушение температуры',
-            text: 'Температура 0, норма от -6 до -2',
-          },
-          {
-            checked: false,
-            date_time: new Date(),
-            type: 'Опоздание на ТТ',
-            text: 'Прибытие в 9:21, норма 08:00-09:00',
-          },
-        ],
+        isSortViolations: false,
       }
     },
     computed: {
+      ...mapGetters({
+        violations: 'violation/' + gettersTypes.VIOLATIONS,
+      }),
+      violations: {
+        get () {
+          const violations = this.$store.getters['violation/' + gettersTypes.VIOLATIONS]
+          // if (this.isSortViolations) {
+          //   const sortedVialations = JSON.parse(JSON.stringify(violations)).map((v) => {
+          //     v.created_at = new Date(v.created_at)
+          //     console.log(v.created_at)
+          //     return v
+          //   })
+          //   console.log(sortedVialations.sort(function (a, b) {
+          //     a = a.created_at
+          //     b = b.created_at
+          //     return a > b ? -1 : a < b ? 1 : 0
+          //   }))
+          //   return this.$_.sortBy(sortedVialations, 'created_at')
+          // }
+          return violations
+        },
+        set (v) {
+          this.$store.commit('violation/' + mutationTypes.SET_VIOLATIONS, v)
+        },
+      },
       violationCount () {
-        return this.$_.where(this.tableItems, { checked: true }).length
+        return this.$_.where(this.violations, { checked: true }).length
       },
       allItemsChecked () {
-        return this.tableItems.every(item => item.checked)
+        return this.violations.every(item => item.checked)
       },
     },
     methods: {
+      ...mapActions({
+        fetchViolationRepaid: 'violation/' + actionsTypes.REPAID,
+      }),
       setForAllItemsStatusChecked (bool) {
-        this.tableItems = this.tableItems.map(item => {
+        this.violations = this.violations.map(item => {
           item.checked = bool
           return item
         })
@@ -255,8 +225,8 @@
         @include scrollbar;
       }
       .header-checkbox {
-        width: 0;
-        padding: 0 0 5px 0 !important;
+        width: 29px;
+        padding: 1px 0 5px 0 !important;
       }
       .header-date_time {
         padding-left: 9px !important;

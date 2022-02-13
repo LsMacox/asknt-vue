@@ -5,6 +5,7 @@ import ApiClient from '@/app/shared/services/api-client'
 const initialState = {
   transports: [],
   transportsTotal: 0,
+  detailByShipment: {},
 }
 
 /** Prefix for mutation types and actiontypes */
@@ -13,11 +14,13 @@ const namespacedPrefix = '[DASHBOARD]'
 export const mutationTypes = reflectKeys([
   'SET_TRANSPORTS',
   'SET_TRANSPORTS_TOTAL',
+  'SET_DETAIL_BY_SHIPMENT',
 ], namespacedPrefix)
 
 const {
   SET_TRANSPORTS,
   SET_TRANSPORTS_TOTAL,
+  SET_DETAIL_BY_SHIPMENT,
 } = mutationTypes
 
 const mutations = {
@@ -27,10 +30,14 @@ const mutations = {
   [SET_TRANSPORTS_TOTAL] (state, payload) {
     state.transportsTotal = payload
   },
+  [SET_DETAIL_BY_SHIPMENT] (state, payload) {
+    state.detailByShipment = payload
+  },
 }
 
 export const actionsTypes = reflectKeys([
   'LIST',
+  'DETAIL_BY_SHIPMENT',
 ], namespacedPrefix)
 
 const actions = {
@@ -40,11 +47,17 @@ const actions = {
     commit(SET_TRANSPORTS, res?.items || [])
     commit(SET_TRANSPORTS_TOTAL, res?.total || 0)
   },
+  async [actionsTypes.DETAIL_BY_SHIPMENT] ({ commit }, id) {
+    const res = await ApiClient.get('/api/dashboard/detail-by-shipment/' + id)
+
+    commit(SET_DETAIL_BY_SHIPMENT, res || {})
+  },
 }
 
 export const gettersTypes = reflectKeys([
   'TRANSPORTS',
   'TRANSPORTS_TOTAL',
+  'DETAIL_BY_SHIPMENT_ID',
 ], namespacedPrefix)
 
 const getters = {
@@ -53,6 +66,9 @@ const getters = {
   },
   [gettersTypes.TRANSPORTS_TOTAL]: state => {
     return state.transportsTotal
+  },
+  [gettersTypes.DETAIL_BY_SHIPMENT]: state => {
+    return state.detailByShipment
   },
 }
 
