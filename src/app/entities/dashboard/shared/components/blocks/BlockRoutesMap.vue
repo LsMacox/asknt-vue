@@ -6,7 +6,13 @@
         :key="rmapIdx"
         class="routes-map__item"
       >
-        <div class="item-title">
+        <div
+          class="item-title"
+          :class="{
+            'item--success': rmap.type === 'success',
+            'item--error': rmap.type === 'error',
+          }"
+        >
           <p
             class="roboto-s-medium secondary--text mb-0"
             @click="toggleShow(rmap.uuid)"
@@ -132,32 +138,47 @@
             uuid: uuidv4(),
             name: r.name + ' (' + r.code + ')',
             order_name: r.shipment_orders.map(order => order.product).join(', '),
+            type: r.late ? 'error' : r.passed ? 'success' : '',
             info_items: [
-              { title: 'Приезд план', text: '09:00 - 10:30' },
-              { title: 'Приезд факт', text: '10:34' },
-              { title: 't°', text: '+5°' },
-              { title: 'Выезд факт', text: '10:46' },
-              { title: 't°', text: '+5°' },
-              { title: 'Время на ТТ', text: '12 мин' },
-              { title: 'Открытие двери', text: '9 мин' },
+              {
+                title: 'Приезд план',
+                text: r.arrive_from_plan && r.arrive_to_plan
+                  ? r.arrive_from_plan + ' - ' + r.arrive_to_plan
+                  : '-',
+              },
+              { title: 'Приезд факт', text: r.arrive_from_actual || '-', type: r.late ? 'error' : '' },
+              { title: 't°', text: r.temp_from ? (r.temp_from > 0 ? '+' : '') + (r.temp_from + '°') : '-' },
+              { title: 'Выезд факт', text: r.arrive_to_actual || '-' },
+              { title: 't°', text: r.temp_to ? (r.temp_to > 0 ? '+' : '') + (r.temp_to + '°') : '-' },
+              { title: 'Время на ТТ', text: r.time_on_point || '-' },
+              { title: 'Открытие двери', text: r.door_open || '-' },
             ],
           })
         })
 
-        routes.push({
-          uuid: uuidv4(),
-          name: this.detailByShipment.loading_zone.name,
-          info_items: [
-            { title: 'Приезд план', text: '09:00 - 10:30' },
-            { title: 'Приезд факт', text: '10:34' },
-            { title: 't°', text: '+5°' },
-            { title: 'Выезд факт', text: '10:46' },
-            { title: 't°', text: '+5°' },
-            { title: 'Время на ТТ', text: '12 мин' },
-            { title: 'Открытие двери', text: '9 мин' },
-          ],
-          points,
-        })
+        if (this.detailByShipment.loading_zone) {
+          const lzone = this.detailByShipment.loading_zone
+          routes.push({
+            uuid: uuidv4(),
+            name: lzone.name,
+            type: lzone.late ? 'error' : lzone.passed ? 'success' : '',
+            info_items: [
+              {
+                title: 'Приезд план',
+                text: lzone.arrive_from_plan && lzone.arrive_to_plan
+                  ? lzone.arrive_from_plan + ' - ' + lzone.arrive_to_plan
+                  : '-',
+              },
+              { title: 'Приезд факт', text: lzone.arrive_from_actual || '-', type: lzone.late ? 'error' : '' },
+              { title: 't°', text: lzone.temp_from ? (lzone.temp_from > 0 ? '+' : '') + (lzone.temp_from + '°') : '-' },
+              { title: 'Выезд факт', text: lzone.arrive_to_actual || '-' },
+              { title: 't°', text: lzone.temp_to ? (lzone.temp_to > 0 ? '+' : '') + (lzone.temp_to + '°') : '-' },
+              { title: 'Время на ТТ', text: lzone.time_on_point || '-' },
+              { title: 'Открытие двери', text: lzone.door_open || '-' },
+            ],
+            points,
+          })
+        }
 
         return routes
       },

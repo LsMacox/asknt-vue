@@ -11,6 +11,7 @@ const namespacedPrefix = '[VIOLATION]'
 
 export const mutationTypes = reflectKeys([
   'SET_VIOLATIONS',
+  'REMOVE_VIOLATION_BY_ID',
 ], namespacedPrefix)
 
 const {
@@ -37,12 +38,15 @@ export const actionsTypes = reflectKeys([
 const actions = {
   async [actionsTypes.LIST] ({ commit }, shipmentId) {
     const res = await ApiClient.get('/api/violation/list/' + shipmentId)
+    console.log(res)
     commit(SET_VIOLATIONS, res || [])
   },
-  async [actionsTypes.REPAID] ({ commit }, { id, repaidDescription }) {
+  async [actionsTypes.REPAID] ({ commit }, { ids, repaidDescription }) {
     try {
-      await ApiClient.post('/api/violation/repaid', { id, repaid_description: repaidDescription })
-      commit(REMOVE_VIOLATION_BY_ID, id)
+      await ApiClient.post('/api/violation/repaid', { ids, repaid_description: repaidDescription })
+      ids.forEach(id => {
+        commit(REMOVE_VIOLATION_BY_ID, id)
+      })
     } catch (err) {
       console.log(err)
     }

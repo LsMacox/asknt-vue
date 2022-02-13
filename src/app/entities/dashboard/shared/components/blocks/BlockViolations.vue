@@ -117,8 +117,10 @@
           class="btn-action"
           min-width="160"
           max-width="160"
+          :loading="this.$wait.is('[dashboard] violations repaid')"
           height="40"
           style="margin-right: 20px;"
+          @click="repaidViolation"
         >
           <p
             class="text-button main--text mb-0"
@@ -172,19 +174,14 @@
       violations: {
         get () {
           const violations = this.$store.getters['violation/' + gettersTypes.VIOLATIONS]
-          // if (this.isSortViolations) {
-          //   const sortedVialations = JSON.parse(JSON.stringify(violations)).map((v) => {
-          //     v.created_at = new Date(v.created_at)
-          //     console.log(v.created_at)
-          //     return v
-          //   })
-          //   console.log(sortedVialations.sort(function (a, b) {
-          //     a = a.created_at
-          //     b = b.created_at
-          //     return a > b ? -1 : a < b ? 1 : 0
-          //   }))
-          //   return this.$_.sortBy(sortedVialations, 'created_at')
-          // }
+          if (this.isSortViolations) {
+            const sortedVialations = JSON.parse(JSON.stringify(violations)).map((v) => {
+              v.created_at = new Date(v.created_at)
+              return v
+            })
+
+            return this.$_.sortBy(sortedVialations, 'created_at')
+          }
           return violations
         },
         set (v) {
@@ -192,7 +189,10 @@
         },
       },
       violationCount () {
-        return this.$_.where(this.violations, { checked: true }).length
+        return this.checkedViolations.length
+      },
+      checkedViolations () {
+        return this.$_.where(this.violations, { checked: true })
       },
       allItemsChecked () {
         return this.violations.every(item => item.checked)
@@ -202,6 +202,13 @@
       ...mapActions({
         fetchViolationRepaid: 'violation/' + actionsTypes.REPAID,
       }),
+      async repaidViolation () {
+        this.$wait.start('[dashboard] violations repaid')
+        await this.fetchViolationRepaid({ ids: this.checkedViolations.map(v => v.id), repaidDescription: this.dispComment })
+        this.$wait.end('[dashboard] violations repaid')
+        this.showComment = false
+        this.dispComment = ''
+      },
       setForAllItemsStatusChecked (bool) {
         this.violations = this.violations.map(item => {
           item.checked = bool

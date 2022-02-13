@@ -17,7 +17,7 @@
         {{ item.date_shipping | moment($config.date.MIN_DATE) }}
       </template>
       <template v-slot:[`item.curr_temp`]="{ item }">
-        {{ (item.curr_temp == 0 ? '' : item.curr_temp > 0 ? '+' : '-') + item.curr_temp }}°
+        {{ (item.curr_temp == 0 ? '' : item.curr_temp > 0 ? '+' : '') + item.curr_temp }}°
       </template>
       <template v-slot:[`item.points_total`]="{ item }">
         {{ item.points_completed + '/' + item.points_total }}

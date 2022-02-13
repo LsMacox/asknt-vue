@@ -33,7 +33,7 @@
               Объект
             </p>
             <p class="roboto-m-regular accent--text mb-0">
-              {{ detailByShipment.car || '?' }}
+              {{ detailByShipment.car || '-' }}
             </p>
           </li>
           <li
@@ -44,7 +44,7 @@
               Прицеп
             </p>
             <p class="roboto-m-regular accent--text mb-0">
-              {{ detailByShipment.trailer || '?' }}
+              {{ detailByShipment.trailer || '-' }}
             </p>
           </li>
           <li
@@ -55,7 +55,7 @@
               Компания перевозчик
             </p>
             <p class="roboto-m-regular accent--text mb-0">
-              {{ detailByShipment.carrier || '?' }}
+              {{ detailByShipment.carrier || '-' }}
             </p>
           </li>
           <li
@@ -66,7 +66,7 @@
               Грузоподъемность
             </p>
             <p class="roboto-m-regular accent--text mb-0">
-              {{ detailByShipment.weight || '?' }}
+              {{ detailByShipment.weight || '-' }}
             </p>
           </li>
           <li
@@ -77,7 +77,7 @@
               Водитель
             </p>
             <p class="roboto-m-regular accent--text mb-0">
-              {{ detailByShipment.driver || '?' }}
+              {{ detailByShipment.driver || '-' }}
             </p>
           </li>
           <li
@@ -88,7 +88,7 @@
               Телефон
             </p>
             <p class="roboto-m-regular accent--text mb-0">
-              {{ detailByShipment.phone || '?' }}
+              {{ detailByShipment.phone || '-' }}
             </p>
           </li>
           <li class="info__item">
@@ -96,7 +96,7 @@
               min-width="187"
               max-width="187"
               height="48"
-              @click="$refs.tel.click()"
+              @click="telPhone"
             >
               <!-- <input ref="tel" type="tel" :value="detailByShipment.phone"> -->
               <v-img
@@ -133,7 +133,7 @@
                 № маршрутного листа
               </p>
               <p class="roboto-m-regular accent--text mb-0">
-                {{ detailByShipment.id || '?' }}
+                {{ detailByShipment.id || '-' }}
               </p>
             </li>
             <li
@@ -154,7 +154,7 @@
                 Кол-во ТТ
               </p>
               <p class="roboto-m-regular accent--text mb-0">
-                {{ pointsCount || '?' }}
+                {{ pointsCount || '-' }}
               </p>
             </li>
             <li
@@ -165,7 +165,7 @@
                 Маршрут
               </p>
               <p class="roboto-m-regular accent--text mb-0">
-                {{ detailByShipment.stock.name || '?' }}
+                {{ detailByShipment.stock.name || '-' }}
               </p>
             </li>
             <li
@@ -175,7 +175,7 @@
                 Склад отгрузки
               </p>
               <p class="roboto-m-regular accent--text mb-0">
-                {{ detailByShipment.loading_zone.name || '?' }}
+                {{ detailByShipment.loading_zone ? detailByShipment.loading_zone.name || '-' : '-' }}
               </p>
             </li>
           </ul>
@@ -191,19 +191,19 @@
             Прогресс маршрута
           </p>
           <progress-circle
-            :completed-steps="45"
+            :completed-steps="completedPoints"
             circle-color="var(--v-primary-base)"
             start-color="var(--v-secondary-base)"
             stop-color="var(--v-secondary-base)"
             :diameter="150"
             :circle-width="12"
-            :total-steps="100"
+            :total-steps="pointsCount"
           >
             <p
               class="roboto-xl-bold accent--text mb-0"
               style="font-size: 36px !important; font-weight: 700 !important;"
             >
-              45%
+              {{ completedPercent }}%
             </p>
           </progress-circle>
         </block>
@@ -224,7 +224,7 @@
             class="roboto-xl-bold accent--text mb-0"
             style="font-size: 56px"
           >
-            {{ (detailByShipment.curr_temp == 0 ? '' : detailByShipment.curr_temp > 0 ? '+' : '-') + detailByShipment.curr_temp }}°
+            {{ (detailByShipment.curr_temp == 0 ? '' : detailByShipment.curr_temp > 0 ? '+' : '') + detailByShipment.curr_temp }}°
           </p>
         </block>
         <block
@@ -241,7 +241,7 @@
             class="roboto-xl-bold accent--text mb-0"
             style="font-size: 56px;"
           >
-            {{ (detailByShipment.avg_temp == 0 ? '' : detailByShipment.avg_temp > 0 ? '+' : '-') + detailByShipment.avg_temp }}°
+            {{ (detailByShipment.avg_temp == 0 ? '' : detailByShipment.avg_temp > 0 ? '+' : '') + detailByShipment.avg_temp }}°
           </p>
         </block>
         <block
@@ -259,7 +259,7 @@
               Пробег:
             </p>
             <p class="roboto-s-bold accent--text mb-0">
-              14 356км
+              {{ detailByShipment.mileage }}
             </p>
           </div>
           <div class="d-flex align-center">
@@ -270,7 +270,7 @@
               Время:
             </p>
             <p class="roboto-s-bold accent--text mb-0">
-              8ч 32мин
+              {{ detailByShipment.duration }}
             </p>
           </div>
         </block>
@@ -383,6 +383,23 @@
         return this.detailByShipment.retail_outlets?.length
         ? this.detailByShipment.retail_outlets.length + 1 : ''
       },
+      completedPoints () {
+        let completed = 0
+
+        if (this.detailByShipment.loading_zone.passed ||
+          this.detailByShipment.loading_zone.late) {
+          completed++
+        }
+
+        this.detailByShipment.retail_outlets.forEach(r => {
+          if (r.passed || r.late) completed++
+        })
+
+        return completed
+      },
+      completedPercent () {
+        return Math.floor(100 * (this.completedPoints / this.pointsCount))
+      },
       chartData () {
         return {
           labels: Object.keys(this.detailByShipment.today_temps),
@@ -411,6 +428,9 @@
       ...mapActions({
         fetchDetail: 'dashboard/dashboard/' + actionsTypes.LIST,
       }),
+      telPhone () {
+        window.location.href = 'tel://' + this.detailByShipment.phone
+      },
     },
   }
 </script>
@@ -434,6 +454,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  transform: translateX(-50%) translateY(-50%);
   z-index: 6;
 }
 </style>
