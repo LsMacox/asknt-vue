@@ -13,6 +13,41 @@
       :loading="$wait.is('[dashboard] loading table')"
       @click:row="onDetailAboutShipment"
     >
+      <template v-slot:[`item.violation`]="{ item }">
+        <div
+          v-if="$_.size(item.violations) > 0"
+          v-click-outside="closeViolationTooltip"
+          class="violation-circle"
+          @click.stop="violationTooltip = !violationTooltip"
+        />
+        <v-tooltip
+          v-model="violationTooltip"
+          top
+          color="#171717"
+          nudge-top="12"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <div
+              v-bind="attrs"
+              v-on="on"
+            />
+          </template>
+          <p
+            v-for="v in $_.first(item.violations, 3)"
+            :key="v.id"
+            class="roboto-s-regular"
+            style="margin-bottom: 5px"
+          >
+            {{ $moment(v.created_at).utc().format($config.date.MAX_DATE) }} {{ v.name }}
+          </p>
+          <a
+            v-if="$_.size(item.violations) > 3"
+            class="roboto-s-regular text-center mb-0"
+            href="#"
+            @click="onDetailAboutShipment({id: item.id })"
+          >Ещё {{ $tc('violation', $_.size(item.violations) - 3) }}</a>
+        </v-tooltip>
+      </template>
       <template v-slot:[`item.date_shipping`]="{ item }">
         {{ item.date_shipping | moment($config.date.MIN_DATE) }}
       </template>
@@ -41,8 +76,10 @@
     },
     data () {
       return {
+        violationTooltip: false,
         showNavigationDrawer: false,
         tableHeaders: [
+          { text: '', value: 'violation', width: 0, sortable: false },
           {
             text: 'Дата отгрузки',
             align: 'start',
@@ -109,6 +146,9 @@
         fetchDetailForShipment: 'dashboard/dashboard/' + actionsTypes.DETAIL_BY_SHIPMENT,
         fetchViolationsForShipment: 'violation/' + violationAT.LIST,
       }),
+      closeViolationTooltip () {
+        this.violationTooltip = false
+      },
       async onDetailAboutShipment (item) {
         this.showNavigationDrawer = !this.showNavigationDrawer
         this.$wait.start('[dashboard] loading detail shipment')
@@ -142,5 +182,11 @@
   width: 250px;
   margin-right: 20px;
   margin-bottom: 20px;
+}
+.violation-circle {
+  width: 10px;
+  height: 10px;
+  background-color: var(--v-secondary-base);
+  border-radius: 100%;
 }
 </style>

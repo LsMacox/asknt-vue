@@ -46,16 +46,17 @@
         </template>
         <template v-slot:[`item.checkbox`]="{ item }">
           <v-checkbox
-            v-model="item.checked"
+            :value="item.checked"
             color="secondary"
             on-icon="$icons_checked"
             off-icon="$icons_checked-off"
             :ripple="false"
             hide-details
+            @change="setCheckedStatus(item, $event)"
           />
         </template>
         <template v-slot:[`item.created_at`]="{ item }">
-          {{ item.created_at | moment($config.date.MAX_DATE) }}
+          {{ $moment(item.created_at).utc().format($config.date.MAX_DATE) }}
         </template>
       </base-data-table>
       <div
@@ -208,6 +209,13 @@
         this.$wait.end('[dashboard] violations repaid')
         this.showComment = false
         this.dispComment = ''
+      },
+      setCheckedStatus (item, bool) {
+        this.$store.commit('violation/' + mutationTypes.SET_VIOLATION_KEY, {
+          id: item.id,
+          key: 'checked',
+          val: !!bool,
+        })
       },
       setForAllItemsStatusChecked (bool) {
         this.violations = this.violations.map(item => {

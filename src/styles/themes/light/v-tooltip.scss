@@ -1,0 +1,8 @@
+.theme--light {
+  .v-tooltip__content {
+    opacity: 1 !important;
+    padding: 10px;
+    padding-bottom: 5px;
+    pointer-events: all;
+  }
+}

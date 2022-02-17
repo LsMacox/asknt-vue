@@ -193,8 +193,8 @@
           <progress-circle
             :completed-steps="completedPoints"
             circle-color="var(--v-primary-base)"
-            start-color="var(--v-secondary-base)"
-            stop-color="var(--v-secondary-base)"
+            :start-color="progressMileageColor"
+            :stop-color="progressMileageColor"
             :diameter="150"
             :circle-width="12"
             :total-steps="pointsCount"
@@ -259,7 +259,7 @@
               Пробег:
             </p>
             <p class="roboto-s-bold accent--text mb-0">
-              {{ detailByShipment.mileage }}
+              {{ detailByShipment.mileage || '-' }}
             </p>
           </div>
           <div class="d-flex align-center">
@@ -270,7 +270,7 @@
               Время:
             </p>
             <p class="roboto-s-bold accent--text mb-0">
-              {{ detailByShipment.duration }}
+              {{ detailByShipment.duration || '-' }}
             </p>
           </div>
         </block>
@@ -399,6 +399,11 @@
       },
       completedPercent () {
         return Math.floor(100 * (this.completedPoints / this.pointsCount))
+      },
+      progressMileageColor () {
+        return (this.completedPercent < 50) ? 'var(--v-secondary-base)'
+          : (this.completedPercent >= 50 && this.completedPercent <= 90) ? 'var(--v-warning-base)'
+            : (this.completedPercent > 91) ? 'var(--v-success-base)' : ''
       },
       chartData () {
         return {

@@ -11,7 +11,10 @@
         action-text="Сформировать"
         @filter="getReportsByFilter"
       />
-      <ul class="reports__list pa-0 d-flex">
+      <ul
+        v-if="report.start_date"
+        class="reports__list pa-0 d-flex"
+      >
         <li class="reports__item d-flex">
           <div class="b-info">
             <p
@@ -21,13 +24,14 @@
               Отчет 1
             </p>
             <p class="roboto-sm-regular hidden--text mb-0">
-              01 января 2020 - 31 января 2020
+              {{ $moment(report.start_date).utc().format('DD MMMM YYYY') }} - {{ $moment(report.end_date).utc().format('DD MMMM YYYY') }}
             </p>
           </div>
           <base-btn
             min-width="151"
             max-width="151"
             height="44"
+            @click="downloadReport"
           >
             <v-icon
               style="margin-right: 5px"
@@ -59,25 +63,37 @@
     components: { Container, MainFilter },
     data () {
       return {
-
+        filterPayload: {},
       }
     },
     computed: {
       ...mapGetters({
-        reports: 'report/report/' + gettersTypes.REPORTS,
+        report: 'report/report/' + gettersTypes.REPORT,
       }),
     },
     methods: {
       ...mapActions({
         fetchList: 'report/report/' + actionsTypes.LIST,
+        fetchDownload: 'report/report/' + actionsTypes.DOWNLOAD,
       }),
       getReportsByFilter (filteredVal) {
         let payload = Object.assign({}, filteredVal)
-        payload.date_start = filteredVal.shipping_date?.startDate
-        payload.date_end = filteredVal.shipping_date?.endDate
+
+        if (filteredVal.shipping_date?.startDate) {
+          payload.date_start = filteredVal.shipping_date?.startDate
+        }
+
+        if (filteredVal.shipping_date?.startDate) {
+          payload.date_end = filteredVal.shipping_date?.endDate
+        }
+
         delete payload.shipping_date
         payload = { filter: payload }
+        this.filterPayload = payload
         this.fetchList(payload)
+      },
+      downloadReport () {
+        this.fetchDownload(this.filterPayload)
       },
     },
   }

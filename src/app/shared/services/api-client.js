@@ -114,6 +114,21 @@ httpClient.interceptors.response.use(
   },
 )
 
+httpClient.downloadFile = function (route, params, method = 'get', fileName = '') {
+  return this[method](route, {
+    params,
+    responseType: 'arraybuffer', // important
+  }).then((response) => {
+    const url = window.URL.createObjectURL(new Blob([response]))
+    const link = document.createElement('a')
+    link.href = url
+    link.setAttribute('download', fileName)
+    document.body.appendChild(link)
+    link.click()
+    link.remove()
+  })
+}
+
 function ParseValidationError (validation) {
   let resStr = '<ul style="margin-left: 2em;">'
   // eslint-disable-next-line no-unused-vars
