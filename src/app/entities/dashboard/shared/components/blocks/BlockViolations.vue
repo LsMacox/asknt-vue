@@ -150,6 +150,7 @@
 
 <script>
   import { actionsTypes, gettersTypes, mutationTypes } from '@/app/shared/state/violation'
+  import { mutationTypes as dashboardMT, gettersTypes as dashboardGT } from '@/app/entities/dashboard/shared/state/dashboard'
   import { mapActions, mapGetters } from 'vuex'
   import Block from '@/app/shared/components/general/Block'
 
@@ -171,6 +172,8 @@
     computed: {
       ...mapGetters({
         violations: 'violation/' + gettersTypes.VIOLATIONS,
+        transportViolations: 'dashboard/dashboard/' + dashboardGT.TRANSPORT_VIOLATIONS,
+        detailByShipment: 'dashboard/dashboard/' + dashboardGT.DETAIL_BY_SHIPMENT,
       }),
       violations: {
         get () {
@@ -204,9 +207,19 @@
         fetchViolationRepaid: 'violation/' + actionsTypes.REPAID,
       }),
       async repaidViolation () {
+        let violations = this.transportViolations(this.detailByShipment.id)
+        violations = violations.filter(v => {
+          return !this.checkedViolations.some(cv => cv.id === v.id)
+        })
+        this.$store.commit(
+          'dashboard/dashboard/' + dashboardMT.SET_TRANSPORT_VIOLATIONS,
+          { id: this.detailByShipment.id, payload: violations },
+        )
+
         this.$wait.start('[dashboard] violations repaid')
         await this.fetchViolationRepaid({ ids: this.checkedViolations.map(v => v.id), repaidDescription: this.dispComment })
         this.$wait.end('[dashboard] violations repaid')
+
         this.showComment = false
         this.dispComment = ''
       },

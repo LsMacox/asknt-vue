@@ -21,7 +21,7 @@
               class="roboto-l-medium accent--text"
               style="margin-bottom: 10px"
             >
-              Отчет 1
+              Температурный отчет по уровню сервиса
             </p>
             <p class="roboto-sm-regular hidden--text mb-0">
               {{ $moment(report.start_date).utc().format('DD MMMM YYYY') }} - {{ $moment(report.end_date).utc().format('DD MMMM YYYY') }}

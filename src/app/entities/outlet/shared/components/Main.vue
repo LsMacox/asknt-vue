@@ -9,7 +9,7 @@
       max-width="1390"
       class="table-field--positioning"
     >
-      <v-form ref="form">
+      <!-- <v-form ref="form">
         <ul class="header__list pa-0">
           <li class="header__item">
             <p class="item-title roboto-s-regular accent--text">
@@ -95,7 +95,7 @@
             </base-btn>
           </li>
         </ul>
-      </v-form>
+      </v-form> -->
       <table-fields
         :headers="tableHeaders"
         :items.sync="tableItems"
@@ -118,7 +118,7 @@
             >
               Сохранить
             </base-btn>
-            <base-btn
+            <!-- <base-btn
               min-width="90"
               width="90"
               color="hidden"
@@ -132,7 +132,7 @@
               >
                 $icons_trash
               </v-icon>
-            </base-btn>
+            </base-btn> -->
           </div>
         </template>
       </table-fields>

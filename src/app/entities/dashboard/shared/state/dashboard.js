@@ -15,12 +15,14 @@ export const mutationTypes = reflectKeys([
   'SET_TRANSPORTS',
   'SET_TRANSPORTS_TOTAL',
   'SET_DETAIL_BY_SHIPMENT',
+  'SET_TRANSPORT_VIOLATIONS',
 ], namespacedPrefix)
 
 const {
   SET_TRANSPORTS,
   SET_TRANSPORTS_TOTAL,
   SET_DETAIL_BY_SHIPMENT,
+  SET_TRANSPORT_VIOLATIONS,
 } = mutationTypes
 
 const mutations = {
@@ -32,6 +34,11 @@ const mutations = {
   },
   [SET_DETAIL_BY_SHIPMENT] (state, payload) {
     state.detailByShipment = payload
+  },
+  [SET_TRANSPORT_VIOLATIONS] (state, { id, payload }) {
+    const idx = state.transports.findIndex(tr => tr.id === id)
+    state.transports[idx].violations = payload
+    state.transports = Object.assign([], state.transports)
   },
 }
 
@@ -58,6 +65,7 @@ export const gettersTypes = reflectKeys([
   'TRANSPORTS',
   'TRANSPORTS_TOTAL',
   'DETAIL_BY_SHIPMENT_ID',
+  'TRANSPORT_VIOLATIONS',
 ], namespacedPrefix)
 
 const getters = {
@@ -69,6 +77,11 @@ const getters = {
   },
   [gettersTypes.DETAIL_BY_SHIPMENT]: state => {
     return state.detailByShipment
+  },
+  [gettersTypes.TRANSPORT_VIOLATIONS] (state) {
+    return function (id) {
+      return state.transports.find(tr => tr.id === id).violations
+    }
   },
 }
 

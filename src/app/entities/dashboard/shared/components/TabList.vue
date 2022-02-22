@@ -16,12 +16,12 @@
       <template v-slot:[`item.violation`]="{ item }">
         <div
           v-if="$_.size(item.violations) > 0"
-          v-click-outside="closeViolationTooltip"
+          v-click-outside="toggleTooltip.bind(null, item.id, false)"
           class="violation-circle"
-          @click.stop="violationTooltip = !violationTooltip"
+          @click.stop="toggleTooltip(item.id, !violationTooltip[item.id])"
         />
         <v-tooltip
-          v-model="violationTooltip"
+          v-model="violationTooltip[item.id]"
           top
           color="#171717"
           nudge-top="12"
@@ -76,7 +76,7 @@
     },
     data () {
       return {
-        violationTooltip: false,
+        violationTooltip: {},
         showNavigationDrawer: false,
         tableHeaders: [
           { text: '', value: 'violation', width: 0, sortable: false },
@@ -146,8 +146,8 @@
         fetchDetailForShipment: 'dashboard/dashboard/' + actionsTypes.DETAIL_BY_SHIPMENT,
         fetchViolationsForShipment: 'violation/' + violationAT.LIST,
       }),
-      closeViolationTooltip () {
-        this.violationTooltip = false
+      toggleTooltip (id, bool) {
+        this.$set(this.violationTooltip, id, bool)
       },
       async onDetailAboutShipment (item) {
         this.showNavigationDrawer = !this.showNavigationDrawer
