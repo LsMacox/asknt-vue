@@ -55,7 +55,8 @@
         {{ (item.curr_temp == 0 ? '' : item.curr_temp > 0 ? '+' : '') + item.curr_temp }}°
       </template>
       <template v-slot:[`item.points_total`]="{ item }">
-        {{ item.points_completed + '/' + item.points_total }}
+        {{ Math.floor(100 * (item.points_completed / item.points_total)) + '% '
+          + '(' + item.points_completed + '/' + item.points_total+')' }}
       </template>
     </base-data-table>
     <info-navigation-drawer v-model="showNavigationDrawer" />

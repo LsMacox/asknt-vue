@@ -31,7 +31,6 @@ export const actionsTypes = reflectKeys([
 const actions = {
   async [actionsTypes.LIST] ({ commit }, payload) {
     const res = await ApiClient.post('/api/report/list', payload)
-    console.log(res)
     commit(SET_REPORT, res || {})
   },
   async [actionsTypes.DOWNLOAD] ({ getters }, payload) {

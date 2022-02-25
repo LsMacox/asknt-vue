@@ -277,16 +277,30 @@
       </div>
 
       <block
-        class="d-flex flex-column"
-        style="padding: 32px 40px 32px 20px; min-height: 432px;"
+        class="b-temps d-flex flex-column"
       >
-        <chart
-          :data="chartData"
-          height="321"
-          width="751"
-          :options="chartOptions"
-          :plugins="chartPlugins"
-        />
+        <template v-if="!Object.keys(detailByShipment.temps).length">
+          <chart
+            class="temp-chart"
+            height="321"
+            width="751"
+            :data="getChartData([])"
+            :options="getChartOptions($moment().utc().format('DD.MM.YYYY'))"
+            :plugins="chartPlugins"
+          />
+        </template>
+        <template v-else>
+          <chart
+            v-for="(temp, key) in detailByShipment.temps"
+            :key="key"
+            class="temp-chart"
+            :data="getChartData(temp)"
+            height="321"
+            width="751"
+            :options="getChartOptions(key)"
+            :plugins="chartPlugins"
+          />
+        </template>
       </block>
 
       <block-violations />
@@ -324,40 +338,6 @@
     data () {
       return {
         internalValue: false,
-        chartOptions: {
-          plugins: {
-            legend: {
-              display: false,
-            },
-            tooltip: {
-              callbacks: {
-                title: function (context) {
-                  return 'Время: ' + context[0].label
-                },
-                label: function (context) {
-                  return 'Температура: ' + (context.raw > 0 ? '+' : '') + context.raw + '°'
-                },
-              },
-            },
-          },
-          scales: {
-            yAxes: {
-              ticks: {
-                callback: function (value, index, values) {
-                  return (value > 0 ? '+' : '') + value + '°'
-                },
-              },
-              grid: {
-                display: false,
-              },
-            },
-            xAxes: {
-              grid: {
-                display: false,
-              },
-            },
-          },
-        },
         chartPlugins: [{
           beforeDraw: function (instance) {
             if (instance.chartArea) {
@@ -405,21 +385,6 @@
           : (this.completedPercent >= 50 && this.completedPercent <= 90) ? 'var(--v-warning-base)'
             : (this.completedPercent > 91) ? 'var(--v-success-base)' : ''
       },
-      chartData () {
-        return {
-          labels: Object.keys(this.detailByShipment.today_temps),
-          datasets: [{
-            labels: [
-              -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-              21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42,
-            ],
-            data: Object.values(this.detailByShipment.today_temps),
-            fill: false,
-            pointRadius: 1,
-            borderColor: theme.secondary,
-          }],
-        }
-      },
     },
     watch: {
       value (v) {
@@ -433,6 +398,59 @@
       ...mapActions({
         fetchDetail: 'dashboard/dashboard/' + actionsTypes.LIST,
       }),
+      getChartOptions (title) {
+        return {
+          plugins: {
+            title: {
+              display: true,
+              text: title,
+            },
+            legend: {
+              display: false,
+            },
+            tooltip: {
+              callbacks: {
+                title: function (context) {
+                  return 'Время: ' + context[0].label
+                },
+                label: function (context) {
+                  return 'Температура: ' + (context.raw > 0 ? '+' : '') + context.raw + '°'
+                },
+              },
+            },
+          },
+          scales: {
+            yAxes: {
+              ticks: {
+                callback: function (value, index, values) {
+                  return (value > 0 ? '+' : '') + value + '°'
+                },
+              },
+              grid: {
+                display: false,
+              },
+            },
+            xAxes: {
+              grid: {
+                display: false,
+              },
+            },
+          },
+        }
+      },
+      getChartData (temps) {
+        return {
+          labels: Object.keys(temps),
+          datasets: [{
+            labels: this.$_.range(-42, 43),
+            data: Object.values(temps),
+            fill: false,
+            pointRadius: 1,
+            borderColor: theme.secondary,
+          }],
+          plugins: {},
+        }
+      },
       telPhone () {
         window.location.href = 'tel://' + this.detailByShipment.phone
       },
@@ -461,5 +479,23 @@
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   z-index: 6;
+}
+.b-temps {
+  position: relative;
+  padding: 20px 40px 0 20px;
+  height: 387px;
+  overflow-y: auto;
+  @include scrollbar;
+  .temp-chart {
+    &:first-child {
+      margin-bottom: 0 !important;
+    }
+    &:not(:first-child) {
+      margin-top: 10px;
+    }
+    &:last-child {
+      margin-bottom: 20px;
+    }
+  }
 }
 </style>
