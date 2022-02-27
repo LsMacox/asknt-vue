@@ -49,7 +49,7 @@
             class="btn-create"
             min-width="250"
             width="250"
-            @click="tokeConfirmDialog = true"
+            @click="tokenConfirmDialog = true"
           >
             Подключить
           </base-btn>
@@ -81,7 +81,7 @@
         </template>
       </table-fields>
     </v-responsive>
-    <token-dialog v-model="tokeConfirmDialog" />
+    <token-dialog v-model="tokenConfirmDialog" />
   </container>
 </template>
 
@@ -95,7 +95,7 @@
     data () {
       return {
         search: '',
-        tokeConfirmDialog: false,
+        tokenConfirmDialog: false,
         tableHeaders: [
           { text: 'Название перевозчика', value: 'name', maxWidth: 250, sortable: false },
           { text: 'Код перевозчика', value: 'code', maxWidth: 180, sortable: false },

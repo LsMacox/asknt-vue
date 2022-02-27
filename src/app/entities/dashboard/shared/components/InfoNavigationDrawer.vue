@@ -259,7 +259,7 @@
               Пробег:
             </p>
             <p class="roboto-s-bold accent--text mb-0">
-              {{ detailByShipment.mileage || '-' }}
+              {{ detailByShipment.mileage ? detailByShipment.mileage + ' км' : '-' }}
             </p>
           </div>
           <div class="d-flex align-center">
@@ -279,7 +279,7 @@
       <block
         class="b-temps d-flex flex-column"
       >
-        <template v-if="!Object.keys(detailByShipment.temps).length">
+        <template v-if="!detailByShipment.temps || !Object.keys(detailByShipment.temps).length">
           <chart
             class="temp-chart"
             height="321"

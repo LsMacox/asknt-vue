@@ -14,9 +14,9 @@
       <base-text-field
         :key="header.value"
         :value="item[header.value]"
+        type="url"
         class="item-field"
         :label="header.text"
-        :readonly="header.readonly"
         :style="
           header.maxWidth ? `max-width: ${header.maxWidth}px !important;` : '' +
             header.minWidth ? `min-width: ${header.minWidth}px !important` : ''
