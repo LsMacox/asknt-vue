@@ -160,11 +160,9 @@
             v => maxLength(255)(v) || this.$t('validation.maxLength', { count: 255 }),
           ],
           id_sap: [
-            v => required(v) || this.$t('validation.required'),
             v => maxLength(255)(v) || this.$t('validation.maxLength', { count: 255 }),
           ],
           id_1c: [
-            v => required(v) || this.$t('validation.required'),
             v => maxLength(255)(v) || this.$t('validation.maxLength', { count: 255 }),
           ],
           lng: [

@@ -23,6 +23,7 @@
         "
         height="50"
         hide-details
+        :readonly="header.readonly"
         @input="item[header.value] = $event"
       />
     </template>

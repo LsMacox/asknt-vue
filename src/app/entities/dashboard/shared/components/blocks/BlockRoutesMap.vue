@@ -136,7 +136,7 @@
         this.detailByShipment.retail_outlets.forEach(r => {
           points.push({
             uuid: uuidv4(),
-            name: r.name + ' (' + r.code + ')',
+            name: r.name + ' (' + r.shipment_retail_outlet_id + ')',
             order_name: r.shipment_orders.map(order => order.product).join(', '),
             type: r.late ? 'error' : r.passed ? 'success' : '',
             info_items: [
