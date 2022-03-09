@@ -28,8 +28,8 @@
               Код
             </p>
             <base-text-field
-              v-model="form.shipment_retail_outlet_id"
-              :rules="rules.shipment_retail_outlet_id"
+              v-model="form.code"
+              :rules="rules.code"
               class="item-field details--absolute"
               label="Код ТТ"
               style="max-width: 150px"
@@ -159,7 +159,7 @@
             v => minLength(2)(v) || this.$t('validation.minLength', { count: 2 }),
             v => maxLength(255)(v) || this.$t('validation.maxLength', { count: 255 }),
           ],
-          shipment_retail_outlet_id: [
+          code: [
             v => required(v) || this.$t('validation.required'),
             v => maxLength(50)(v) || this.$t('validation.maxLength', { count: 50 }),
             v => numeric(v) || this.$t('validation.numeric'),
@@ -188,7 +188,7 @@
         },
         tableHeaders: [
           { text: 'Название ТТ', value: 'name', maxWidth: 250 },
-          { text: 'Код ТТ', value: 'shipment_retail_outlet_id', maxWidth: 150, readonly: true },
+          { text: 'Код ТТ', value: 'code', maxWidth: 150, readonly: true },
           { text: 'Адрес ТТ', value: 'address', maxWidth: 150 },
           { text: 'Долгота', value: 'lng', maxWidth: 150 },
           { text: 'Широта', value: 'lat', maxWidth: 150 },
@@ -232,7 +232,7 @@
           v.forEach(el => {
             const outlet = this.$_.findWhere(this.outlets, { id: el.id })
 
-            outlet.shipment_retail_outlet_id = String(outlet.shipment_retail_outlet_id)
+            outlet.code = String(outlet.code)
             outlet.radius = String(outlet.radius)
 
             // eslint-disable-next-line no-unused-vars
