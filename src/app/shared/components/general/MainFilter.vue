@@ -61,12 +61,13 @@
       />
       <base-autocomplete
         class="field-filter mr-0"
-        :items="selectItems"
+        :items="routes"
         title="Транспортировка"
         placeholder="Транспортировка"
         multiple
         :loading="$wait.is('[mainFilter] loading data')"
         hide-details
+        @change="on.change('route', $event)"
       />
       <base-autocomplete
         class="field-filter"
@@ -80,13 +81,12 @@
       />
       <base-autocomplete
         class="field-filter"
-        :items="routes"
+        :items="selectItems"
         title="Маршрут"
         placeholder="Маршрут"
         multiple
         :loading="$wait.is('[mainFilter] loading data')"
         hide-details
-        @change="on.change('route', $event)"
       />
     </template>
   </base-filter>
