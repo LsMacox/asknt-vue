@@ -12,7 +12,6 @@
         @filter="getReportsByFilter"
       />
       <ul
-        v-if="report.start_date"
         class="reports__list pa-0 d-flex"
       >
         <li class="reports__item d-flex">

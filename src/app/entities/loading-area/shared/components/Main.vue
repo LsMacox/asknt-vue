@@ -181,7 +181,7 @@
         tableOptions: {
           page: 1,
           itemsPerPage: 10,
-          sortBy: 'id',
+          sortBy: 'name',
         },
         tableHeaders: [
           { text: 'Название зоны загрузки', value: 'name', maxWidth: 250 },

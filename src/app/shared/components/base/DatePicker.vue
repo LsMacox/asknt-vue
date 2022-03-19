@@ -123,18 +123,18 @@
           },
           {
             text: 'Неделя',
-            startDate: current,
-            endDate: this.$moment().add(1, 'w').toDate(),
+            startDate: this.$moment().subtract(1, 'w').toDate(),
+            endDate: current,
           },
           {
             text: 'Месяц',
-            startDate: current,
-            endDate: this.$moment().add(1, 'M').toDate(),
+            startDate: this.$moment().subtract(1, 'M').toDate(),
+            endDate: current,
           },
           {
             text: 'Квартал',
-            startDate: current,
-            endDate: this.$moment().add(1, 'Q').toDate(),
+            startDate: this.$moment().subtract(1, 'Q').toDate(),
+            endDate: current,
           },
         ],
         defaultLocaleData: {

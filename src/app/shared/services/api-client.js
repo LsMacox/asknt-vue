@@ -87,7 +87,7 @@ httpClient.interceptors.response.use(
 
       if (response && data && data.message) {
         errorMessage = data.message
-        if (Object.keys(data.errors).length) {
+        if (data.errors && Object.keys(data.errors).length) {
           errorMessage = ''
           errorMessage += ParseValidationError(data.errors)
         } else if (data.error === 'Illuminate\\Validation\\ValidationException' && data.validation) {

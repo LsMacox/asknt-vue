@@ -117,6 +117,11 @@
         payload.date_start = data.shipping_date?.startDate
         payload.date_end = data.shipping_date?.endDate
         delete payload.shipping_date
+        Object.keys(payload).forEach(k => {
+          if (Array.isArray(payload[k]) && !payload[k].length) {
+            delete payload[k]
+          }
+        })
         this.filterPayload = payload
         this.fetchData()
       },
