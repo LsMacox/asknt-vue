@@ -3,7 +3,7 @@ import ApiClient from '@/app/shared/services/api-client'
 
 /** Initial state */
 const initialState = {
-  report: [],
+  report: {},
 }
 
 /** Prefix for mutation types and actiontypes */
@@ -31,11 +31,11 @@ export const actionsTypes = reflectKeys([
 const actions = {
   async [actionsTypes.LIST] ({ commit }, payload) {
     const res = await ApiClient.post('/api/report/list', payload)
-    commit(SET_REPORT, res || [])
+    commit(SET_REPORT, res || {})
   },
   async [actionsTypes.DOWNLOAD] ({ getters }, payload) {
     if (Object.keys(payload.filter).length === 0) payload = {}
-    await ApiClient.downloadFile('/api/report/download', payload, 'get', 'asknt-report_' +
+    await ApiClient.downloadFile('/api/report/download', payload, 'post', 'asknt-report_' +
       this._vm.$moment(getters['[REPORT] REPORT'].start_date).utc().format('DD.MM.YYYY') + '-' +
       this._vm.$moment(getters['[REPORT] REPORT'].end_date).utc().format('DD.MM.YYYY') + '.xls')
   },

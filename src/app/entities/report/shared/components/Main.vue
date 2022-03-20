@@ -12,6 +12,7 @@
         @filter="getReportsByFilter"
       />
       <ul
+        v-if="report && Object.keys(report).length"
         class="reports__list pa-0 d-flex"
       >
         <li class="reports__item d-flex">
