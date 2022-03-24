@@ -2,6 +2,7 @@ import axios from 'axios'
 import VueMain from '@/main'
 import { appBaseUrl } from '@/environment'
 import config from '@/app/shared/config'
+import { saveAs } from '@/app/shared/services/file-saver'
 
 const ACCESS_TOKEN_KEY = process.env.ACCESS_TOKEN_KEY || 'Authorization'
 const NEW_LINE = '<br/>'
@@ -119,13 +120,8 @@ httpClient.downloadFile = function (route, params, method = 'get', fileName = ''
     params,
     responseType: 'arraybuffer', // important
   }).then((response) => {
-    const url = window.URL.createObjectURL(new Blob([response]))
-    const link = document.createElement('a')
-    link.href = url
-    link.setAttribute('download', fileName)
-    document.body.appendChild(link)
-    link.click()
-    link.remove()
+    const blob = new Blob([response])
+    saveAs(blob, fileName)
   })
 }
 

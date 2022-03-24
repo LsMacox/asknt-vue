@@ -35,7 +35,7 @@ const actions = {
   },
   async [actionsTypes.DOWNLOAD] ({ getters }, payload) {
     if (Object.keys(payload.filter).length === 0) payload = {}
-    await ApiClient.downloadFile('/api/report/download', payload, 'post', 'asknt-report_' +
+    await ApiClient.downloadFile('/api/report/download', payload, 'get', 'asknt-report_' +
       this._vm.$moment(getters['[REPORT] REPORT'].start_date).utc().format('DD.MM.YYYY') + '-' +
       this._vm.$moment(getters['[REPORT] REPORT'].end_date).utc().format('DD.MM.YYYY') + '.xls')
   },
