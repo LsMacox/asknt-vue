@@ -11,6 +11,7 @@
         class="completed_routes-table"
         :headers="tableHeaders"
         :items="tableItems"
+        :options.sync="tableOptions"
         :server-items-length="completedRoutesTotal"
         :loading="$wait.is('[completed-route] loading table')"
       >
@@ -123,7 +124,11 @@
           }
         })
         this.filterPayload = payload
-        this.fetchData()
+        if (this.tableOptions.page > 1) {
+          this.tableOptions.page = 1
+        } else {
+          this.fetchData()
+        }
       },
       async fetchData () {
         this.$wait.start('[completed-route] loading table')

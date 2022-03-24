@@ -92,7 +92,7 @@
           { text: 'Машина', value: 'car', sortable: false },
           { text: 'Водитель', value: 'driver', cellClass: 'info--text', sortable: false },
           { text: '№ тран.', value: 'id', cellClass: 'info--text', sortable: false },
-          { text: 'Маршрут', value: 'loading_warehouse', cellClass: 'info--text', sortable: false },
+          { text: 'Склад', value: 'loading_warehouse', cellClass: 'info--text', sortable: false },
           { text: 'Тоннаж', value: 'weight', cellClass: 'info--text', sortable: false },
           { text: 'Температура', value: 'curr_temp', cellClass: 'info--text', sortable: false },
           { text: 'Выполнение', value: 'points_total', cellClass: 'info--text', sortable: false },
@@ -100,7 +100,7 @@
         tableOptions: {
           page: 1,
           itemsPerPage: 10,
-          sortBy: 'id',
+          sortBy: 'created_at',
         },
         tableItems: [],
         filterPayload: null,
@@ -169,7 +169,11 @@
           }
         })
         this.filterPayload = payload
-        this.fetchData()
+        if (this.tableOptions.page > 1) {
+          this.tableOptions.page = 1
+        } else {
+          this.fetchData()
+        }
       },
       async fetchData () {
         this.$wait.start('[dashboard] loading table')

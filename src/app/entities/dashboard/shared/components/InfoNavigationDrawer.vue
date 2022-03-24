@@ -360,22 +360,10 @@
         detailByShipment: 'dashboard/dashboard/' + gettersTypes.DETAIL_BY_SHIPMENT,
       }),
       pointsCount () {
-        return this.detailByShipment.retail_outlets?.length
-        ? this.detailByShipment.retail_outlets.length + 1 : ''
+        return this.detailByShipment.points_total ?? 0
       },
       completedPoints () {
-        let completed = 0
-
-        if (this.detailByShipment.loading_zone.passed ||
-          this.detailByShipment.loading_zone.late) {
-          completed++
-        }
-
-        this.detailByShipment.retail_outlets.forEach(r => {
-          if (r.passed || r.late) completed++
-        })
-
-        return completed
+        return this.detailByShipment.points_completed ?? 0
       },
       completedPercent () {
         return Math.floor(100 * (this.completedPoints / this.pointsCount))
