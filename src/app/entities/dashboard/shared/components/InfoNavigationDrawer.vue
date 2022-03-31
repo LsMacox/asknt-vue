@@ -402,7 +402,7 @@
                   return 'Время: ' + context[0].label
                 },
                 label: function (context) {
-                  return 'Температура: ' + (context.raw > 0 ? '+' : '') + context.raw + '°'
+                  return 'Температура: ' + (context.raw > 0 ? '+' : '') + parseFloat(context.raw).toFixed(1) + '°'
                 },
               },
             },
