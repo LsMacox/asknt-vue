@@ -79,15 +79,15 @@
         hide-details
         @change="on.change('driver', $event)"
       />
-<!--      <base-autocomplete-->
-<!--        class="field-filter"-->
-<!--        :items="selectItems"-->
-<!--        title="Маршрут"-->
-<!--        placeholder="Маршрут"-->
-<!--        multiple-->
-<!--        :loading="$wait.is('[mainFilter] loading data')"-->
-<!--        hide-details-->
-<!--      />-->
+      <!--      <base-autocomplete-->
+      <!--        class="field-filter"-->
+      <!--        :items="selectItems"-->
+      <!--        title="Маршрут"-->
+      <!--        placeholder="Маршрут"-->
+      <!--        multiple-->
+      <!--        :loading="$wait.is('[mainFilter] loading data')"-->
+      <!--        hide-details-->
+      <!--      />-->
     </template>
   </base-filter>
 </template>

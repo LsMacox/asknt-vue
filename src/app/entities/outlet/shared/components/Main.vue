@@ -118,7 +118,7 @@
             >
               Сохранить
             </base-btn>
-            <!-- <base-btn
+            <base-btn
               min-width="90"
               width="90"
               color="hidden"
@@ -132,7 +132,7 @@
               >
                 $icons_trash
               </v-icon>
-            </base-btn> -->
+            </base-btn>
           </div>
         </template>
       </table-fields>

@@ -7,22 +7,22 @@
       >
         Нарушения
       </p>
-<!--      <v-btn-->
-<!--        v-if="!showComment"-->
-<!--        class="violations__btn-filter"-->
-<!--        text-->
-<!--        @click="isSortViolations = !isSortViolations"-->
-<!--      >-->
-<!--        <v-icon-->
-<!--          size="16"-->
-<!--          color="accent"-->
-<!--        >-->
-<!--          $icons_filter-->
-<!--        </v-icon>-->
-<!--        <p class="roboto-s-regular accent&#45;&#45;text mb-0">-->
-<!--          Сортировать-->
-<!--        </p>-->
-<!--      </v-btn>-->
+      <!--      <v-btn-->
+      <!--        v-if="!showComment"-->
+      <!--        class="violations__btn-filter"-->
+      <!--        text-->
+      <!--        @click="isSortViolations = !isSortViolations"-->
+      <!--      >-->
+      <!--        <v-icon-->
+      <!--          size="16"-->
+      <!--          color="accent"-->
+      <!--        >-->
+      <!--          $icons_filter-->
+      <!--        </v-icon>-->
+      <!--        <p class="roboto-s-regular accent&#45;&#45;text mb-0">-->
+      <!--          Сортировать-->
+      <!--        </p>-->
+      <!--      </v-btn>-->
     </div>
 
     <template v-if="!showComment">
@@ -202,9 +202,22 @@
         return this.violations.every(item => item.checked)
       },
     },
+    async mounted () {
+      await this.fetchViolationRead({ ids: this.violations.map(v => v.id) })
+      let violations = this.transportViolations(this.detailByShipment.id)
+      violations = violations.map(v => {
+        v.read = true
+        return v
+      })
+      this.$store.commit(
+        'dashboard/dashboard/' + dashboardMT.SET_TRANSPORT_VIOLATIONS,
+        { id: this.detailByShipment.id, payload: violations },
+      )
+    },
     methods: {
       ...mapActions({
         fetchViolationRepaid: 'violation/' + actionsTypes.REPAID,
+        fetchViolationRead: 'violation/' + actionsTypes.READ,
       }),
       async repaidViolation () {
         let violations = this.transportViolations(this.detailByShipment.id)

@@ -15,7 +15,7 @@
     >
       <template v-slot:[`item.violation`]="{ item }">
         <div
-          v-if="$_.size(item.violations) > 0"
+          v-if="$_.size(getViolations(item.violations)) > 0"
           v-click-outside="toggleTooltip.bind(null, item.id, false)"
           class="violation-circle"
           @click.stop="toggleTooltip(item.id, !violationTooltip[item.id])"
@@ -41,7 +41,7 @@
             {{ $moment(v.created_at).utc().format($config.date.MAX_DATE) }} {{ v.name }}
           </p>
           <a
-            v-if="$_.size(item.violations) > 3"
+            v-if="$_.size(getViolations(item.violations)) > 3"
             class="roboto-s-regular text-center mb-0"
             href="#"
             @click="onDetailAboutShipment({id: item.id })"
@@ -148,6 +148,11 @@
         fetchDetailForShipment: 'dashboard/dashboard/' + actionsTypes.DETAIL_BY_SHIPMENT,
         fetchViolationsForShipment: 'violation/' + violationAT.LIST,
       }),
+      getViolations (violations) {
+        return violations.filter(v => {
+          return !v.read
+        })
+      },
       toggleTooltip (id, bool) {
         this.$set(this.violationTooltip, id, bool)
       },

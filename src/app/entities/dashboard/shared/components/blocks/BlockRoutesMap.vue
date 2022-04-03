@@ -151,7 +151,7 @@
               { title: 'Выезд факт', text: r.arrive_to_actual || '-' },
               { title: 't°', text: r.temp_to ? (r.temp_to > 0 ? '+' : '') + (r.temp_to + '°') : '-' },
               { title: 'Время на ТТ', text: r.time_on_point || '-' },
-              { title: 'Открытие двери', text: r.door_open || '-' },
+              { title: 'Открытие двери', text: typeof r.door_open !== 'boolean' ? '-' : r.door_open ? 'Открыта' : 'Закрыта' },
             ],
           })
         })
@@ -174,7 +174,7 @@
               { title: 'Выезд факт', text: lzone.arrive_to_actual || '-' },
               { title: 't°', text: lzone.temp_to ? (lzone.temp_to > 0 ? '+' : '') + (lzone.temp_to + '°') : '-' },
               { title: 'Время на ТТ', text: lzone.time_on_point || '-' },
-              { title: 'Открытие двери', text: lzone.door_open || '-' },
+              { title: 'Открытие двери', text: typeof lzone.door_open !== 'boolean' ? '-' : lzone.door_open ? 'Открыта' : 'Закрыта' },
             ],
             points,
           })

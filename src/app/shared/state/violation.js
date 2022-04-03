@@ -41,6 +41,7 @@ const mutations = {
 export const actionsTypes = reflectKeys([
   'LIST',
   'REPAID',
+  'READ',
 ], namespacedPrefix)
 
 const actions = {
@@ -54,6 +55,13 @@ const actions = {
       ids.forEach(id => {
         commit(REMOVE_VIOLATION_BY_ID, id)
       })
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  async [actionsTypes.READ] ({ commit }, { ids }) {
+    try {
+      await ApiClient.post('/api/violation/read', { ids })
     } catch (err) {
       console.log(err)
     }
