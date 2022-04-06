@@ -53,7 +53,7 @@
       </template>
       <template v-slot:[`item.curr_temp`]="{ item }">
         {{ (item.curr_temp == 0 ? '' : item.curr_temp > 0 ? '+' : '') + item.curr_temp }}
-        {{ item.is_temp_violation === null ? '' : item.is_temp_violation ? '(нарушение)' : '(норма)' }}
+        {{ item.is_temp_violation === null || item.curr_temp === '?' ? '' : item.is_temp_violation ? '(нарушение)' : '(норма)' }}
       </template>
       <template v-slot:[`item.points_total`]="{ item }">
         {{ Math.floor(100 * (item.points_completed / item.points_total)) + '% '

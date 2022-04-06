@@ -137,7 +137,7 @@
           points.push({
             uuid: uuidv4(),
             name: r.name + ' (' + r.code + ')',
-            order_name: r.shipment_orders.map(order => order.product).join(', '),
+            order_name: r.shipment_orders.map(order => order.product + ' (' + order.code + ')').join(', '),
             type: r.late ? 'error' : r.passed ? 'success' : '',
             info_items: [
               {
