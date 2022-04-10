@@ -100,7 +100,7 @@
         tableOptions: {
           page: 1,
           itemsPerPage: 10,
-          sortBy: 'created_at',
+          sortBy: 'date',
         },
         tableItems: [],
         filterPayload: null,
@@ -119,7 +119,6 @@
         return {
           offset: this.pagOffset,
           sortBy: this.tableOptions.sortBy,
-          sortByDesk: true,
           limit: this.tableOptions.itemsPerPage,
           filter: this.filterPayload,
         }
