@@ -135,7 +135,7 @@
           max-width="160"
           height="40"
           color="hidden"
-          @click="showComment = false"
+          @click="repaidCancel"
         >
           <p
             class="text-button main--text mb-0"
@@ -243,11 +243,19 @@
           val: !!bool,
         })
       },
+      repaidCancel () {
+        this.setForAllItemsStatusChecked(false)
+        this.showComment = false
+      },
       setForAllItemsStatusChecked (bool) {
-        this.violations = this.violations.map(item => {
-          item.checked = bool
-          return item
-        })
+        this.$set(
+          this,
+          'violations',
+          this.violations.map(item => {
+            item.checked = bool
+            return item
+          }),
+        )
       },
     },
   }
